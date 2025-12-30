@@ -3,11 +3,9 @@ import { ref, watch } from "vue";
 import Hero from "~/components/hero.vue";
 
 const { y: scrollY } = useWindowScroll();
-const { width: windowWidth } = useWindowSize();
 
 const secondSection = ref<HTMLElement | null>(null);
 
-const scrollUpLimit = computed(() => (windowWidth.value < 768 ? 5 : 50));
 let snapping = false;
 let lastScrollY = 0;
 
@@ -33,17 +31,6 @@ watch(
       setTimeout(() => (snapping = false), 100);
       return;
     }
-
-    if (y <= secondTop - scrollUpLimit.value && direction === "up") {
-      snapping = true;
-
-      window.scrollTo({
-        top: 0,
-        behavior: "smooth",
-      });
-
-      setTimeout(() => (snapping = false), 100);
-    }
   }
 );
 </script>
@@ -53,7 +40,7 @@ watch(
     <Hero />
     <div
       ref="secondSection"
-      class="w-full flex flex-col items-center gap-4 py-2 sm:py-4 px-4 sm:px-8"
+      class="w-full min-h-screen flex flex-col items-center gap-4 py-2 sm:py-4 px-4 sm:px-8"
     >
       <h1 class="text-4xl font-bold">PROJEKTY</h1>
       <div class="w-full flex flex-col items-center justify-between">

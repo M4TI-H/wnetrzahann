@@ -11,7 +11,7 @@
         draggable="false"
       />
       <NuxtLink
-        to=""
+        to="/projekty"
         class="group py-2 lg:py-4 px-4 lg:px-8 flex gap-4 items-center border border-white text-white lg:text-xl backdrop-blur-sm hover:backdrop-blur cursor-pointer transition-all duration-200 ease-in-out select-none"
         >Projekty
         <i

@@ -2,7 +2,10 @@
 import { useWindowScroll } from "@vueuse/core";
 const { y: scrollY } = useWindowScroll();
 
+const { isContactFormOpen, closeContactForm, openContactForm } =
+  useContactForm();
 const displayBtn = ref<boolean>(false);
+
 let calculatePositionFlag: boolean = false;
 
 const onScroll = () => {
@@ -32,7 +35,7 @@ onUnmounted(() => {
 <template>
   <div class="z-50 fixed bottom-4 right-4 flex flex-col gap-4">
     <button
-      @click="handleScroll"
+      @click="openContactForm"
       class="group size-10 lg:size-14 flex items-center justify-center bg-gray-100 active:bg-gray-200 hover:bg-gray-200 border border-black cursor-pointer transition-all duration-300 ease-in-out"
       :class="[
         displayBtn
