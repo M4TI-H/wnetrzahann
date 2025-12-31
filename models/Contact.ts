@@ -1,4 +1,4 @@
-export default interface ContactData {
+export default interface Contact {
   id: number;
   email: string;
   phone: string;

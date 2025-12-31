@@ -109,7 +109,8 @@ onMounted(() => {
       <div
         class="opacity-100 hover:opacity-0 absolute z-10 bottom-0 w-full h-full flex flex-col justify-end p-4 bg-gradient-to-b from-transparent to-black/50 transition-opacity duration-300 ease-in-out"
       >
-        <p class="text-xl text-white">NAZWA PROJEKTU</p>
+        <p class="text-sm text-white">Kategoria projektu</p>
+        <p class="text-xl text-white font-semibold">NAZWA PROJEKTU</p>
         <p class="text-white">Opis projektu</p>
       </div>
     </div>

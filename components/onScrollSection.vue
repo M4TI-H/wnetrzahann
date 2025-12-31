@@ -33,23 +33,35 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <div class="z-50 fixed bottom-4 right-4 flex flex-col gap-4">
+  <div class="z-50 fixed bottom-4 right-4 flex flex-col items-end gap-4">
     <button
       @click="openContactForm"
-      class="group size-10 lg:size-14 flex items-center justify-center bg-gray-100 active:bg-gray-200 hover:bg-gray-200 border border-black cursor-pointer transition-all duration-300 ease-in-out"
+      class="group h-10 lg:h-14 flex items-center bg-gray-100 active:bg-gray-200 hover:bg-gray-200 border border-black cursor-pointer transition-all duration-500 ease-in-out overflow-hidden"
       :class="[
         displayBtn
           ? 'opacity-100 translate-y-0'
           : 'opacity-0 translate-y-10 pointer-events-none',
+        'w-10 lg:w-14 hover:w-48 lg:hover:w-56',
       ]"
     >
-      <i
-        class="pi pi-envelope lg:text-lg text-black transition-transform duration-300 group-hover:-translate-y-1"
-      />
+      <div class="flex items-center h-full w-full">
+        <div
+          class="size-10 lg:size-14 shrink-0 flex items-center justify-center"
+        >
+          <i class="pi pi-envelope lg:text-lg text-black" />
+        </div>
+
+        <span
+          class="whitespace-nowrap opacity-0 max-w-0 group-hover:opacity-100 group-hover:max-w-xs transition-all duration-500 ease-in-out font-medium text-sm lg:text-base pr-4"
+        >
+          Napisz wiadomość
+        </span>
+      </div>
     </button>
+
     <button
       @click="handleScroll"
-      class="group size-10 lg:size-14 flex items-center justify-center bg-gray-100 active:bg-gray-200 hover:bg-gray-200 border border-black cursor-pointer transition-all duration-300 ease-in-out"
+      class="size-10 lg:size-14 flex items-center justify-center bg-gray-100 active:bg-gray-200 hover:bg-gray-200 border border-black cursor-pointer transition-all duration-300 ease-in-out"
       :class="[
         displayBtn
           ? 'opacity-100 translate-y-0'
@@ -57,7 +69,7 @@ onUnmounted(() => {
       ]"
     >
       <i
-        class="pi pi-arrow-up lg:text-lg text-black transition-transform duration-300 group-hover:-translate-y-1"
+        class="pi pi-arrow-up lg:text-lg text-black transition-transform duration-300 hover:-translate-y-1"
       />
     </button>
   </div>

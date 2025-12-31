@@ -31,14 +31,14 @@ const afterHero = computed(() => scrollY.value > windowHeight.value - 64);
       />
     </NuxtLink>
 
-    <div class="h-full flex items-center gap-4 lg:gap-8">
+    <div class="h-full flex items-center gap-2 sm:gap-4 lg:gap-8">
       <NuxtLink
         to="/projekty"
         :class="[
           afterHero
             ? 'hover:bg-black/10 active:bg-black/10 text-sm lg:text-base'
             : 'hover:bg-black/30 active:bg-black/30 text-sm lg:text-lg',
-          'select-none px-2 py-1 text-white cursor-pointer outline-0 transition-colors duration-300 ease-in-out',
+          'select-none px-1 sm:px-2 py-1 text-white cursor-pointer outline-0 transition-colors duration-300 ease-in-out',
         ]"
         >Projekty</NuxtLink
       >
@@ -48,7 +48,7 @@ const afterHero = computed(() => scrollY.value > windowHeight.value - 64);
           afterHero
             ? 'hover:bg-black/10 active:bg-black/10 text-sm lg:text-base'
             : 'hover:bg-black/30 active:bg-black/30 text-sm lg:text-lg',
-          'select-none px-2 py-1 text-white cursor-pointer outline-0 transition-colors duration-300 ease-in-out',
+          'select-none px-1 sm:px-2 py-1 text-white cursor-pointer outline-0 transition-colors duration-300 ease-in-out',
         ]"
       >
         Kontakt
@@ -72,7 +72,7 @@ const afterHero = computed(() => scrollY.value > windowHeight.value - 64);
           afterHero
             ? 'hover:bg-black/10 active:bg-black/10 hidden sm:flex'
             : 'hover:bg-black/30 active:bg-black/30',
-          'select-none p-1 cursor-pointer transition-colors duration-300 ease-in-out',
+          'select-none p-2 cursor-pointer transition-colors duration-300 ease-in-out',
         ]"
         ><i class="pi pi-linkedin sm:text-xl text-white"></i
       ></NuxtLink>
