@@ -69,7 +69,7 @@ const isCompact = computed(() => {
           isCompact
             ? 'hover:bg-black/10 active:bg-black/10 hidden sm:flex'
             : 'hover:bg-black/30 active:bg-black/30',
-          'select-none p-1 cursor-pointer transition-colors duration-300 ease-in-out',
+          'select-none p-2 flex items-center justify-center cursor-pointer transition-colors duration-300 ease-in-out',
         ]"
         ><i class="pi pi-facebook sm:text-xl text-white"></i
       ></NuxtLink>
@@ -80,7 +80,7 @@ const isCompact = computed(() => {
           isCompact
             ? 'hover:bg-black/10 active:bg-black/10 hidden sm:flex'
             : 'hover:bg-black/30 active:bg-black/30',
-          'select-none p-2 cursor-pointer transition-colors duration-300 ease-in-out',
+          'select-none p-2 flex items-center justify-center cursor-pointer transition-colors duration-300 ease-in-out',
         ]"
         ><i class="pi pi-linkedin sm:text-xl text-white"></i
       ></NuxtLink>
