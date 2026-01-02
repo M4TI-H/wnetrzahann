@@ -2,8 +2,7 @@
 import { useWindowScroll } from "@vueuse/core";
 const { y: scrollY } = useWindowScroll();
 
-const { isContactFormOpen, closeContactForm, openContactForm } =
-  useContactForm();
+const { openContactForm } = useContactForm();
 const displayBtn = ref<boolean>(false);
 
 let calculatePositionFlag: boolean = false;

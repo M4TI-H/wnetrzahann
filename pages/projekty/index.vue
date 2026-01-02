@@ -1,5 +1,8 @@
 <script setup lang="ts">
-const numOfProj = 2;
+definePageMeta({
+  navbar: "compact",
+});
+
 const selectedPage = ref<number>(0);
 
 const projects = [

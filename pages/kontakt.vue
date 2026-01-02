@@ -1,4 +1,8 @@
 <script setup lang="ts">
+definePageMeta({
+  navbar: "base",
+});
+
 const { openContactForm } = useContactForm();
 </script>
 

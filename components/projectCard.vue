@@ -9,11 +9,12 @@ const prop = defineProps<{
   <div
     class="w-[90%] lg:w-2/3 md:h-[32rem] flex flex-col md:flex-row sm:p-4 md:p-8"
   >
-    <div
+    <NuxtLink
+      :to="`/projekty/${data.name}`"
       class="w-full lg:w-2/3 min-h-44 h-full bg-gray-300 border border-gray-300"
     >
       <img :src="data.cover" class="h-full w-full object-cover" />
-    </div>
+    </NuxtLink>
     <div class="flex-1 h-full flex flex-col px-2 md:px-4 md:gap-1 pt-1">
       <div class="w-full flex items-start justify-between">
         <p class="text-sm md:text-base">{{ data.category }}</p>
@@ -22,10 +23,16 @@ const prop = defineProps<{
         </p>
       </div>
       <NuxtLink
+        :to="`/projekty/${data.name}`"
         class="text-xl md:text-2xl font-semibold hover:underline cursor-pointer whitespace-nowrap"
         >{{ data.name.toUpperCase() }}</NuxtLink
       >
       <p class="text-sm md:text-base text-gray-500">{{ data.description }}</p>
+      <NuxtLink
+        :to="`/projekty/${data.name}`"
+        class="mt-auto ml-auto md:text-lg hover:underline cursor-pointer text-gray-500 whitespace-nowrap"
+        >Zobacz więcej</NuxtLink
+      >
     </div>
   </div>
 </template>

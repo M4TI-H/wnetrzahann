@@ -9,14 +9,22 @@ const emit = defineEmits<{
   (e: "contact"): void;
 }>();
 
+const props = defineProps<{
+  mode: "dynamic" | "base" | "compact";
+}>();
+
 const { contactData } = useFetchContact();
 
-const afterHero = computed(() => scrollY.value > windowHeight.value - 64);
+const isCompact = computed(() => {
+  if (props.mode === "compact") return true;
+  if (props.mode === "base") return false;
+  return scrollY.value > windowHeight.value - 64;
+});
 </script>
 <template>
   <div
     :class="[
-      afterHero ? 'bg-gray-300 h-16' : 'bg-black/40 h-24',
+      isCompact ? 'bg-gray-300 h-16' : 'bg-black/40 h-24',
       'z-50 fixed w-full flex items-center justify-between px-4 lg:px-8 py-2 transition-all duration-500 ease-in-out',
     ]"
   >
@@ -26,7 +34,7 @@ const afterHero = computed(() => scrollY.value > windowHeight.value - 64);
     >
       <img
         draggable="false"
-        :src="afterHero ? '/logo-white.png' : '/logo-white.png'"
+        :src="isCompact ? '/logo-white.png' : '/logo-white.png'"
         class="h-full select-none"
       />
     </NuxtLink>
@@ -35,7 +43,7 @@ const afterHero = computed(() => scrollY.value > windowHeight.value - 64);
       <NuxtLink
         to="/projekty"
         :class="[
-          afterHero
+          isCompact
             ? 'hover:bg-black/10 active:bg-black/10 text-sm lg:text-base'
             : 'hover:bg-black/30 active:bg-black/30 text-sm lg:text-lg',
           'select-none px-1 sm:px-2 py-1 text-white cursor-pointer outline-0 transition-colors duration-300 ease-in-out',
@@ -45,7 +53,7 @@ const afterHero = computed(() => scrollY.value > windowHeight.value - 64);
       <NuxtLink
         to="/kontakt"
         :class="[
-          afterHero
+          isCompact
             ? 'hover:bg-black/10 active:bg-black/10 text-sm lg:text-base'
             : 'hover:bg-black/30 active:bg-black/30 text-sm lg:text-lg',
           'select-none px-1 sm:px-2 py-1 text-white cursor-pointer outline-0 transition-colors duration-300 ease-in-out',
@@ -58,7 +66,7 @@ const afterHero = computed(() => scrollY.value > windowHeight.value - 64);
         target="_blanc"
         :to="contactData?.facebook_url"
         :class="[
-          afterHero
+          isCompact
             ? 'hover:bg-black/10 active:bg-black/10 hidden sm:flex'
             : 'hover:bg-black/30 active:bg-black/30',
           'select-none p-1 cursor-pointer transition-colors duration-300 ease-in-out',
@@ -69,7 +77,7 @@ const afterHero = computed(() => scrollY.value > windowHeight.value - 64);
         target="_blanc"
         :to="contactData?.linkedin_url"
         :class="[
-          afterHero
+          isCompact
             ? 'hover:bg-black/10 active:bg-black/10 hidden sm:flex'
             : 'hover:bg-black/30 active:bg-black/30',
           'select-none p-2 cursor-pointer transition-colors duration-300 ease-in-out',

@@ -1,7 +1,12 @@
 export default defineNuxtConfig({
   compatibilityDate: "2025-07-15",
   devtools: { enabled: false },
-  modules: ["@nuxtjs/supabase", "@nuxtjs/tailwindcss", "@vueuse/nuxt"],
+  modules: [
+    "@nuxtjs/supabase",
+    "@nuxtjs/tailwindcss",
+    "@vueuse/nuxt",
+    "@primevue/nuxt-module",
+  ],
   app: {
     head: {
       title: "Agata Hann | Architektura Wnętrz",
