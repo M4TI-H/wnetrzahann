@@ -26,7 +26,7 @@ const { openContactForm } = useContactForm();
           </div>
           <div class="flex items-center gap-4">
             <i class="pi pi-phone text-lg"></i>
-            <p>+48 123 456 789</p>
+            <p>+48 607 255 362</p>
           </div>
         </div>
         <div class="px-2 flex items-start gap-4">

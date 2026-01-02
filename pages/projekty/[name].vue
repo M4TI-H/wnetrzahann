@@ -8,28 +8,23 @@ definePageMeta({
 const images = [
   {
     id: 0,
-    image:
-      "https://scontent.fktw6-1.fna.fbcdn.net/v/t39.30808-6/591860583_122259063038186059_8202967369660707076_n.jpg?_nc_cat=106&ccb=1-7&_nc_sid=f727a1&_nc_ohc=72i98EKS5Z4Q7kNvwHS4_zU&_nc_oc=AdlWjmIW4doGsrEUo3M9dWg2sqU2Ndk-xzwVKsGvbX25hpaeFdXZj9VytWfJoLfnAcBe8LZj9a3OTSaIikUKRwOQ&_nc_zt=23&_nc_ht=scontent.fktw6-1.fna&_nc_gid=IEJjJQY5P__Rk3wBUPDkmw&oh=00_AfnMzvpfQ8i3uQ9ppaoMU5BekDrk11M69-vatA3JEPIRyw&oe=69575CDC",
+    image: "/projectImages/1.jpg",
   },
   {
     id: 1,
-    image:
-      "https://scontent.fktw6-1.fna.fbcdn.net/v/t39.30808-6/590219833_122259063020186059_1135699340169672861_n.jpg?_nc_cat=102&ccb=1-7&_nc_sid=f727a1&_nc_ohc=PvF1iJRlKMgQ7kNvwFHYp0C&_nc_oc=AdnCy5oIkG2odhDxUEU4xdZjA1L96Jeyf3hQr5Oqw1G6cxNLi2UFk3ganBvp8CZSFYFXw8qrjlqs-8QBGhfAlzS_&_nc_zt=23&_nc_ht=scontent.fktw6-1.fna&_nc_gid=5GHBrXQEL6tLzsYXy9CxAg&oh=00_AfkGZkV3rUnNeuJvC2YoZdASxI7ZqKjl7MCv0yWUWWMwkg&oe=695759EE",
+    image: "/projectImages/2.jpg",
   },
   {
     id: 2,
-    image:
-      "https://scontent.fktw6-1.fna.fbcdn.net/v/t39.30808-6/590350985_122259063026186059_260088556128226255_n.jpg?_nc_cat=107&ccb=1-7&_nc_sid=f727a1&_nc_ohc=MhAl3Sn31bQQ7kNvwG-1XGb&_nc_oc=Adm4_dcD7PRMl1RRvyR_qlrKuHVXUV3c0oQj8s4Kkod7p-ZqbKv8HrqI0CaTXMnUO0onSqN1i2OnzAaqEfm6b00k&_nc_zt=23&_nc_ht=scontent.fktw6-1.fna&_nc_gid=3EonLTE7O_rJoWl0GwnhZQ&oh=00_AfnET1cjIHM9-aQvByr_S2qxA7njMzXFwD3wQbQtULP5fA&oe=69576743",
+    image: "/projectImages/3.jpg",
   },
   {
     id: 3,
-    image:
-      "https://scontent.fktw6-1.fna.fbcdn.net/v/t39.30808-6/590170352_122259062912186059_3366128718492769298_n.jpg?_nc_cat=107&ccb=1-7&_nc_sid=f727a1&_nc_ohc=MfOkmM7SP8QQ7kNvwE1Ply8&_nc_oc=Adnqrjc7hs8vnfAS2nmUQb9PTeWtloL0LOOz75gEqViu-p2rApjMhpj1jEHtyBlpPONhC8czPaG3pazCiCuW5LuD&_nc_zt=23&_nc_ht=scontent.fktw6-1.fna&_nc_gid=1R8edfGp3W4qwX3TDbx_lQ&oh=00_AfkkCuOL4Qt0AdgpyeLBH05VKlQXOK9YnEWPrjYh2pvG5Q&oe=69574E93",
+    image: "/projectImages/4.jpg",
   },
   {
     id: 4,
-    image:
-      "https://scontent.fktw6-1.fna.fbcdn.net/v/t39.30808-6/590975583_122259062870186059_3809378153496470090_n.jpg?_nc_cat=104&ccb=1-7&_nc_sid=f727a1&_nc_ohc=mz4yDreculwQ7kNvwHPOXpd&_nc_oc=Adk0N9JPM-_O2xbDLQmpl2NROmGEf4TkRP17x2XhP5S93PZv8B6U7DvViESsId3aL1rzg-hyEhW8ZaNRkyPhyG7Q&_nc_zt=23&_nc_ht=scontent.fktw6-1.fna&_nc_gid=_mpS7gFMg6e7_qQ2uAx-_Q&oh=00_AfmmtitpcUTHOXpfHZzdTVCT69iYv2H26_vLWByKB2SQNg&oe=695742FD",
+    image: "/projectImages/5.jpg",
   },
 ];
 const activeIndex = ref<number>(0);
