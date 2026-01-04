@@ -3,7 +3,7 @@ const selectedFilter = ref<string>("all");
 </script>
 <template>
   <section
-    class="w-full max-w-[90%] md:w-2/3 lg:w-2/5 flex items-center justify-center gap-2 sm:gap-6 md:gap-12 lg:gap-16"
+    class="w-full max-w-[90%] md:w-2/3 xl:w-1/2 flex items-center justify-center gap-2 sm:gap-6 md:gap-8 px-2 sm:px-6 md:px-8"
   >
     <button
       @click="selectedFilter = 'all'"

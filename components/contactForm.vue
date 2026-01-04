@@ -19,7 +19,7 @@ useHead({
   >
     <div
       v-if="isContactFormOpen"
-      class="fixed inset-0 z-50 flex justify-center bg-black/60 p-2 overflow-y-auto"
+      class="fixed inset-0 z-50 flex justify-center bg-black/60 backdrop-blur-sm p-2 overflow-y-auto"
       @click.self="closeContactForm"
     >
       <Transition
@@ -62,7 +62,7 @@ useHead({
               class="h-24 md:h-32 text-sm md:text-base p-2 border border-black outline-0 resize-none"
             ></textarea>
             <button
-              class="w-full h-12 md:h-16 bg-neutral-800 hover:bg-black md:text-lg text-white border-2 border-white hover:border-black ring-2 ring-black font-semibold transition-colors duration-300 ease-in-out"
+              class="w-full h-12 md:h-16 bg-neutral-800 hover:bg-black md:text-lg text-gray-100 border-2 border-gray-100 hover:border-black ring-2 ring-black font-semibold transition-colors duration-300 ease-in-out"
             >
               Wyślij
             </button>

@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import FullscreenGallery from "~/components/singleProject/fullscreenGallery.vue";
-import MobileGallery from "~/components/singleProject/mobileGallery.vue";
+import Gallery from "~/components/singleProject/gallery.vue";
 
 const route = useRoute();
 const projectName = computed(() => String(route.params.name ?? ""));
@@ -31,11 +31,40 @@ const images = [
     image: "/projectImages/5.jpg",
   },
 ];
+
+const fullscreenImage = ref<number | null>(null);
+
+const displayImage = (id: number) => {
+  fullscreenImage.value = id;
+  activeIndex.value = id;
+};
+
+const activeIndex = ref<number>(0);
+
+const nextImage = () => {
+  if (activeIndex.value === images.length - 1) return;
+  activeIndex.value = activeIndex.value + 1;
+  fullscreenImage.value = activeIndex.value;
+};
+
+const previousImage = () => {
+  if (activeIndex.value === 0) return;
+  activeIndex.value = activeIndex.value - 1;
+  fullscreenImage.value = activeIndex.value;
+};
 </script>
 
 <template>
   <section class="flex-1 flex flex-col items-center">
-    <FullscreenGallery :images="images" :name="projectName" />
-    <MobileGallery :images="images" :name="projectName" />
+    <Gallery :images="images" :name="projectName" @showImage="displayImage" />
+    <FullscreenGallery
+      v-if="fullscreenImage !== null"
+      :image="images[fullscreenImage].image"
+      :hasPrevious="activeIndex > 0"
+      :hasNext="activeIndex < images.length - 1"
+      @previous="previousImage"
+      @next="nextImage"
+      @close="fullscreenImage = null"
+    />
   </section>
 </template>

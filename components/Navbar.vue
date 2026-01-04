@@ -25,7 +25,7 @@ const isCompact = computed(() => {
   <div
     :class="[
       isCompact ? 'bg-gray-300 h-16' : 'bg-black/40 h-24',
-      'z-50 fixed w-full flex items-center justify-between px-4 lg:px-8 py-2 transition-all duration-500 ease-in-out',
+      'z-30 fixed w-full flex items-center justify-between px-4 lg:px-8 py-2 transition-all duration-500 ease-in-out',
     ]"
   >
     <NuxtLink
