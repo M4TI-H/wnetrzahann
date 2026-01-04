@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import Hero from "~/components/hero.vue";
-import Slider from "~/components/slider.vue";
+import Slider from "~/components/main/slider.vue";
 
 definePageMeta({
   navbar: "dynamic",

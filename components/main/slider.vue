@@ -93,7 +93,7 @@ onMounted(() => {
           :key="id"
           :class="[
             id === idCounter + 1 ? 'bg-white' : 'bg-none hover:bg-gray-300',
-            'size-4 border border-white cursor-hover transition-colors duration-150 ease-in-out outline-0',
+            'size-4 md:size-2 border border-white cursor-hover transition-colors duration-150 ease-in-out outline-0',
           ]"
         ></button>
       </div>

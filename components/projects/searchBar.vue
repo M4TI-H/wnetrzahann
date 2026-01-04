@@ -1,7 +1,7 @@
 <script setup lang="ts"></script>
 
 <template>
-  <div class="relative w-full max-w-[90%] md:w-2/4">
+  <div class="relative w-full max-w-[90%] md:w-2/3 lg:w-1/2">
     <input
       type="text"
       placeholder="Wyszukaj projekt"
