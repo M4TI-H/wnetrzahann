@@ -15,6 +15,7 @@ const isImageHovered = ref<boolean>(false);
 </script>
 <template>
   <div
+    @click.self="emit('close')"
     class="fixed z-40 w-full h-full bg-black/60 backdrop-blur-sm flex flex-col gap-2 items-center justify-center"
   >
     <div

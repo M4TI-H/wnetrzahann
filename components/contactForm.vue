@@ -32,7 +32,7 @@ useHead({
           class="w-full max-w-lg bg-gray-100 border border-black flex flex-col gap-4 md:gap-8 p-4 md:p-8 my-auto"
         >
           <div class="w-full flex items-center justify-between">
-            <h1 class="text-xl md:text-2xl font-semibold">Napisz wiadomość</h1>
+            <h1 class="text-xl md:text-2xl lg:text-3xl">Napisz wiadomość</h1>
             <button
               @click="closeContactForm"
               class="hover:bg-black/20 active:bg-black/20 p-1 flex items-center justify-center transition-colors"
@@ -69,8 +69,6 @@ useHead({
             <p class="text-xs sm:text-sm text-gray-500">
               Wysyłając wiadomość, wyrażasz zgodę na przetwarzanie danych
               osobowych w celu udzielenia odpowiedzi na Twoje zapytanie.
-              <br />
-              Zazwyczaj odpowiadam w ciągu 2 dni roboczych.
             </p>
           </div>
         </section>

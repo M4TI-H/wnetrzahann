@@ -4,7 +4,8 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        sans: ['"Finlandica"', "sans-serif"],
+        sans: ['"Roboto"', "sans-serif"],
+        bodoni: ['"Bodoni Moda"', "serif"],
       },
     },
   },

@@ -47,12 +47,12 @@ watch(
       ref="secondSection"
       class="w-full flex flex-col items-center gap-4 py-2 sm:py-4 px-4 sm:px-8"
     >
-      <h1 class="text-4xl font-bold">PROJEKTY</h1>
+      <h1 class="text-4xl">PROJEKTY</h1>
       <div class="w-full flex flex-col items-center justify-between">
         <Slider />
       </div>
     </div>
-    <div class="w-full flex flex-col items-center gap-4 sm:gap-8">
+    <!-- <div class="w-full flex flex-col items-center gap-4 sm:gap-8">
       <h2 class="text-4xl font-semibold text-center">ZAKRES USŁUG</h2>
 
       <div
@@ -85,6 +85,6 @@ watch(
         <i class="pi pi-envelope text-sm"></i>
         Porozmawiajmy o twoim wnętrzu
       </button>
-    </div>
+    </div> -->
   </section>
 </template>

@@ -55,7 +55,7 @@ const previousImage = () => {
 </script>
 
 <template>
-  <section class="flex-1 flex flex-col items-center">
+  <section class="flex-1 flex flex-col items-center pb-4">
     <Gallery :images="images" :name="projectName" @showImage="displayImage" />
     <FullscreenGallery
       v-if="fullscreenImage !== null"

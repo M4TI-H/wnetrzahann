@@ -7,6 +7,31 @@ const props = defineProps<{
 const emit = defineEmits<{
   (e: "showImage", id: number): void;
 }>();
+
+const vObserve = {
+  mounted: (el: HTMLElement) => {
+    el.classList.add("opacity-0", "translate-y-24");
+    el.classList.add("transition-all", "duration-500", "ease-out");
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            el.classList.remove("opacity-0", "translate-y-24");
+            el.classList.add("opacity-100", "translate-y-0");
+            observer.unobserve(el);
+          }
+        });
+      },
+      {
+        rootMargin: "0px 0px -1% 0px",
+        threshold: 0.05,
+      }
+    );
+
+    observer.observe(el);
+  },
+};
 </script>
 <template>
   <div
@@ -54,8 +79,11 @@ const emit = defineEmits<{
         </div>
       </div>
     </div>
-    <div class="grid grid-cols-2 gap-2 w-full mx-auto">
+    <div
+      class="grid grid-cols-2 gap-2 sm:gap-4 lg:gap-8 w-full mx-auto overflow-hidden"
+    >
       <div
+        v-observe
         v-for="(image, idx) in images"
         @click="emit('showImage', image.id)"
         :key="image.id"

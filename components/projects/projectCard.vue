@@ -18,7 +18,7 @@ const prop = defineProps<{
         <p
           class="absolute top-2 md:relative text-sm lg:text-base text-white font-thin"
         >
-          {{ data.category }}
+          Projekt {{ data.category.toLowerCase() }}
         </p>
         <div class="w-full flex items-end justify-between">
           <p class="text-xl md:text-2xl lg:text-3xl text-white">

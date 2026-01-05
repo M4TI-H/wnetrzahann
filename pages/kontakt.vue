@@ -16,7 +16,7 @@ const { openContactForm } = useContactForm();
       <div
         class="w-full max-w-lg flex flex-col gap-8 bg-gray-100 border border-black p-8"
       >
-        <h1 class="text-xl md:text-2xl font-semibold">Kontakt</h1>
+        <h1 class="text-xl md:text-2xl lg:text-3xl">Kontakt</h1>
         <div
           class="w-full flex flex-col sm:flex-row sm:items-center justify-between px-2 gap-8"
         >

@@ -104,7 +104,6 @@ onMounted(() => {
         <p class="text-xl text-white font-semibold">
           {{ `NAZWA PROJEKTU`.toUpperCase() }}
         </p>
-        <p class="text-white">Opis projektu</p>
       </div>
     </div>
   </section>

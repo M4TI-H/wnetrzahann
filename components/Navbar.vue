@@ -48,7 +48,7 @@ const isCompact = computed(() => {
             : 'hover:bg-black/30 active:bg-black/30 text-sm lg:text-lg',
           'select-none px-1 sm:px-2 py-1 text-white cursor-pointer outline-0 transition-colors duration-300 ease-in-out',
         ]"
-        >Projekty</NuxtLink
+        >PROJEKTY</NuxtLink
       >
       <NuxtLink
         to="/kontakt"
@@ -59,7 +59,7 @@ const isCompact = computed(() => {
           'select-none px-1 sm:px-2 py-1 text-white cursor-pointer outline-0 transition-colors duration-300 ease-in-out',
         ]"
       >
-        Kontakt
+        KONTAKT
       </NuxtLink>
       <div class="hidden sm:flex w-px h-1/2 bg-white"></div>
       <NuxtLink

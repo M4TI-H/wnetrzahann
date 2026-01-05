@@ -7,80 +7,97 @@ definePageMeta({
   navbar: "compact",
 });
 
-const selectedPage = ref<number>(0);
-
 const projects = [
   {
     id: 0,
     name: "F403",
-    category: "Projekt prywatny",
-    creationDate: "31.12.2025",
-    cover:
-      "https://scontent.fktw6-1.fna.fbcdn.net/v/t39.30808-6/591860583_122259063038186059_8202967369660707076_n.jpg?_nc_cat=106&ccb=1-7&_nc_sid=f727a1&_nc_ohc=pOi7oX31FWQQ7kNvwEbuEtf&_nc_oc=Adm0ZVWYhHj2e6FKGyRkC4M6ZhK3biHGw2L8R1d_nxonjyuWv_wyvzsVODdaKWE-k4Re0wEi5fPMZmVZrIcy4OnD&_nc_zt=23&_nc_ht=scontent.fktw6-1.fna&_nc_gid=bwO4_4qHLAvIfgo0MPxJkQ&oh=00_Afns-tZ-X9SM4ZEu7_CtNwrBk0OY553STmGNkwIXxiDYjQ&oe=695AE0DC",
+    category: "Prywatny",
+    creationDate: "2025",
+    cover: "indexImages/1.jpg",
   },
   {
     id: 1,
     name: "F404",
-    category: "Projekt prywatny",
-    creationDate: "28.11.2205",
-    cover:
-      "https://scontent.fktw6-1.fna.fbcdn.net/v/t39.30808-6/572057477_122254459406186059_2598069039025711577_n.jpg?_nc_cat=101&ccb=1-7&_nc_sid=f727a1&_nc_ohc=i9QcodmCpJMQ7kNvwFRwMAG&_nc_oc=AdlKnVhFX6zcDMoVm44PnAqhmWBW0Epaax-b0C4cNIAzXwqEaWZP5-kCkj0RhXdQYNm8lz2fAQBhx_OedOXhGHTo&_nc_zt=23&_nc_ht=scontent.fktw6-1.fna&_nc_gid=v46A2QKZtJZJuQ8v7soLVA&oh=00_Afkn2VstY_C0odB5fIJm5bH2eBDm068OFdKKTai_HbY9Qg&oe=695AFB70",
+    category: "Prywatny",
+    creationDate: "2025",
+    cover: "/indexImages/2.jpg",
   },
   {
     id: 2,
     name: "F405",
-    category: "Projekt komercyjny",
-    creationDate: "13.10.2025",
-    cover:
-      "https://scontent.fktw6-1.fna.fbcdn.net/v/t39.30808-6/565814573_122253532052186059_8858413877040990406_n.jpg?_nc_cat=111&ccb=1-7&_nc_sid=f727a1&_nc_ohc=BQRYOcMa9d8Q7kNvwErJeiv&_nc_oc=AdngyA6360ZBD7vqluD1icMBoyfge3FhHtES4WRaJEBeSpcT7N_R1B_NYnsfnONatWuiyYHCUqapXiMi5fpA1gIo&_nc_zt=23&_nc_ht=scontent.fktw6-1.fna&_nc_gid=xnAgalS4LB3PwWLx4lOyDA&oh=00_Aflo4M7zQ28RITSV2a8odZL7-S7xwb54JPfl64nsQdihjw&oe=695B0FDD",
+    category: "Komercyjny",
+    creationDate: "2025",
+    cover: "/indexImages/3.jpg",
   },
   {
     id: 3,
     name: "F406",
-    category: "Projekt komercyjny",
-    creationDate: "27.09.2025",
-    cover:
-      "https://scontent.fktw6-1.fna.fbcdn.net/v/t39.30808-6/514546010_122234782364186059_8062812865512552472_n.jpg?_nc_cat=106&ccb=1-7&_nc_sid=f727a1&_nc_ohc=uaZxS2Ag1hgQ7kNvwG5zkMb&_nc_oc=AdkZp05_iJz0rihDCgHHaze-5W1O1zvU7BuTrjs8YdaGO04rVuTYnxjhWGwrZfAtFvDqN6jmPME0fioxxRq4lHJI&_nc_zt=23&_nc_ht=scontent.fktw6-1.fna&_nc_gid=X-tK0IY5AUMw2QfjNqJRLg&oh=00_Afl6hL-kT960ocMS66Awt7YXvvA-wLmlyXkEjPsOIfuxVw&oe=695AF3D7",
+    category: "Komercyjny",
+    creationDate: "2025",
+    cover: "/indexImages/4.jpg",
   },
   {
     id: 4,
     name: "F403",
-    category: "Projekt prywatny",
-    creationDate: "31.12.2025",
-    cover:
-      "https://scontent.fktw6-1.fna.fbcdn.net/v/t39.30808-6/591860583_122259063038186059_8202967369660707076_n.jpg?_nc_cat=106&ccb=1-7&_nc_sid=f727a1&_nc_ohc=pOi7oX31FWQQ7kNvwEbuEtf&_nc_oc=Adm0ZVWYhHj2e6FKGyRkC4M6ZhK3biHGw2L8R1d_nxonjyuWv_wyvzsVODdaKWE-k4Re0wEi5fPMZmVZrIcy4OnD&_nc_zt=23&_nc_ht=scontent.fktw6-1.fna&_nc_gid=bwO4_4qHLAvIfgo0MPxJkQ&oh=00_Afns-tZ-X9SM4ZEu7_CtNwrBk0OY553STmGNkwIXxiDYjQ&oe=695AE0DC",
+    category: "Prywatny",
+    creationDate: "2025",
+    cover: "/indexImages/1.jpg",
   },
   {
     id: 5,
     name: "F404",
-    category: "Projekt prywatny",
-    creationDate: "28.11.2205",
-    cover:
-      "https://scontent.fktw6-1.fna.fbcdn.net/v/t39.30808-6/572057477_122254459406186059_2598069039025711577_n.jpg?_nc_cat=101&ccb=1-7&_nc_sid=f727a1&_nc_ohc=i9QcodmCpJMQ7kNvwFRwMAG&_nc_oc=AdlKnVhFX6zcDMoVm44PnAqhmWBW0Epaax-b0C4cNIAzXwqEaWZP5-kCkj0RhXdQYNm8lz2fAQBhx_OedOXhGHTo&_nc_zt=23&_nc_ht=scontent.fktw6-1.fna&_nc_gid=v46A2QKZtJZJuQ8v7soLVA&oh=00_Afkn2VstY_C0odB5fIJm5bH2eBDm068OFdKKTai_HbY9Qg&oe=695AFB70",
+    category: "Prywatny",
+    creationDate: "2025",
+    cover: "/indexImages/2.jpg",
   },
   {
     id: 6,
     name: "F405",
-    category: "Projekt komercyjny",
-    creationDate: "13.10.2025",
-    cover:
-      "https://scontent.fktw6-1.fna.fbcdn.net/v/t39.30808-6/565814573_122253532052186059_8858413877040990406_n.jpg?_nc_cat=111&ccb=1-7&_nc_sid=f727a1&_nc_ohc=BQRYOcMa9d8Q7kNvwErJeiv&_nc_oc=AdngyA6360ZBD7vqluD1icMBoyfge3FhHtES4WRaJEBeSpcT7N_R1B_NYnsfnONatWuiyYHCUqapXiMi5fpA1gIo&_nc_zt=23&_nc_ht=scontent.fktw6-1.fna&_nc_gid=xnAgalS4LB3PwWLx4lOyDA&oh=00_Aflo4M7zQ28RITSV2a8odZL7-S7xwb54JPfl64nsQdihjw&oe=695B0FDD",
+    category: "Komercyjny",
+    creationDate: "2025",
+    cover: "/indexImages/3.jpg",
   },
 ];
+
+const vObserve = {
+  mounted: (el: HTMLElement) => {
+    el.classList.add("opacity-0", "translate-y-24");
+    el.classList.add("transition-all", "duration-500", "ease-out");
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            el.classList.remove("opacity-0", "translate-y-24");
+            el.classList.add("opacity-100", "translate-y-0");
+            observer.unobserve(el);
+          }
+        });
+      },
+      {
+        rootMargin: "0px 0px -1% 0px",
+        threshold: 0.05,
+      }
+    );
+
+    observer.observe(el);
+  },
+};
 </script>
+
 <template>
   <section class="flex-1 flex flex-col items-center">
     <div
       class="w-full min-h-screen flex flex-col items-center gap-8 bg-white pt-24 pb-8"
     >
-      <h1 class="text-5xl font-thin">PROJEKTY</h1>
+      <h1 class="text-4xl">PROJEKTY</h1>
       <SearchBar />
       <ProjectFilter />
 
-      <div class="w-full grid md:grid-cols-2 gap-4 px-4 md:px-8">
-        <template v-for="project in projects" :key="project.id">
+      <div class="w-full grid md:grid-cols-2 gap-4 md:gap-8 px-4 md:px-8">
+        <div v-for="project in projects" :key="project.id" v-observe>
           <ProjectCard :data="project" />
-        </template>
+        </div>
       </div>
 
       <button
