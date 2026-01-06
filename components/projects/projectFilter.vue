@@ -12,7 +12,7 @@ const selectedFilter = ref<string>("all");
           ? 'bg-neutral-800 hover:bg-black text-gray-100'
           : 'bg-gray-100 text-black hover:bg-gray-200'
       "
-      class="py-2 md:py-3 flex-1 border border-black text-sm sm:text-base cursor-pointer transition-colors duration-300 ease-in-out"
+      class="py-2 md:py-3 flex-1 border border-black text-xs sm:text-sm cursor-pointer transition-colors duration-300 ease-in-out"
     >
       WSZYSTKIE
     </button>
@@ -23,7 +23,7 @@ const selectedFilter = ref<string>("all");
           ? 'bg-neutral-800 hover:bg-black text-gray-100'
           : 'bg-gray-100 text-black hover:bg-gray-200'
       "
-      class="py-2 md:py-3 flex-1 border border-black text-sm sm:text-base cursor-pointer transition-colors duration-300 ease-in-out"
+      class="py-2 md:py-3 flex-1 border border-black text-xs sm:text-sm cursor-pointer transition-colors duration-300 ease-in-out"
     >
       KOMERCYJNE
     </button>
@@ -34,7 +34,7 @@ const selectedFilter = ref<string>("all");
           ? 'bg-neutral-800 hover:bg-black text-gray-100'
           : 'bg-gray-100 text-black hover:bg-gray-200'
       "
-      class="py-2 md:py-3 flex-1 border border-black text-sm sm:text-base cursor-pointer transition-colors duration-300 ease-in-out"
+      class="py-2 md:py-3 flex-1 border border-black text-xs sm:text-sm cursor-pointer transition-colors duration-300 ease-in-out"
     >
       PRYWATNE
     </button>

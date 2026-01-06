@@ -44,8 +44,8 @@ const isCompact = computed(() => {
         to="/projekty"
         :class="[
           isCompact
-            ? 'hover:bg-black/10 active:bg-black/10 text-sm lg:text-base'
-            : 'hover:bg-black/30 active:bg-black/30 text-sm lg:text-lg',
+            ? 'hover:bg-black/10 active:bg-black/10 text-xs'
+            : 'hover:bg-black/30 active:bg-black/30 text-sm',
           'select-none px-1 sm:px-2 py-1 text-white cursor-pointer outline-0 transition-colors duration-300 ease-in-out',
         ]"
         >PROJEKTY</NuxtLink
@@ -54,8 +54,8 @@ const isCompact = computed(() => {
         to="/kontakt"
         :class="[
           isCompact
-            ? 'hover:bg-black/10 active:bg-black/10 text-sm lg:text-base'
-            : 'hover:bg-black/30 active:bg-black/30 text-sm lg:text-lg',
+            ? 'hover:bg-black/10 active:bg-black/10 text-xs'
+            : 'hover:bg-black/30 active:bg-black/30 text-sm',
           'select-none px-1 sm:px-2 py-1 text-white cursor-pointer outline-0 transition-colors duration-300 ease-in-out',
         ]"
       >

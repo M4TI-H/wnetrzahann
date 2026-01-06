@@ -86,25 +86,23 @@ const vObserve = {
 </script>
 
 <template>
-  <section class="flex-1 flex flex-col items-center">
-    <div
-      class="w-full min-h-screen flex flex-col items-center gap-8 bg-white pt-24 pb-8"
-    >
-      <h1 class="text-4xl">PROJEKTY</h1>
-      <SearchBar />
-      <ProjectFilter />
+  <section
+    class="flex-1 w-full min-h-screen flex flex-col items-center gap-8 bg-white pt-24 pb-8"
+  >
+    <h1 class="text-4xl">PROJEKTY</h1>
+    <SearchBar />
+    <ProjectFilter />
 
-      <div class="w-full grid md:grid-cols-2 gap-4 md:gap-8 px-4 md:px-8">
-        <div v-for="project in projects" :key="project.id" v-observe>
-          <ProjectCard :data="project" />
-        </div>
+    <div class="w-full grid md:grid-cols-2 gap-4 md:gap-8 px-4 md:px-8">
+      <div v-for="project in projects" :key="project.id" v-observe>
+        <ProjectCard :data="project" />
       </div>
-
-      <button
-        class="px-6 py-2 bg-neutral-800 hover:bg-black md:text-lg text-gray-100 border-2 border-gray-100 hover:border-black ring-2 ring-black font-semibold transition-colors duration-300 ease-in-out"
-      >
-        Pokaż więcej
-      </button>
     </div>
+
+    <button
+      class="px-6 py-2 bg-neutral-800 hover:bg-black md:text-lg text-gray-100 border-2 border-gray-100 hover:border-black ring-2 ring-black font-semibold transition-colors duration-300 ease-in-out"
+    >
+      Pokaż więcej
+    </button>
   </section>
 </template>

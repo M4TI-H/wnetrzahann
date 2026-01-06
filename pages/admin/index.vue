@@ -11,29 +11,34 @@ definePageMeta({
     >
       <h1 class="text-xl md:text-2xl lg:text-3xl">Logowanie</h1>
 
-      <div class="w-full flex items-center">
-        <div class="px-4 py-3 md:py-4 bg-black border border-black">
+      <div class="relative w-full flex items-center">
+        <div
+          class="absolute top-1/2 -translate-y-1/2 px-4 h-full bg-neutral-800 flex items-center justify-center"
+        >
           <i class="pi pi-user text-xl text-gray-100"></i>
         </div>
         <input
           type="text"
           placeholder="Login"
-          class="flex-1 text-sm md:text-base p-3 md:p-4 border border-black outline-0"
+          class="w-full text-sm md:text-base border border-neutral-800 outline-0 p-3 md:py-4 md:pl-16 md:pr-4"
         />
       </div>
 
       <div class="w-full flex flex-col items-end gap-2">
-        <div class="w-full flex items-center">
-          <div class="px-4 py-3 md:py-4 bg-black border border-black">
+        <div class="relative w-full flex items-center">
+          <div
+            class="absolute top-1/2 -translate-y-1/2 px-4 h-full bg-neutral-800 flex items-center justify-center"
+          >
             <i class="pi pi-lock text-xl text-gray-100"></i>
           </div>
           <input
-            type="text"
+            type="password"
             placeholder="Hasło"
-            class="flex-1 text-sm md:text-base p-3 md:p-4 border border-black outline-0"
+            class="w-full text-sm md:text-base border border-neutral-800 outline-0 p-3 md:py-4 md:pl-16 md:pr-4"
           />
         </div>
         <NuxtLink
+          to="/admin/change-password"
           class="mx-2 text-gray-500 hover:text-gray-800 transition-colors duration-300 ease-in-out cursor-pointer"
           >Zmień hasło</NuxtLink
         >
