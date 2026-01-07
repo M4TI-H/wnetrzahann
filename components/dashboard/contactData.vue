@@ -54,7 +54,7 @@ onMounted;
           class="w-fit flex items-center gap-2 px-2 py-1 border-x border-t border-black"
         >
           <i class="pi pi-facebook"></i>
-          <p class="text-sm">Facebook</p>
+          <p class="text-sm">Facebook 123</p>
         </div>
         <div
           class="w-full flex items-center justify-between border border-gray-500"
