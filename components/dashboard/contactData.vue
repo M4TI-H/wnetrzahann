@@ -1,134 +1,44 @@
 <script setup lang="ts">
 import { useFetchContact } from "~/composables/contact/useFetchContactData";
-const { contactData } = useFetchContact();
+import EditableField from "~/components/dashboard/editableField.vue";
 
-onMounted;
+const { contactData } = useFetchContact();
 </script>
 
 <template>
-  <section class="w-1/3 p-4 border border-black flex flex-col gap-4 bg-white">
-    <h2 class="text-2xl">Dane kontaktowe</h2>
-    <template v-if="contactData">
-      <div class="flex flex-col">
-        <div
-          class="w-fit flex items-center gap-2 px-2 py-1 border-x border-t border-black"
-        >
-          <i class="pi pi-envelope"></i>
-          <p class="text-sm">Adres email</p>
-        </div>
-        <div
-          class="w-full flex items-center justify-between border border-gray-500"
-        >
-          <p class="italic truncate py-2 px-4">
-            {{ contactData.email }}
-          </p>
-          <button
-            class="text-xs text-gray-500 p-3 bg-neutral-800 hover:bg-black transition-colors duration-300 ease-in-out"
-          >
-            <i class="pi pi-pen-to-square text-gray-100"></i>
-          </button>
-        </div>
-      </div>
-      <div class="flex flex-col">
-        <div
-          class="w-fit flex items-center gap-2 px-2 py-1 border-x border-t border-black"
-        >
-          <i class="pi pi-phone"></i>
-          <p class="text-sm">Numer telefonu</p>
-        </div>
-        <div
-          class="w-full flex items-center justify-between border border-gray-500"
-        >
-          <p class="italic truncate py-2 px-4">
-            {{ contactData.phone }}
-          </p>
-          <button
-            class="text-xs text-gray-500 p-3 bg-neutral-800 hover:bg-black transition-colors duration-300 ease-in-out"
-          >
-            <i class="pi pi-pen-to-square text-gray-100"></i>
-          </button>
-        </div>
-      </div>
-      <div class="flex flex-col">
-        <div
-          class="w-fit flex items-center gap-2 px-2 py-1 border-x border-t border-black"
-        >
-          <i class="pi pi-facebook"></i>
-          <p class="text-sm">Facebook</p>
-        </div>
-        <div
-          class="w-full flex items-center justify-between border border-gray-500"
-        >
-          <p class="italic truncate py-2 px-4">
-            {{ contactData.facebook }}
-          </p>
-          <button
-            class="text-xs text-gray-500 p-3 bg-neutral-800 hover:bg-black transition-colors duration-300 ease-in-out"
-          >
-            <i class="pi pi-pen-to-square text-gray-100"></i>
-          </button>
-        </div>
-      </div>
-      <div class="flex flex-col">
-        <div
-          class="w-fit flex items-center gap-2 px-2 py-1 border-x border-t border-black"
-        >
-          <i class="pi pi-instagram"></i>
-          <p class="text-sm">Instagram</p>
-        </div>
-        <div
-          class="w-full flex items-center justify-between border border-gray-500"
-        >
-          <p class="italic truncate py-2 px-4">
-            {{ contactData.instagram }}
-          </p>
-          <button
-            class="text-xs text-gray-500 p-3 bg-neutral-800 hover:bg-black transition-colors duration-300 ease-in-out"
-          >
-            <i class="pi pi-pen-to-square text-gray-100"></i>
-          </button>
-        </div>
-      </div>
-      <div class="flex flex-col">
-        <div
-          class="w-fit flex items-center gap-2 px-2 py-1 border-x border-t border-black"
-        >
-          <i class="pi pi-linkedin"></i>
-          <p class="text-sm">LinkedIn</p>
-        </div>
-        <div
-          class="w-full flex items-center justify-between border border-gray-500"
-        >
-          <p class="italic truncate py-2 px-4">
-            {{ contactData.linkedin }}
-          </p>
-          <button
-            class="text-xs text-gray-500 p-3 bg-neutral-800 hover:bg-black transition-colors duration-300 ease-in-out"
-          >
-            <i class="pi pi-pen-to-square text-gray-100"></i>
-          </button>
-        </div>
-      </div>
-      <div class="flex flex-col">
-        <div
-          class="w-fit flex items-center gap-2 px-2 py-1 border-x border-t border-black"
-        >
-          <i class="pi pi-youtube"></i>
-          <p class="text-sm">Youtube</p>
-        </div>
-        <div
-          class="w-full flex items-center justify-between border border-gray-500"
-        >
-          <p class="italic truncate py-2 px-4">
-            {{ contactData.youtube }}
-          </p>
-          <button
-            class="text-xs text-gray-500 p-3 bg-neutral-800 hover:bg-black transition-colors duration-300 ease-in-out"
-          >
-            <i class="pi pi-pen-to-square text-gray-100"></i>
-          </button>
-        </div>
-      </div>
-    </template>
+  <section
+    class="lg:w-1/3 h-min p-4 border border-black flex flex-col gap-4 bg-white"
+  >
+    <h2 class="text-lg md:text-xl lg:text-2xl">Dane kontaktowe</h2>
+    <EditableField
+      v-model="contactData!.email"
+      :label="'Adres email'"
+      :icon="'pi pi-envelope'"
+    />
+    <EditableField
+      v-model="contactData!.phone"
+      :label="'Numer telefonu'"
+      :icon="'pi pi-phone'"
+    />
+    <EditableField
+      v-model="contactData!.facebook"
+      :label="'Facebook'"
+      :icon="'pi pi-facebook'"
+    />
+    <EditableField
+      v-model="contactData!.instagram"
+      :label="'Instagram'"
+      :icon="'pi pi-instagram'"
+    />
+    <EditableField
+      v-model="contactData!.linkedin"
+      :label="'Linkedin'"
+      :icon="'pi pi-linkedin'"
+    />
+    <EditableField
+      v-model="contactData!.youtube"
+      :label="'Youtube'"
+      :icon="'pi pi-youtube'"
+    />
   </section>
 </template>

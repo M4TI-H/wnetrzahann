@@ -4,4 +4,5 @@ export default interface Project {
   category: string;
   creationDate: string;
   cover: string;
+  area: number;
 }

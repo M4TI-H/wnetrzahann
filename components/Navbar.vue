@@ -64,7 +64,7 @@ const isCompact = computed(() => {
       <div class="hidden sm:flex w-px h-1/2 bg-white"></div>
       <NuxtLink
         target="_blanc"
-        :to="contactData?.facebook_url"
+        :to="contactData?.facebook"
         :class="[
           isCompact
             ? 'hover:bg-black/10 active:bg-black/10 hidden sm:flex'
@@ -75,7 +75,7 @@ const isCompact = computed(() => {
       ></NuxtLink>
       <NuxtLink
         target="_blanc"
-        :to="contactData?.linkedin_url"
+        :to="contactData?.linkedin"
         :class="[
           isCompact
             ? 'hover:bg-black/10 active:bg-black/10 hidden sm:flex'

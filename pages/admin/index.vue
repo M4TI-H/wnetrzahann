@@ -13,28 +13,28 @@ definePageMeta({
 
       <div class="relative w-full flex items-center">
         <div
-          class="absolute top-1/2 -translate-y-1/2 px-4 h-full bg-neutral-800 flex items-center justify-center"
+          class="absolute top-1/2 -translate-y-1/2 px-3 md:px-4 h-full bg-neutral-800 flex items-center justify-center"
         >
           <i class="pi pi-user text-xl text-gray-100"></i>
         </div>
         <input
           type="text"
           placeholder="Login"
-          class="w-full text-sm md:text-base border border-neutral-800 outline-0 p-3 md:py-4 md:pl-16 md:pr-4"
+          class="w-full text-sm md:text-base border border-neutral-800 outline-0 py-2 md:py-3 pl-12 md:pl-16 pr-2 md:pr-3"
         />
       </div>
 
       <div class="w-full flex flex-col items-end gap-2">
         <div class="relative w-full flex items-center">
           <div
-            class="absolute top-1/2 -translate-y-1/2 px-4 h-full bg-neutral-800 flex items-center justify-center"
+            class="absolute top-1/2 -translate-y-1/2 px-3 md:px-4 h-full bg-neutral-800 flex items-center justify-center"
           >
             <i class="pi pi-lock text-xl text-gray-100"></i>
           </div>
           <input
             type="password"
             placeholder="Hasło"
-            class="w-full text-sm md:text-base border border-neutral-800 outline-0 p-3 md:py-4 md:pl-16 md:pr-4"
+            class="w-full text-sm md:text-base border border-neutral-800 outline-0 py-2 md:py-3 pl-12 md:pl-16 pr-2 md:pr-3"
           />
         </div>
         <NuxtLink

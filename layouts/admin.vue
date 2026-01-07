@@ -1,4 +1,6 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import DeleteModal from "~/components/dashboard/deleteModal.vue";
+</script>
 
 <template>
   <section class="w-full min-h-screen flex flex-col text-neutral-800">
@@ -8,5 +10,6 @@
     <main class="flex-1 flex flex-col overflow-y-auto">
       <slot />
     </main>
+    <!-- <DeleteModal :name="'proj'" /> -->
   </section>
 </template>
