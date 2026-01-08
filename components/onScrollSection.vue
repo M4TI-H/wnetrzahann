@@ -1,8 +1,10 @@
 <script setup lang="ts">
 import { useWindowScroll } from "@vueuse/core";
+import { useContactStore } from "~/stores/contact";
 const { y: scrollY } = useWindowScroll();
 
-const { openContactForm } = useContactForm();
+const contactStore = useContactStore();
+
 const displayBtn = ref<boolean>(false);
 
 let calculatePositionFlag: boolean = false;
@@ -34,7 +36,7 @@ onUnmounted(() => {
 <template>
   <div class="z-50 fixed bottom-4 right-4 flex flex-col items-end gap-4">
     <button
-      @click="openContactForm"
+      @click="contactStore.openContactForm"
       class="group h-10 lg:h-14 flex items-center bg-gray-100 active:bg-gray-200 hover:bg-gray-200 border border-black cursor-pointer transition-all duration-500 ease-in-out overflow-hidden"
       :class="[
         displayBtn

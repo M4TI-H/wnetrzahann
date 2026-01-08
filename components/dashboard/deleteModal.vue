@@ -1,4 +1,6 @@
 <script setup lang="ts">
+const deleteModalStore = useDeleteModalStore();
+
 const props = defineProps<{
   name: string;
 }>();
@@ -6,6 +8,7 @@ const props = defineProps<{
 
 <template>
   <div
+    @click="deleteModalStore.closeModal"
     class="fixed z-50 w-screen h-screen bg-black/60 backdrop-blur-sm flex items-center justify-center"
   >
     <section
@@ -16,8 +19,14 @@ const props = defineProps<{
       <div
         class="mt-4 lg:mt-8 w-full flex flex-col-reverse lg:flex-row items-center gap-2"
       >
-        <button class="text-sm text-gray-500 hover:underline">Anuluj</button>
         <button
+          @click="deleteModalStore.closeModal"
+          class="text-sm text-gray-500 hover:underline"
+        >
+          Anuluj
+        </button>
+        <button
+          @click="deleteModalStore.deleteProject"
           class="ml-auto w-full lg:w-min py-2 px-4 bg-neutral-800 hover:bg-black text-sm lg:text-base text-gray-100 border border-black transition-colors duration-300 ease-in-out"
         >
           Potwierdź

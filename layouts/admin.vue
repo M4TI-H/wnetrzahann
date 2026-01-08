@@ -1,5 +1,9 @@
 <script setup lang="ts">
 import DeleteModal from "~/components/dashboard/deleteModal.vue";
+import ProjectForm from "~/components/dashboard/projectForm.vue";
+
+const deleteModalStore = useDeleteModalStore();
+const projectStore = useProjectStore();
 </script>
 
 <template>
@@ -10,6 +14,7 @@ import DeleteModal from "~/components/dashboard/deleteModal.vue";
     <main class="flex-1 flex flex-col overflow-y-auto">
       <slot />
     </main>
-    <!-- <DeleteModal :name="'proj'" /> -->
+    <DeleteModal v-if="deleteModalStore.isModalOpened" :name="'proj'" />
+    <ProjectForm v-if="projectStore.isProjectFormOpen" />
   </section>
 </template>

@@ -25,7 +25,7 @@ function saveEdit() {
 <template>
   <div class="flex flex-col">
     <div
-      class="w-fit flex items-center gap-2 px-2 py-1 border-x border-t border-black"
+      class="w-fit flex items-center gap-2 px-2 py-1 text-sm border-x border-t border-black"
     >
       <i :class="props.icon"></i>
       <p class="text-xs md:text-sm">{{ props.label }}</p>

@@ -1,9 +1,11 @@
 <script setup lang="ts">
+import { useContactStore } from "~/stores/contact";
+
 definePageMeta({
   navbar: "base",
 });
 
-const { openContactForm } = useContactForm();
+const contactStore = useContactStore();
 </script>
 
 <template>
@@ -40,7 +42,7 @@ const { openContactForm } = useContactForm();
 
         <p class="mx-auto">lub</p>
         <button
-          @click="openContactForm"
+          @click="contactStore.openContactForm"
           class="w-full h-12 md:h-16 bg-neutral-800 hover:bg-black md:text-lg text-white border-2 border-white hover:border-black ring-2 ring-black font-semibold transition-colors duration-300 ease-in-out"
         >
           Napisz wiadomość

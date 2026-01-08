@@ -6,6 +6,7 @@ export default defineNuxtConfig({
     "@nuxtjs/tailwindcss",
     "@vueuse/nuxt",
     "@primevue/nuxt-module",
+    "@pinia/nuxt",
   ],
   app: {
     head: {

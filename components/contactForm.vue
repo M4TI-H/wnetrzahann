@@ -1,9 +1,13 @@
 <script setup lang="ts">
-const { isContactFormOpen, closeContactForm } = useContactForm();
+import { useContactStore } from "~/stores/contact";
+
+const contactStore = useContactStore();
 
 useHead({
   bodyAttrs: {
-    class: computed(() => (isContactFormOpen.value ? "overflow-hidden" : "")),
+    class: computed(() =>
+      contactStore.isContactFormOpen ? "overflow-hidden" : ""
+    ),
   },
 });
 </script>
@@ -18,9 +22,8 @@ useHead({
     leave-to-class="opacity-0"
   >
     <div
-      v-if="isContactFormOpen"
       class="fixed inset-0 z-50 flex justify-center bg-black/60 backdrop-blur-sm p-2 overflow-y-auto"
-      @click.self="closeContactForm"
+      @click.self="contactStore.closeContactForm"
     >
       <Transition
         appear
@@ -34,10 +37,10 @@ useHead({
           <div class="w-full flex items-center justify-between">
             <h1 class="text-xl md:text-2xl lg:text-3xl">Napisz wiadomość</h1>
             <button
-              @click="closeContactForm"
-              class="hover:bg-black/20 active:bg-black/20 p-1 flex items-center justify-center transition-colors"
+              @click="contactStore.closeContactForm"
+              class="hover:bg-black/20 active:bg-black/20 text-sm p-1 flex items-center justify-center transition-colors duration-200 ease-in-out"
             >
-              <i class="pi pi-times text-xl text-black"></i>
+              <i class="pi pi-times text-gray-500"></i>
             </button>
           </div>
 
