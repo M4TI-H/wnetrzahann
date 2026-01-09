@@ -5,7 +5,8 @@ export const useFetchContact = () => {
     data: contactData,
     pending: contactLoading,
     error: contactError,
+    refresh: contactRefresh,
   } = useAsyncData<Contact>("contact-data", () => $fetch("/api/contact/fetch"));
 
-  return { contactData, contactLoading, contactError };
+  return { contactData, contactLoading, contactError, contactRefresh };
 };

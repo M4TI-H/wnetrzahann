@@ -11,6 +11,10 @@ const props = defineProps<{
   icon: string;
 }>();
 
+const emit = defineEmits<{
+  (e: "update"): void;
+}>();
+
 const editValue = ref<boolean>(false);
 
 const { contactLoading, updateContactData } = useEditContact();
@@ -30,6 +34,7 @@ const toggleEdit = () => {
 const handleChange = async () => {
   await updateContactData(props.type, fieldValue.value);
   editValue.value = false;
+  emit("update");
 };
 </script>
 <template>
@@ -62,7 +67,7 @@ const handleChange = async () => {
       class="w-full flex items-center justify-between border border-gray-500"
     >
       <input
-        v-model="fieldValue"
+        v-model.trim="fieldValue"
         type="text"
         class="flex-1 py-1 md:py-2 px-2 md:px-4 outline-0 font-semibol text-sm md:text-base"
       />

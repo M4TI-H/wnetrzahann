@@ -27,7 +27,8 @@ export default defineEventHandler(async (event) => {
 
   const { error } = await supabase
     .from("contact")
-    .update({ [body.type]: body.value });
+    .update({ [body.type]: body.value })
+    .eq("user", 1);
 
   if (error) {
     throw createError({ statusCode: 500, statusMessage: error.message });
