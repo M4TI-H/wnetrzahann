@@ -11,32 +11,38 @@ const { contactData } = useFetchContact();
   >
     <h2 class="text-lg md:text-xl lg:text-2xl">Dane kontaktowe</h2>
     <EditableField
-      v-model="contactData!.email"
+      :type="`email`"
+      :value="contactData!.email"
       :label="'Adres email'"
       :icon="'pi pi-envelope'"
     />
     <EditableField
-      v-model="contactData!.phone"
+      :type="`phone`"
+      :value="contactData!.phone"
       :label="'Numer telefonu'"
       :icon="'pi pi-phone'"
     />
     <EditableField
-      v-model="contactData!.facebook"
+      :type="`facebook`"
+      :value="contactData!.facebook"
       :label="'Facebook'"
       :icon="'pi pi-facebook'"
     />
     <EditableField
-      v-model="contactData!.instagram"
+      :type="`instagram`"
+      :value="contactData!.instagram"
       :label="'Instagram'"
       :icon="'pi pi-instagram'"
     />
     <EditableField
-      v-model="contactData!.linkedin"
+      :type="`linkedin`"
+      :value="contactData!.linkedin"
       :label="'Linkedin'"
       :icon="'pi pi-linkedin'"
     />
     <EditableField
-      v-model="contactData!.youtube"
+      :type="`youtube`"
+      :value="contactData!.youtube"
       :label="'Youtube'"
       :icon="'pi pi-youtube'"
     />

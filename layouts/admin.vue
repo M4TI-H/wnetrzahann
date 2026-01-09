@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import DeleteModal from "~/components/dashboard/deleteModal.vue";
-import ProjectForm from "~/components/dashboard/projectForm.vue";
+import DeleteModal from "~/components/dashboard/projectsSection/deleteModal.vue";
+import ProjectForm from "~/components/dashboard/projectsSection/projectForm.vue";
 
 const deleteModalStore = useDeleteModalStore();
 const projectStore = useProjectStore();

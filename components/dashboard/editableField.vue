@@ -1,26 +1,36 @@
 <script setup lang="ts">
+import { useEditContact } from "~/composables/contact/useUpdateContactData";
+import { useField } from "vee-validate";
+import { z } from "zod";
+import { toTypedSchema } from "@vee-validate/zod";
+
 const props = defineProps<{
+  type: string;
+  value: string;
   label: string;
   icon: string;
-  modelValue: string;
-}>();
-
-const emit = defineEmits<{
-  (e: "update:modelValue", value: string): void;
 }>();
 
 const editValue = ref<boolean>(false);
-const localValue = ref<string>(props.modelValue);
 
-function toggleEdit() {
+const { contactLoading, updateContactData } = useEditContact();
+
+const fieldSchema = toTypedSchema(z.string().min(1, "Pole nie może być puste"));
+
+const { value: fieldValue, errorMessage } = useField<string>(
+  "fieldValue",
+  fieldSchema,
+  { initialValue: props.value }
+);
+
+const toggleEdit = () => {
   editValue.value = !editValue.value;
-  localValue.value = props.modelValue;
-}
+};
 
-function saveEdit() {
-  emit("update:modelValue", localValue.value);
+const handleChange = async () => {
+  await updateContactData(props.type, fieldValue.value);
   editValue.value = false;
-}
+};
 </script>
 <template>
   <div class="flex flex-col">
@@ -37,27 +47,28 @@ function saveEdit() {
       <p
         class="italic truncate py-1 md:py-2 px-2 md:px-4 text-gray-500 text-sm md:text-base"
       >
-        {{ modelValue }}
+        {{ props.value }}
       </p>
       <button
         @click="toggleEdit"
-        class="text-xs text-gray-500 p-2 md:p-3 bg-neutral-800 hover:bg-black transition-colors duration-300 ease-in-out"
+        class="text-xs text-gray-500 p-2 md:p-3 h-full bg-neutral-800 hover:bg-black transition-colors duration-300 ease-in-out"
       >
         <i class="pi pi-pen-to-square text-gray-100"></i>
       </button>
     </div>
-    <div
+    <form
       v-if="editValue"
+      @submit.prevent="handleChange"
       class="w-full flex items-center justify-between border border-gray-500"
     >
       <input
-        v-model="localValue"
+        v-model="fieldValue"
         type="text"
         class="flex-1 py-1 md:py-2 px-2 md:px-4 outline-0 font-semibol text-sm md:text-base"
       />
       <div>
         <button
-          @click="saveEdit"
+          type="submit"
           class="text-xs 0 p-2 md:p-3 bg-neutral-800 hover:bg-black transition-colors duration-300 ease-in-out"
         >
           <i class="pi pi-check text-gray-100"></i>
@@ -69,6 +80,6 @@ function saveEdit() {
           <i class="pi pi-times text-neutral-800"></i>
         </button>
       </div>
-    </div>
+    </form>
   </div>
 </template>
