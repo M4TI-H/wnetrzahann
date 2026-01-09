@@ -4,6 +4,8 @@ import { z } from "zod";
 import { toTypedSchema } from "@vee-validate/zod";
 const supabase = useSupabaseClient();
 
+const userStore = useUserStore();
+
 definePageMeta({
   layout: "admin",
 });
@@ -26,23 +28,15 @@ const { handleSubmit } = useForm({
 const { value: login, errorMessage: loginError } = useField<string>("login");
 const { value: password, errorMessage: passwordError } =
   useField<string>("password");
+const invalidCredentials = ref<string | null>();
 
 const handleLogin = async () => {
   try {
-    const { data, error } = await supabase.auth.signInWithPassword({
-      email: login.value.trim(),
-      password: password.value,
-    });
-
-    if (error) {
-      console.error(error);
-    }
-
-    if (data.user) {
-      navigateTo("/admin/dashboard");
-    }
+    await userStore.signIn(login.value, password.value);
+    navigateTo("/admin/dashboard");
   } catch (error: any) {
     console.error(error);
+    invalidCredentials.value = "Błędne dane logowania. Spróbuj ponownie.";
   }
 };
 
@@ -94,9 +88,17 @@ const onSubmit = handleSubmit(handleLogin);
 
       <button
         type="submit"
-        class="mt-12 w-full h-12 md:h-16 bg-neutral-800 hover:bg-black md:text-lg text-gray-100 border-2 border-gray-100 hover:border-black ring-2 ring-black font-semibold transition-colors duration-300 ease-in-out"
+        :disabled="userStore.loading"
+        class="relative w-full py-2 md:py-3 bg-neutral-800 hover:bg-black text-sm md:text-base text-gray-100 border-2 border-gray-100 hover:border-black ring-2 ring-black transition-colors duration-300 ease-in-out disabled:opacity-70"
       >
-        Zaloguj
+        <div
+          v-if="userStore.loading"
+          class="absolute inset-0 flex items-center justify-center"
+        >
+          <i class="pi pi-spin pi-spinner text-xl md:text-2xl"></i>
+        </div>
+
+        <span :class="{ invisible: userStore.loading }">Zaloguj</span>
       </button>
     </form>
   </section>

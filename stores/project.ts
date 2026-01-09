@@ -5,7 +5,7 @@ export const useProjectStore = defineStore("project", {
   state: () => ({
     isProjectFormOpen: false as boolean,
     mode: "new" as "new" | "edit",
-    data: {} as Project,
+    data: null as Project | null,
   }),
   actions: {
     openProjectForm(mode: "new" | "edit", data?: Project) {
@@ -15,6 +15,7 @@ export const useProjectStore = defineStore("project", {
     },
     closeProjectForm() {
       this.isProjectFormOpen = false;
+      this.data = null;
     },
   },
 });

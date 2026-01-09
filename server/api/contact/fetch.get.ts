@@ -1,5 +1,5 @@
 import { serverSupabaseClient } from "#supabase/server";
-import type ContactData from "~/models/Contact";
+import type Contact from "~/models/Contact";
 
 export default defineEventHandler(async (event) => {
   const supabase = await serverSupabaseClient(event);
@@ -10,5 +10,5 @@ export default defineEventHandler(async (event) => {
     throw createError({ statusCode: 500, statusMessage: error.message });
   }
 
-  return (data?.[0] as ContactData) ?? null;
+  return (data?.[0] as Contact) ?? null;
 });

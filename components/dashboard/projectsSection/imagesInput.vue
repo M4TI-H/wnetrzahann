@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import type ImageObject from "~/models/ImageObject";
 
+const { uploadImage } = useImage();
 const images = ref<ImageObject[]>([]);
 
 const handleFileSelect = (event: Event) => {
@@ -32,6 +33,25 @@ const removeImage = (index: number) => {
     images.value[0].isCover = true;
   }
 };
+
+const uploadCoverImage = async (): Promise<string | null> => {
+  const cover = images.value.find((img) => img.isCover);
+
+  if (!cover) return null;
+
+  const publicUrl = await uploadImage(cover.file);
+
+  return publicUrl;
+};
+
+const reset = () => {
+  images.value = [];
+};
+
+defineExpose({
+  uploadCoverImage,
+  reset,
+});
 </script>
 
 <template>
@@ -75,7 +95,7 @@ const removeImage = (index: number) => {
           @click="setAsCover(index)"
           class="absolute top-1 left-1 bg-black/60 text-gray-100 text-xs p-1 opacity-0 group-hover:opacity-100 transition-opacity"
         >
-          Ustaw jako okładkę
+          {{ image.isCover ? "Okładka" : "Ustaw jako okładkę" }}
         </button>
       </div>
     </div>

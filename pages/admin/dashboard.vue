@@ -4,6 +4,7 @@ import ProjectsList from "~/components/dashboard/projectsSection/projectsList.vu
 
 definePageMeta({
   layout: "admin",
+  middleware: "auth",
 });
 </script>
 
