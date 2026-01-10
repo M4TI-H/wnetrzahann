@@ -5,10 +5,12 @@ import { z } from "zod";
 import { toTypedSchema } from "@vee-validate/zod";
 import type Project from "~/models/Project";
 import { useCreateProject } from "~/composables/projects/useCreateProject";
+import { useGallery } from "~/composables/images/useGallery";
 
 const projectStore = useProjectStore();
 
 const { createProject, projectLoading } = useCreateProject();
+const { saveGalleryImages, galleryUploadLoading } = useGallery();
 
 const imagesInputRef = ref<InstanceType<typeof ImagesInput> | null>(null);
 const validationSchema = toTypedSchema(
@@ -78,12 +80,23 @@ const onSubmit = handleSubmit(async (values) => {
   };
 
   try {
-    await createProject(payload);
+    const newProjectId = await createProject(payload);
+
+    if (!newProjectId) {
+      console.error("Nie udało się pobrać ID nowego projektu");
+      return;
+    }
 
     if (imagesInputRef.value) {
+      const galleryUrls = await imagesInputRef.value.uploadGalleryImages();
+
+      if (galleryUrls.length > 0) {
+        await saveGalleryImages(newProjectId, galleryUrls);
+      }
       imagesInputRef.value.reset();
     }
 
+    await refreshNuxtData("projects-list");
     projectStore.closeProjectForm();
   } catch (e) {
     console.error("Błąd tworzenia projektu", e);

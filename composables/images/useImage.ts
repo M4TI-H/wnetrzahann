@@ -1,4 +1,4 @@
-export function useImage() {
+export const useImage = () => {
   const supabase = useSupabaseClient();
   const uploadLoading = ref<boolean>(false);
   const uploadError = ref<Error | null>(null);
@@ -28,4 +28,4 @@ export function useImage() {
   };
 
   return { uploadImage, imageUrl, uploadLoading, uploadError };
-}
+};

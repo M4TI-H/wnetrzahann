@@ -8,7 +8,6 @@ definePageMeta({
 
 const { y: scrollY } = useWindowScroll();
 
-const { openContactForm } = useContactForm();
 const secondSection = ref<HTMLElement | null>(null);
 
 let snapping = false;

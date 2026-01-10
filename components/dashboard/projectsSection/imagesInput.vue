@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { useImage } from "~/composables/images/useImage";
 import type ImageObject from "~/models/ImageObject";
 
 const { uploadImage } = useImage();
@@ -44,12 +45,24 @@ const uploadCoverImage = async (): Promise<string | null> => {
   return publicUrl;
 };
 
+const uploadGalleryImages = async (): Promise<string[]> => {
+  const galleryImages = images.value.filter((img) => !img.isCover);
+
+  if (galleryImages.length === 0) return [];
+
+  const uploadPromises = galleryImages.map((img) => uploadImage(img.file));
+  const results = await Promise.all(uploadPromises);
+
+  return results.filter((url): url is string => url !== null);
+};
+
 const reset = () => {
   images.value = [];
 };
 
 defineExpose({
   uploadCoverImage,
+  uploadGalleryImages,
   reset,
 });
 </script>
@@ -84,14 +97,20 @@ defineExpose({
           image.isCover ? 'border-4 border-amber-500' : 'border border-black'
         "
       >
-        <img :src="image.previewUrl" class="w-full h-full object-cover" />
+        <img
+          :src="image.previewUrl"
+          class="w-full h-full object-cover"
+          draggable="false"
+        />
         <button
+          type="button"
           @click="removeImage(index)"
           class="absolute top-1 right-1 flex items-center justify-center bg-black/60 text-gray-100 p-1 opacity-0 group-hover:opacity-100 transition-opacity"
         >
           <i class="pi pi-trash"></i>
         </button>
         <button
+          type="button"
           @click="setAsCover(index)"
           class="absolute top-1 left-1 bg-black/60 text-gray-100 text-xs p-1 opacity-0 group-hover:opacity-100 transition-opacity"
         >

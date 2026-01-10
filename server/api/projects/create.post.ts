@@ -24,14 +24,8 @@ export default defineEventHandler(async (event) => {
 
   const { data, error } = await supabase
     .from("projects")
-    .insert({
-      name: body.name,
-      category: body.category,
-      area: body.area,
-      creation_date: body.creation_date,
-      cover: body.cover,
-    })
-    .select("id")
+    .insert(body)
+    .select()
     .single();
 
   if (error) {
@@ -45,5 +39,5 @@ export default defineEventHandler(async (event) => {
     });
   }
 
-  return { success: true };
+  return data;
 });

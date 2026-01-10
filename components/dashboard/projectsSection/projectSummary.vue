@@ -10,11 +10,15 @@ const prop = defineProps<{
 
 <template>
   <div class="w-full flex flex-col md:flex-row gap-2">
-    <img :src="data.cover" class="object-cover h-48 lg:h-56" />
+    <img
+      :src="data.cover"
+      class="object-cover h-48 lg:h-56"
+      draggable="false"
+    />
     <div class="flex-1 flex flex-col gap-1">
       <div class="w-full flex items-start justify-between">
         <p class="text-3xl">{{ data.name }}</p>
-        <p class="text-sm text-gray-500">{{ data.creationDate }}</p>
+        <p class="text-sm text-gray-500">{{ data.creation_date }}</p>
       </div>
       <p class="text-sm sm:text-base">{{ data.category }}</p>
       <div class="flex items-center gap-2 text-xs">

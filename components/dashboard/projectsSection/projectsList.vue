@@ -1,66 +1,14 @@
 <script setup lang="ts">
+import { useFetchProjects } from "~/composables/projects/useFetchProjects";
 import ProjectSummary from "./projectSummary.vue";
 
 const projectStore = useProjectStore();
 
-const projects = [
-  {
-    id: 0,
-    name: "F403",
-    category: "Projekt prywatny",
-    creationDate: "09/01/2025",
-    cover: "../indexImages/1.jpg",
-    area: 100,
-  },
-  {
-    id: 1,
-    name: "F404",
-    category: "Projekt prywatny",
-    creationDate: "09/01/2025",
-    cover: "../indexImages/2.jpg",
-    area: 100,
-  },
-  {
-    id: 2,
-    name: "F405",
-    category: "Projekt komercyjny",
-    creationDate: "09/01/2025",
-    cover: "../indexImages/3.jpg",
-    area: 100,
-  },
-  {
-    id: 3,
-    name: "F406",
-    category: "Projekt komercyjny",
-    creationDate: "09/01/2025",
-    cover: "../indexImages/4.jpg",
-    area: 100,
-  },
-  {
-    id: 4,
-    name: "F403",
-    category: "Projekt prywatny",
-    creationDate: "09/01/2025",
-    cover: "../indexImages/1.jpg",
-    area: 100,
-  },
-  {
-    id: 5,
-    name: "F404",
-    category: "Projekt prywatny",
-    creationDate: "09/01/2025",
-    cover: "../indexImages/2.jpg",
-    area: 100,
-  },
-  {
-    id: 6,
-    name: "F405",
-    category: "Projekt komercyjny",
-    creationDate: "09/01/2025",
-    cover: "../indexImages/3.jpg",
-    area: 100,
-  },
-];
+const { projectsData, projectsLoading, projectsRefresh } = useFetchProjects();
+
+onMounted(async () => {
+  await projectsRefresh();
+});
 </script>
 
 <template>
@@ -86,14 +34,20 @@ const projects = [
         <i class="pi pi-plus"></i>
       </button>
     </div>
-    <div class="w-full h-full flex flex-col gap-4 overflow-y-auto">
-      <div v-for="(project, num) in projects" :key="project.id">
+    <div
+      v-if="projectsData"
+      class="w-full h-full flex flex-col gap-4 overflow-y-auto"
+    >
+      <div v-for="(project, num) in projectsData" :key="project.id">
         <ProjectSummary :data="project" />
         <div
-          v-if="num < projects.length - 1"
+          v-if="num < projectsData.length - 1"
           class="w-full h-px bg-gray-500 mt-4"
         ></div>
       </div>
+    </div>
+    <div v-if="projectsLoading" class="w-full flex justify-center py-8">
+      <i class="pi pi-spinner pi-spin"></i>
     </div>
   </section>
 </template>

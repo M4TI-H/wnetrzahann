@@ -5,8 +5,9 @@ export function useCreateProject() {
   const projectLoading = ref<boolean>(false);
 
   const createProject = async (data: Omit<Project, "id">) => {
+    projectLoading.value = true;
     try {
-      await $fetch<Project>("/api/projects/create", {
+      const response = await $fetch<Project>("/api/projects/create", {
         method: "POST",
         body: {
           name: data.name,
@@ -17,11 +18,11 @@ export function useCreateProject() {
         },
       });
 
-      return "success";
+      return response.id;
     } catch (error: any) {
       projectError.value = error.data?.statusMessage || "Wystąpił błąd zapisu";
-      console.error("Update Error:", error);
-      return "error";
+      console.error("Save Error:", error);
+      return null;
     } finally {
       projectLoading.value = false;
     }
