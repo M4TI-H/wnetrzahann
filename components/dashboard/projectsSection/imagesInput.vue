@@ -68,7 +68,7 @@ defineExpose({
 </script>
 
 <template>
-  <div class="flex flex-col gap-4">
+  <div class="w-full h-full flex flex-col gap-4">
     <div class="w-full flex items-center justify-between">
       <label
         class="w-fit flex items-center gap-2 py-1 md:py-2 px-2 md:px-4 text-xs text-gray-500 bg-gray-100 hover:bg-gray-200 border border-black transition-colors duration-300 ease-in-out cursor-pointer"
@@ -88,11 +88,13 @@ defineExpose({
       </p>
     </div>
 
-    <div class="h-56 grid grid-cols-2 gap-2 overflow-y-auto">
+    <div
+      class="w-full whitespace-nowrap flex gap-2 md:hidden h-32 overflow-x-auto"
+    >
       <div
         v-for="(image, index) in images"
         :key="index"
-        class="relative h-32 group"
+        class="relative flex-shrink-0 h-32 group"
         :class="
           image.isCover ? 'border-4 border-amber-500' : 'border border-black'
         "
@@ -116,6 +118,24 @@ defineExpose({
         >
           {{ image.isCover ? "Okładka" : "Ustaw jako okładkę" }}
         </button>
+      </div>
+    </div>
+    <div
+      class="mt-1 hidden md:grid grid-cols-2 gap-2 overflow-y-auto max-h-[20rem]"
+    >
+      <div
+        v-for="(image, index) in images"
+        :key="index"
+        class="relative h-32 group shrink-0"
+        :class="
+          image.isCover ? 'border-4 border-amber-500' : 'border border-black'
+        "
+      >
+        <img
+          :src="image.previewUrl"
+          class="w-full h-full object-cover"
+          draggable="false"
+        />
       </div>
     </div>
   </div>

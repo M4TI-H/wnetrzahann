@@ -19,19 +19,47 @@ const editValue = ref<boolean>(false);
 
 const { contactLoading, updateContactData } = useEditContact();
 
-const fieldSchema = toTypedSchema(z.string().min(1, "Pole nie może być puste"));
+const fieldSchema = computed(() => {
+  let schema = z.string().min(1, "Pole nie może być puste");
 
-const { value: fieldValue, errorMessage } = useField<string>(
-  "fieldValue",
-  fieldSchema,
-  { initialValue: props.value }
-);
+  if (props.type === "email") {
+    schema = schema.email("Niepoprawny adres e-mail");
+  } else if (
+    props.type === "facebook" ||
+    "instagram" ||
+    "youtube" ||
+    "linkedin"
+  ) {
+    schema = schema.url("Niepoprawny adres url");
+  }
+
+  return toTypedSchema(schema);
+});
+
+const fieldOptions = {
+  validateOnValueUpdate: false,
+  validateOnInput: false,
+  validateOnBlur: false,
+  initialValue: props.value,
+};
+
+const {
+  value: fieldValue,
+  errorMessage,
+  validate,
+  resetField,
+} = useField<string>("fieldValue", fieldSchema, fieldOptions);
 
 const toggleEdit = () => {
+  resetField({ value: props.value });
   editValue.value = !editValue.value;
 };
 
 const handleChange = async () => {
+  const { valid } = await validate();
+
+  if (!valid) return;
+
   await updateContactData(props.type, fieldValue.value);
   editValue.value = false;
   emit("update");
@@ -39,12 +67,22 @@ const handleChange = async () => {
 </script>
 <template>
   <div class="flex flex-col">
-    <div
-      class="w-fit flex items-center gap-2 px-2 py-1 text-sm border-x border-t border-black"
-    >
-      <i :class="props.icon"></i>
-      <p class="text-xs md:text-sm">{{ props.label }}</p>
+    <div class="w-full flex items-center">
+      <div
+        class="w-fit flex items-center gap-2 px-2 py-1 text-sm border-x border-t border-black"
+      >
+        <i :class="props.icon"></i>
+        <p class="text-xs md:text-sm">{{ props.label }}</p>
+      </div>
+      <div
+        v-if="errorMessage"
+        class="w-fit flex items-center gap-2 px-1 md:px-2 py-1 text-sm border-x md:border-l-0 border-t border-red-800 bg-red-200"
+      >
+        <i class="pi pi-exclamation-triangle text-red-800"></i>
+        <p class="text-xs md:text-sm text-red-800">Błąd: {{ errorMessage }}</p>
+      </div>
     </div>
+
     <div
       v-if="!editValue"
       class="w-full flex items-center justify-between border border-gray-500"
@@ -79,7 +117,7 @@ const handleChange = async () => {
           <i class="pi pi-check text-gray-100"></i>
         </button>
         <button
-          @click="toggleEdit"
+          @click="toggleEdit()"
           class="text-xs p-2 md:p-3 bg-gray-100 hover:bg-gray-300 transition-colors duration-300 ease-in-out"
         >
           <i class="pi pi-times text-neutral-800"></i>

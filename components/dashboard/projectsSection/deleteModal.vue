@@ -1,5 +1,13 @@
 <script setup lang="ts">
 const deleteModalStore = useDeleteModalStore();
+
+useHead({
+  bodyAttrs: {
+    class: computed(() =>
+      deleteModalStore.isModalOpened ? "overflow-hidden" : ""
+    ),
+  },
+});
 </script>
 
 <template>

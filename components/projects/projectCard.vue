@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { useFetchSingle } from "~/composables/projects/useFetchSingle";
 import type Project from "~/models/Project";
 
 const prop = defineProps<{
@@ -8,7 +9,7 @@ const prop = defineProps<{
 <template>
   <div class="w-full md:h-[32rem]">
     <NuxtLink
-      :to="`/projekty/${data.name}`"
+      :to="`/projekty/${data.id}`"
       class="relative w-full h-full bg-gray-300"
     >
       <img :src="data.cover" class="h-full w-full object-cover" />
@@ -18,14 +19,14 @@ const prop = defineProps<{
         <p
           class="absolute top-2 md:relative text-sm lg:text-base text-white font-thin"
         >
-          Projekt {{ data.category.toLowerCase() }}
+          {{ data.category[0].toUpperCase() + data.category.slice(1) }}
         </p>
         <div class="w-full flex items-end justify-between">
           <p class="text-xl md:text-2xl lg:text-3xl text-white">
             {{ data.name.toUpperCase() }}
           </p>
           <p class="text-sm lg:text-base text-white font-thin">
-            {{ data.creationDate }}
+            {{ data.creation_date }}
           </p>
         </div>
       </div>

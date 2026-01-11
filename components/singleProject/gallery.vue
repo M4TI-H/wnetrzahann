@@ -1,7 +1,9 @@
 <script setup lang="ts">
+import type Project from "~/models/Project";
+
 const props = defineProps<{
   images: any;
-  name: string;
+  data: Project;
 }>();
 
 const emit = defineEmits<{
@@ -35,11 +37,11 @@ const vObserve = {
 </script>
 <template>
   <div
-    class="relative w-full md:w-2/3 min-h-screen flex flex-col gap-4 pt-24 pb-4 px-4 mx-auto"
+    class="relative w-full md:w-2/3 min-h-screen flex flex-col gap-4 pt-20 md:pt-24 pb-4 px-4 mx-auto"
   >
     <NuxtLink
       to="/projekty"
-      class="group w-min flex md:hidden items-center gap-2 p-2 bg-gray-100 hover:bg-gray-200 active:bg-gray-200 outline-0 border border-black transition-colors duration-300 ease-in-out"
+      class="group w-min flex md:hidden items-center gap-2 p-2 text-xs md:text-sm bg-gray-100 hover:bg-gray-200 active:bg-gray-200 outline-0 border border-black transition-colors duration-300 ease-in-out"
     >
       <i
         class="pi pi-arrow-left text-sm transition-transform duration-300 group-hover:-translate-x-1"
@@ -48,7 +50,7 @@ const vObserve = {
     </NuxtLink>
 
     <div class="relative w-full flex flex-row items-start justify-between">
-      <h1 class="md:hidden text-4xl font-semibold">{{ props.name }}</h1>
+      <h1 class="md:hidden text-4xl font-semibold">{{ props.data.name }}</h1>
       <div class="hidden md:flex items-center flex-1 gap-4">
         <NuxtLink
           to="/projekty"
@@ -60,22 +62,26 @@ const vObserve = {
           Powrót
         </NuxtLink>
         <h1 class="absolute left-1/2 -translate-x-1/2 text-5xl">
-          {{ props.name }}
+          {{ props.data.name }}
         </h1>
       </div>
 
       <div class="flex flex-col items-end">
-        <p class="text-gray-500">Projekt prywatny</p>
+        <p class="text-gray-500 text-xs md:text-sm">
+          {{
+            props.data.category[0].toUpperCase() + props.data.category.slice(1)
+          }}
+        </p>
 
-        <div class="flex items-center gap-2">
-          <i class="pi pi-clock text-gray-500 text-sm"></i>
-          <p class="text-gray-500 sm:text-lg">01.01.2026</p>
+        <div class="flex items-center gap-2 text-xs md:text-sm">
+          <i class="pi pi-clock text-gray-500"></i>
+          <p class="text-gray-500">{{ props.data.creation_date }}</p>
         </div>
-        <div class="flex items-center gap-2">
+        <div class="flex items-center gap-2 text-xs md:text-sm">
           <i
-            class="pi pi-arrow-up-right-and-arrow-down-left-from-center text-gray-500 text-sm"
+            class="pi pi-arrow-up-right-and-arrow-down-left-from-center text-gray-500"
           ></i>
-          <p class="text-gray-500 sm:text-lg">100 m&sup2;</p>
+          <p class="text-gray-500">{{ props.data.area }} m&sup2;</p>
         </div>
       </div>
     </div>

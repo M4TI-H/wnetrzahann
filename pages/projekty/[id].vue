@@ -1,12 +1,21 @@
 <script setup lang="ts">
 import FullscreenGallery from "~/components/singleProject/fullscreenGallery.vue";
 import Gallery from "~/components/singleProject/gallery.vue";
+import { useFetchSingle } from "~/composables/projects/useFetchSingle";
 
 const route = useRoute();
-const projectName = computed(() => String(route.params.name ?? ""));
+const projectID = computed(() => Number(route.params.id) ?? 0);
 
 definePageMeta({
   navbar: "compact",
+});
+
+const { projectData, projectLoading, projectRefresh } = useFetchSingle(
+  projectID.value
+);
+
+onMounted(async () => {
+  await projectRefresh;
 });
 
 const images = [
@@ -56,7 +65,12 @@ const previousImage = () => {
 
 <template>
   <section class="flex-1 flex flex-col items-center pb-4">
-    <Gallery :images="images" :name="projectName" @showImage="displayImage" />
+    <Gallery
+      v-if="projectData"
+      :images="images"
+      :data="projectData"
+      @showImage="displayImage"
+    />
     <FullscreenGallery
       v-if="fullscreenImage !== null"
       :image="images[fullscreenImage].image"

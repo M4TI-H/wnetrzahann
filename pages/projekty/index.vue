@@ -2,69 +2,15 @@
 import ProjectCard from "~/components/projects/projectCard.vue";
 import ProjectFilter from "~/components/projects/projectFilter.vue";
 import SearchBar from "~/components/projects/searchBar.vue";
+import { useFetchProjects } from "~/composables/projects/useFetchProjects";
 
 definePageMeta({
   navbar: "compact",
 });
 
-const projects = [
-  {
-    id: 0,
-    name: "F403",
-    category: "Prywatny",
-    creation_date: "2025",
-    area: 100,
-    cover: "indexImages/1.jpg",
-  },
-  {
-    id: 1,
-    name: "F404",
-    category: "Prywatny",
-    creation_date: "2025",
-    cover: "/indexImages/2.jpg",
-    area: 100,
-  },
-  {
-    id: 2,
-    name: "F405",
-    category: "Komercyjny",
-    creation_date: "2025",
-    cover: "/indexImages/3.jpg",
-    area: 100,
-  },
-  {
-    id: 3,
-    name: "F406",
-    category: "Komercyjny",
-    creation_date: "2025",
-    cover: "/indexImages/4.jpg",
-    area: 100,
-  },
-  {
-    id: 4,
-    name: "F403",
-    category: "Prywatny",
-    creation_date: "2025",
-    cover: "/indexImages/1.jpg",
-    area: 100,
-  },
-  {
-    id: 5,
-    name: "F404",
-    category: "Prywatny",
-    creation_date: "2025",
-    cover: "/indexImages/2.jpg",
-    area: 100,
-  },
-  {
-    id: 6,
-    name: "F405",
-    category: "Komercyjny",
-    creation_date: "2025",
-    cover: "/indexImages/3.jpg",
-    area: 100,
-  },
-];
+const projectStore = useProjectStore();
+
+const { projectsData, projectsLoading, projectsRefresh } = useFetchProjects();
 
 const vObserve = {
   mounted: (el: HTMLElement) => {
@@ -90,6 +36,10 @@ const vObserve = {
     observer.observe(el);
   },
 };
+
+onMounted(async () => {
+  await projectsRefresh();
+});
 </script>
 
 <template>
@@ -101,7 +51,7 @@ const vObserve = {
     <ProjectFilter />
 
     <div class="w-full grid md:grid-cols-2 gap-4 md:gap-8 px-4 md:px-8">
-      <div v-for="project in projects" :key="project.id" v-observe>
+      <div v-for="project in projectsData" :key="project.id" v-observe>
         <ProjectCard :data="project" />
       </div>
     </div>
