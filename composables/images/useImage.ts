@@ -4,8 +4,8 @@ export const useImage = () => {
   const uploadError = ref<Error | null>(null);
   const imageUrl = ref<string | null>(null);
 
-  const uploadImage = async (file: File) => {
-    const filePath = `${file.name}_${Date.now()}`;
+  const uploadImage = async (projectId: number, file: File) => {
+    const filePath = `${projectId}/${file.name}_${Date.now()}`;
 
     const { error } = await supabase.storage
       .from("images")

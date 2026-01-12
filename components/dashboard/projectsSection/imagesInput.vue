@@ -35,22 +35,24 @@ const removeImage = (index: number) => {
   }
 };
 
-const uploadCoverImage = async (): Promise<string | null> => {
+const uploadCoverImage = async (projectId: number): Promise<string | null> => {
   const cover = images.value.find((img) => img.isCover);
 
   if (!cover) return null;
 
-  const publicUrl = await uploadImage(cover.file);
+  const publicUrl = await uploadImage(projectId, cover.file);
 
   return publicUrl;
 };
 
-const uploadGalleryImages = async (): Promise<string[]> => {
+const uploadGalleryImages = async (projectId: number): Promise<string[]> => {
   const galleryImages = images.value.filter((img) => !img.isCover);
 
   if (galleryImages.length === 0) return [];
 
-  const uploadPromises = galleryImages.map((img) => uploadImage(img.file));
+  const uploadPromises = galleryImages.map((img) =>
+    uploadImage(projectId, img.file)
+  );
   const results = await Promise.all(uploadPromises);
 
   return results.filter((url): url is string => url !== null);

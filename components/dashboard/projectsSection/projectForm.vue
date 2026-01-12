@@ -5,11 +5,13 @@ import { z } from "zod";
 import { toTypedSchema } from "@vee-validate/zod";
 import { useCreateProject } from "~/composables/projects/useCreateProject";
 import { useGallery } from "~/composables/images/useGallery";
+import { useUploadCover } from "~/composables/projects/useUploadCover";
 
 const projectStore = useProjectStore();
 
 const { createProject, projectLoading } = useCreateProject();
 const { saveGalleryImages, galleryUploadLoading } = useGallery();
+const { uploadCover, coverUploadLoading } = useUploadCover();
 
 const imagesInputRef = ref<InstanceType<typeof ImagesInput> | null>(null);
 
@@ -82,22 +84,12 @@ const onSubmit = handleSubmit(async (values) => {
     finalDate = `${d}/${m}/${y}`;
   }
 
-  let coverUrl = null;
-  if (imagesInputRef.value) {
-    coverUrl = await imagesInputRef.value.uploadCoverImage();
-  }
-
-  if (!coverUrl) {
-    imageError.value = "Dodaj zdjęcia do albumu.";
-    return;
-  }
-
   const payload = {
     name: values.name,
     category: values.category,
     area: values.area,
     creation_date: finalDate,
-    cover: coverUrl,
+    cover: "",
   };
 
   try {
@@ -109,11 +101,22 @@ const onSubmit = handleSubmit(async (values) => {
     }
 
     if (imagesInputRef.value) {
-      const galleryUrls = await imagesInputRef.value.uploadGalleryImages();
+      const coverUrl = await imagesInputRef.value.uploadCoverImage(
+        newProjectId
+      );
+
+      if (coverUrl) {
+        await uploadCover(newProjectId, coverUrl);
+      }
+
+      const galleryUrls = await imagesInputRef.value.uploadGalleryImages(
+        newProjectId
+      );
 
       if (galleryUrls.length > 0) {
         await saveGalleryImages(newProjectId, galleryUrls);
       }
+
       imagesInputRef.value.reset();
     }
 

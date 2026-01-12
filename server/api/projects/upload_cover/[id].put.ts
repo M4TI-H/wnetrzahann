@@ -17,38 +17,19 @@ export default defineEventHandler(async (event) => {
   if (!id || isNaN(id)) {
     throw createError({ statusCode: 400, statusMessage: "Invalid id" });
   }
+  const body = await readBody<{
+    cover: string;
+  }>(event);
 
-  const { data: list } = await supabase.storage
-    .from("images")
-    .list(id.toString());
-
-  const imagesToRemove = list?.map((f) => `${id}/${f.name}`) || [];
-
-  if (imagesToRemove.length > 0) {
-    await supabase.storage.from("images").remove(imagesToRemove);
-  }
-
-  const { error: imagesError } = await supabase
-    .from("project_images")
-    .delete()
-    .eq("project_id", id);
-
-  if (imagesError) {
-    throw createError({
-      statusCode: 500,
-      statusMessage: imagesError.message,
-    });
-  }
-
-  const { error: deleteError } = await supabase
+  const { error } = await supabase
     .from("projects")
-    .delete()
+    .update({ cover: body.cover })
     .eq("id", id);
 
-  if (deleteError) {
+  if (error) {
     throw createError({
       statusCode: 500,
-      statusMessage: deleteError.message,
+      statusMessage: error.message,
     });
   }
 
