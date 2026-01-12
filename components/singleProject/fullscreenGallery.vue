@@ -1,6 +1,6 @@
 <script setup lang="ts">
 const props = defineProps<{
-  image: any;
+  image: string;
   hasNext: boolean;
   hasPrevious: boolean;
 }>();

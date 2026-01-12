@@ -138,6 +138,20 @@ defineExpose({
           class="w-full h-full object-cover"
           draggable="false"
         />
+        <button
+          type="button"
+          @click="removeImage(index)"
+          class="absolute top-1 right-1 flex items-center justify-center bg-black/60 text-gray-100 p-1 opacity-0 group-hover:opacity-100 transition-opacity"
+        >
+          <i class="pi pi-trash"></i>
+        </button>
+        <button
+          type="button"
+          @click="setAsCover(index)"
+          class="absolute top-1 left-1 bg-black/60 text-gray-100 text-xs p-1 opacity-0 group-hover:opacity-100 transition-opacity"
+        >
+          {{ image.isCover ? "Okładka" : "Ustaw jako okładkę" }}
+        </button>
       </div>
     </div>
   </div>

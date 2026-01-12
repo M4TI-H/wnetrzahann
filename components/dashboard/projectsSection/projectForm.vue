@@ -66,8 +66,6 @@ const { value: area, errorMessage: areaError } = useField<number>(
 const { value: creationDate, errorMessage: creationDateError } =
   useField<string>("creationDate", undefined, fieldOptions);
 
-const imageError = ref<string | null>(null);
-
 const onSubmit = handleSubmit(async (values) => {
   let finalDate = "";
   if (!values.creationDate) {

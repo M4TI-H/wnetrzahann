@@ -2,6 +2,7 @@
 import FullscreenGallery from "~/components/singleProject/fullscreenGallery.vue";
 import Gallery from "~/components/singleProject/gallery.vue";
 import { useFetchSingle } from "~/composables/projects/useFetchSingle";
+import { useFetchImages } from "~/composables/images/useFetchImages";
 
 const route = useRoute();
 const projectID = computed(() => Number(route.params.id) ?? 0);
@@ -14,32 +15,14 @@ const { projectData, projectLoading, projectRefresh } = useFetchSingle(
   projectID.value
 );
 
+const { imagesList, imagesLoading, imagesRefresh } = useFetchImages(
+  projectID.value
+);
+
 onMounted(async () => {
   await projectRefresh;
+  await imagesRefresh();
 });
-
-const images = [
-  {
-    id: 0,
-    image: "/projectImages/1.jpg",
-  },
-  {
-    id: 1,
-    image: "/projectImages/2.jpg",
-  },
-  {
-    id: 2,
-    image: "/projectImages/3.jpg",
-  },
-  {
-    id: 3,
-    image: "/projectImages/4.jpg",
-  },
-  {
-    id: 4,
-    image: "/projectImages/5.jpg",
-  },
-];
 
 const fullscreenImage = ref<number | null>(null);
 
@@ -51,14 +34,16 @@ const displayImage = (id: number) => {
 const activeIndex = ref<number>(0);
 
 const nextImage = () => {
-  if (activeIndex.value === images.length - 1) return;
-  activeIndex.value = activeIndex.value + 1;
+  const totalImages = imagesList.value?.length ?? 0;
+
+  if (activeIndex.value >= totalImages - 1) return;
+  activeIndex.value++;
   fullscreenImage.value = activeIndex.value;
 };
 
 const previousImage = () => {
-  if (activeIndex.value === 0) return;
-  activeIndex.value = activeIndex.value - 1;
+  if (activeIndex.value <= 0) return;
+  activeIndex.value--;
   fullscreenImage.value = activeIndex.value;
 };
 </script>
@@ -66,16 +51,17 @@ const previousImage = () => {
 <template>
   <section class="flex-1 flex flex-col items-center pb-4">
     <Gallery
-      v-if="projectData"
-      :images="images"
+      v-if="projectData && imagesList"
       :data="projectData"
+      :images="imagesList"
+      :isLoading="imagesLoading"
       @showImage="displayImage"
     />
     <FullscreenGallery
-      v-if="fullscreenImage !== null"
-      :image="images[fullscreenImage].image"
+      v-if="fullscreenImage !== null && imagesList"
+      :image="imagesList[fullscreenImage].url"
       :hasPrevious="activeIndex > 0"
-      :hasNext="activeIndex < images.length - 1"
+      :hasNext="activeIndex < imagesList.length - 1"
       @previous="previousImage"
       @next="nextImage"
       @close="fullscreenImage = null"

@@ -1,8 +1,10 @@
 <script setup lang="ts">
+import type GalleryImage from "~/models/GalleryImage";
 import type Project from "~/models/Project";
 
 const props = defineProps<{
-  images: any;
+  images: GalleryImage[];
+  isLoading: boolean;
   data: Project;
 }>();
 
@@ -86,13 +88,14 @@ const vObserve = {
       </div>
     </div>
     <div
+      v-if="images"
       class="grid grid-cols-2 gap-2 sm:gap-4 lg:gap-8 w-full mx-auto overflow-hidden"
     >
       <div
         v-observe
         v-for="(image, idx) in images"
-        @click="emit('showImage', image.id)"
-        :key="image.id"
+        @click="emit('showImage', images[idx].id)"
+        :key="idx"
         class="relative overflow-hidden cursor-pointer"
         :class="[
           Number(idx) % 3 === 0 ||
@@ -102,11 +105,12 @@ const vObserve = {
         ]"
       >
         <img
-          :src="image.image"
+          :src="image.url"
           draggable="false"
           class="w-full h-full object-cover transition-transform duration-500 ease-in-out hover:scale-105"
         />
       </div>
     </div>
+    <i v-if="isLoading" class="pi pi-spinner pi-spin"></i>
   </div>
 </template>
