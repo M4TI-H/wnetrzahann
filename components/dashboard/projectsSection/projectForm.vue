@@ -112,6 +112,8 @@ const onSubmit = handleSubmit(async (values) => {
         await uploadCover(newProjectId, coverUrl);
       }
 
+      await imagesInputRef.value.uploadGalleryImages(newProjectId);
+
       imagesInputRef.value.reset();
     }
 
