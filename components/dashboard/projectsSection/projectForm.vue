@@ -4,13 +4,11 @@ import { useField, useForm } from "vee-validate";
 import { z } from "zod";
 import { toTypedSchema } from "@vee-validate/zod";
 import { useCreateProject } from "~/composables/projects/useCreateProject";
-import { useGallery } from "~/composables/images/useGallery";
 import { useUploadCover } from "~/composables/projects/useUploadCover";
 
 const projectStore = useProjectStore();
 
 const { createProject, projectLoading } = useCreateProject();
-const { saveGalleryImages, galleryUploadLoading } = useGallery();
 const { uploadCover, coverUploadLoading } = useUploadCover();
 
 const imagesInputRef = ref<InstanceType<typeof ImagesInput> | null>(null);
@@ -19,9 +17,7 @@ const validationSchema = toTypedSchema(
   z.object({
     name: z.string().min(1, { message: "Podaj nazwę projektu." }),
     category: z.string().min(1, { message: "Wybierz kategorię projektu." }),
-    area: z.coerce
-      .number()
-      .min(0.01, { message: "Podaj wielkość powierzchni." }),
+    area: z.coerce.number().min(0.01, { message: "Podaj powierzchnię." }),
     creationDate: z.string().optional(),
   })
 );
@@ -65,8 +61,17 @@ const { value: area, errorMessage: areaError } = useField<number>(
 );
 const { value: creationDate, errorMessage: creationDateError } =
   useField<string>("creationDate", undefined, fieldOptions);
+const imagesError = ref<string | null>(null);
 
 const onSubmit = handleSubmit(async (values) => {
+  const hasImages =
+    imagesInputRef.value?.images && imagesInputRef.value.images.length > 0;
+
+  if (!hasImages) {
+    imagesError.value = "Dodaj zdjęcia.";
+    return;
+  }
+
   let finalDate = "";
   if (!values.creationDate) {
     const today = new Date();
@@ -105,14 +110,6 @@ const onSubmit = handleSubmit(async (values) => {
 
       if (coverUrl) {
         await uploadCover(newProjectId, coverUrl);
-      }
-
-      const galleryUrls = await imagesInputRef.value.uploadGalleryImages(
-        newProjectId
-      );
-
-      if (galleryUrls.length > 0) {
-        await saveGalleryImages(newProjectId, galleryUrls);
       }
 
       imagesInputRef.value.reset();
@@ -282,7 +279,11 @@ useHead({
           </div>
         </div>
         <div class="w-full md:w-1/2 flex flex-col gap-2">
-          <ImagesInput ref="imagesInputRef" />
+          <ImagesInput
+            ref="imagesInputRef"
+            :imagesError="imagesError"
+            @clearError="imagesError = null"
+          />
         </div>
       </div>
 

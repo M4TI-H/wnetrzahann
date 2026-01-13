@@ -1,5 +1,4 @@
 import { defineStore } from "pinia";
-import { useDeleteImages } from "~/composables/images/useDeleteImages";
 import { useDeleteProject } from "~/composables/projects/useDeleteProject";
 import type Project from "~/models/Project";
 
@@ -16,14 +15,11 @@ export const useDeleteModalStore = defineStore("deleteModal", {
     },
     async deleteProject() {
       const { deleteLoading, deleteProject } = useDeleteProject();
-      const { imageDeleteLoading, deleteImages } = useDeleteImages();
 
       if (!this.project) return;
       const projectId = this.project.id;
       try {
         this.deleteModalLoading = true;
-
-        await deleteImages(this.project.id);
 
         await deleteProject(projectId);
 

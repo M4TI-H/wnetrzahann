@@ -2,6 +2,14 @@
 import { useImage } from "~/composables/images/useImage";
 import type ImageObject from "~/models/ImageObject";
 
+const props = defineProps<{
+  imagesError: string | null;
+}>();
+
+const emit = defineEmits<{
+  (e: "clearError"): void;
+}>();
+
 const { uploadImage } = useImage();
 const images = ref<ImageObject[]>([]);
 
@@ -20,6 +28,7 @@ const handleFileSelect = (event: Event) => {
   }
 
   images.value.push(...files);
+  emit("clearError");
 };
 
 const setAsCover = (index: number) => {
@@ -29,7 +38,13 @@ const setAsCover = (index: number) => {
 };
 
 const removeImage = (index: number) => {
-  const removed = images.value.splice(index, 1)[0];
+  const removed = images.value[index];
+  if (removed.previewUrl) {
+    URL.revokeObjectURL(removed.previewUrl);
+  }
+
+  images.value.splice(index, 1);
+
   if (removed.isCover && images.value.length > 0) {
     images.value[0].isCover = true;
   }
@@ -59,10 +74,12 @@ const uploadGalleryImages = async (projectId: number): Promise<string[]> => {
 };
 
 const reset = () => {
+  images.value.forEach((img) => URL.revokeObjectURL(img.previewUrl));
   images.value = [];
 };
 
 defineExpose({
+  images,
   uploadCoverImage,
   uploadGalleryImages,
   reset,
@@ -89,7 +106,13 @@ defineExpose({
         Wybrane zdjęcia: {{ images.length }}
       </p>
     </div>
-
+    <div
+      v-if="imagesError"
+      class="w-fit flex items-center gap-2 px-2 py-1 text-sm border border-red-800 bg-red-200"
+    >
+      <i class="pi pi-exclamation-triangle text-red-800"></i>
+      <p class="text-xs md:text-sm text-red-800">Błąd: {{ imagesError }}</p>
+    </div>
     <div
       class="w-full whitespace-nowrap flex gap-2 md:hidden h-32 overflow-x-auto"
     >

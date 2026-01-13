@@ -28,18 +28,6 @@ export default defineEventHandler(async (event) => {
     await supabase.storage.from("images").remove(imagesToRemove);
   }
 
-  const { error: imagesError } = await supabase
-    .from("project_images")
-    .delete()
-    .eq("project_id", id);
-
-  if (imagesError) {
-    throw createError({
-      statusCode: 500,
-      statusMessage: imagesError.message,
-    });
-  }
-
   const { error: deleteError } = await supabase
     .from("projects")
     .delete()
