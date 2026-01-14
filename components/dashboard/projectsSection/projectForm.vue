@@ -210,7 +210,7 @@ useHead({
               class="w-full py-1 md:py-2 px-2 md:px-4 outline-0 flex items-center justify-between border border-black"
             >
               <option class="text-xs md:text-sm"></option>
-              <option class="text-xs md:text-sm">Projekt komerycjny</option>
+              <option class="text-xs md:text-sm">Projekt komercyjny</option>
               <option class="text-xs md:text-sm">Projekt prywatny</option>
             </select>
           </div>

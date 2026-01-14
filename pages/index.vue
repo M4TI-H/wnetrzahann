@@ -46,7 +46,7 @@ watch(
       ref="secondSection"
       class="w-full flex flex-col items-center gap-4 py-2 sm:py-4 px-4 sm:px-8"
     >
-      <h1 class="text-4xl">PROJEKTY</h1>
+      <h1 class="text-2xl">PROJEKTY</h1>
       <div class="w-full flex flex-col items-center justify-between">
         <Slider />
       </div>

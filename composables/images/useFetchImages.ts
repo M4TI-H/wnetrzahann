@@ -7,7 +7,7 @@ export const useFetchImages = (id: number) => {
     error: imagesError,
     refresh: imagesRefresh,
   } = useAsyncData<GalleryImage[]>(`project-${id}-images`, () =>
-    $fetch(`/api/gallery/fetch/${id}`)
+    $fetch(`/api/images/fetch/${id}`)
   );
 
   return { imagesList, imagesLoading, imagesError, imagesRefresh };

@@ -1,16 +1,18 @@
 <script setup lang="ts">
 import ProjectCard from "~/components/projects/projectCard.vue";
 import ProjectFilter from "~/components/projects/projectFilter.vue";
-import SearchBar from "~/components/projects/searchBar.vue";
-import { useFetchProjects } from "~/composables/projects/useFetchProjects";
+import { useFetchGalleryProjects } from "~/composables/gallery/useFetchGalleryProjects";
 
 definePageMeta({
   navbar: "compact",
 });
 
-const projectStore = useProjectStore();
+const route = useRoute();
+const router = useRouter();
+const galleryStore = useGalleryStore();
 
-const { projectsData, projectsLoading, projectsRefresh } = useFetchProjects();
+const { projectsData, projectsLoading, projectsRefresh } =
+  useFetchGalleryProjects(1, () => galleryStore.filter);
 
 const vObserve = {
   mounted: (el: HTMLElement) => {
@@ -37,20 +39,45 @@ const vObserve = {
   },
 };
 
+watch(
+  () => galleryStore.filter,
+  (newFilter) => {
+    const categoryValue = newFilter as unknown as string;
+
+    router.push({
+      query: {
+        ...route.query,
+        category: categoryValue === "wszystkie" ? undefined : categoryValue,
+      },
+      replace: true,
+    });
+  }
+);
+
 onMounted(async () => {
+  const queryCategory = route.query.category as string;
+  if (
+    queryCategory &&
+    ["prywatne", "komercyjne", "wszystkie"].includes(queryCategory)
+  ) {
+    galleryStore.filter = queryCategory as string;
+  }
+
   await projectsRefresh();
 });
 </script>
 
 <template>
   <section
-    class="flex-1 w-full min-h-screen flex flex-col items-center gap-8 bg-white pt-24 pb-8"
+    class="flex-1 w-full min-h-screen flex flex-col items-center gap-4 bg-white pt-24 pb-8"
   >
-    <h1 class="text-4xl">PROJEKTY</h1>
-    <SearchBar />
+    <h1 class="text-2xl sm:text-3xl lg:text-4xl">PROJEKTY</h1>
     <ProjectFilter />
 
-    <div class="w-full grid md:grid-cols-2 gap-4 md:gap-8 px-4 md:px-8">
+    <div
+      :key="galleryStore.filter"
+      class="w-full grid md:grid-cols-2 gap-4 md:gap-8 px-4 md:px-8"
+    >
       <div v-for="project in projectsData" :key="project.id" v-observe>
         <ProjectCard :data="project" />
       </div>
