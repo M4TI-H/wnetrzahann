@@ -24,6 +24,8 @@ const fieldSchema = computed(() => {
 
   if (props.type === "email") {
     schema = schema.email("Niepoprawny adres e-mail");
+  } else if (props.type === "phone") {
+    return toTypedSchema(schema);
   } else if (
     props.type === "facebook" ||
     "instagram" ||

@@ -2,7 +2,6 @@
 import { useField, useForm } from "vee-validate";
 import { z } from "zod";
 import { toTypedSchema } from "@vee-validate/zod";
-const supabase = useSupabaseClient();
 
 const userStore = useUserStore();
 
@@ -44,7 +43,7 @@ const onSubmit = handleSubmit(handleLogin);
 </script>
 
 <template>
-  <section class="flex-1 flex flex-col items-center">
+  <section class="flex-1 flex flex-col items-center p-4 md:p-8">
     <form
       @submit.prevent="onSubmit"
       class="w-full max-w-lg bg-gray-100 border border-black flex flex-col gap-4 md:gap-8 p-4 md:p-8 my-auto"

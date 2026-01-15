@@ -37,5 +37,36 @@ export const useUserStore = defineStore("user", {
       navigateTo("/admin");
       this.loading = false;
     },
+    async changePassword(
+      login: string,
+      oldPassword: string,
+      newPassword: string
+    ) {
+      const supabase = useSupabaseClient();
+      this.loading = true;
+
+      const { error: authDataError } = await supabase.auth.signInWithPassword({
+        email: login.trim(),
+        password: oldPassword,
+      });
+
+      if (authDataError) {
+        this.loading = false;
+        return;
+      }
+
+      const { error: updateError } = await supabase.auth.updateUser({
+        password: newPassword,
+      });
+
+      this.loading = false;
+
+      if (updateError) {
+        this.loading = false;
+        return;
+      }
+
+      await supabase.auth.signOut();
+    },
   },
 });
