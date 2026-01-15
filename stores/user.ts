@@ -11,6 +11,11 @@ export const useUserStore = defineStore("user", {
   },
 
   actions: {
+    async initializeUser() {
+      const supabase = useSupabaseClient();
+      const { data } = await supabase.auth.getUser();
+      this.user = data.user;
+    },
     async signIn(login: string, password: string) {
       const supabase = useSupabaseClient();
       this.loading = true;

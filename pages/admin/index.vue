@@ -7,6 +7,7 @@ const userStore = useUserStore();
 
 definePageMeta({
   layout: "admin",
+  middleware: "auth",
 });
 
 const validationSchema = toTypedSchema(

@@ -61,29 +61,56 @@ const isCompact = computed(() => {
       >
         KONTAKT
       </NuxtLink>
-      <div class="hidden sm:flex w-px h-1/2 bg-white"></div>
-      <NuxtLink
-        target="_blanc"
-        :to="contactData?.facebook"
-        :class="[
-          isCompact
-            ? 'hover:bg-black/10 active:bg-black/10 hidden sm:flex'
-            : 'hover:bg-black/30 active:bg-black/30',
-          'select-none px-2 py-2 flex items-center justify-center cursor-pointer transition-colors duration-300 ease-in-out',
-        ]"
-        ><i class="pi pi-facebook sm:text-xl text-white"></i
-      ></NuxtLink>
-      <NuxtLink
-        target="_blanc"
-        :to="contactData?.linkedin"
-        :class="[
-          isCompact
-            ? 'hover:bg-black/10 active:bg-black/10 hidden sm:flex'
-            : 'hover:bg-black/30 active:bg-black/30',
-          'select-none px-2 py-2 flex items-center justify-center cursor-pointer transition-colors duration-300 ease-in-out',
-        ]"
-        ><i class="pi pi-linkedin sm:text-xl text-white"></i
-      ></NuxtLink>
+      <div
+        v-if="contactData"
+        class="hidden sm:flex items-center gap-1 md:gap-2 h-full"
+      >
+        <div class="w-px h-1/2 bg-white mr-3 md:mr-5"></div>
+        <NuxtLink
+          target="_blanc"
+          :to="contactData.facebook"
+          :class="[
+            isCompact
+              ? 'hover:bg-black/10 active:bg-black/10 hidden sm:flex'
+              : 'hover:bg-black/30 active:bg-black/30',
+            'select-none p-1 flex items-center justify-center cursor-pointer transition-colors duration-300 ease-in-out',
+          ]"
+          ><i class="pi pi-facebook sm:text-xl text-white"></i
+        ></NuxtLink>
+        <NuxtLink
+          target="_blanc"
+          :to="contactData.instagram"
+          :class="[
+            isCompact
+              ? 'hover:bg-black/10 active:bg-black/10 hidden sm:flex'
+              : 'hover:bg-black/30 active:bg-black/30',
+            'select-none p-1 flex items-center justify-center cursor-pointer transition-colors duration-300 ease-in-out',
+          ]"
+          ><i class="pi pi-instagram sm:text-xl text-white"></i
+        ></NuxtLink>
+        <NuxtLink
+          target="_blanc"
+          :to="contactData.linkedin"
+          :class="[
+            isCompact
+              ? 'hover:bg-black/10 active:bg-black/10 hidden sm:flex'
+              : 'hover:bg-black/30 active:bg-black/30',
+            'select-none p-1 flex items-center justify-center cursor-pointer transition-colors duration-300 ease-in-out',
+          ]"
+          ><i class="pi pi-linkedin sm:text-xl text-white"></i
+        ></NuxtLink>
+        <NuxtLink
+          target="_blanc"
+          :to="contactData.youtube"
+          :class="[
+            isCompact
+              ? 'hover:bg-black/10 active:bg-black/10 hidden sm:flex'
+              : 'hover:bg-black/30 active:bg-black/30',
+            'select-none p-1 flex items-center justify-center cursor-pointer transition-colors duration-300 ease-in-out',
+          ]"
+          ><i class="pi pi-youtube sm:text-xl text-white"></i
+        ></NuxtLink>
+      </div>
     </div>
   </div>
 </template>
