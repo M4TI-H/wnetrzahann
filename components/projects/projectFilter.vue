@@ -2,8 +2,6 @@
 import SearchBar from "./searchBar.vue";
 
 const galleryStore = useGalleryStore();
-
-const selectedFilter = ref<string>("all");
 </script>
 <template>
   <section

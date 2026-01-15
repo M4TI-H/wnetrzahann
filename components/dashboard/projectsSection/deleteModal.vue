@@ -14,10 +14,10 @@ useHead({
   <div
     v-if="deleteModalStore.project"
     @click="deleteModalStore.closeModal"
-    class="fixed z-50 w-screen h-screen bg-black/60 backdrop-blur-sm flex items-center justify-center"
+    class="fixed z-50 w-screen h-screen bg-black/60 backdrop-blur-sm flex items-center justify-center p-4 md:p-8"
   >
     <section
-      class="w-full max-w-[95vw] sm:max-w-md p-4 lg:p-6 border border-black flex flex-col gap-4 bg-white"
+      class="w-full sm:max-w-md p-4 lg:p-6 border border-black flex flex-col gap-4 bg-white"
     >
       <h2 class="text-xl md:text-2xl lg:text-3xl">Usuwanie projektu</h2>
       <p>Czy na pewno chcesz usunąć {{ deleteModalStore.project.name }}?</p>

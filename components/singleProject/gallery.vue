@@ -107,7 +107,7 @@ const vObserve = {
         <img
           :src="image.url"
           draggable="false"
-          class="w-full h-full object-cover transition-transform duration-500 ease-in-out hover:scale-105"
+          class="w-full h-full object-cover"
         />
       </div>
     </div>

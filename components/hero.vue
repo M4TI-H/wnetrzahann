@@ -12,10 +12,10 @@
       />
       <NuxtLink
         to="/projekty"
-        class="group py-2 lg:py-4 px-4 lg:px-8 flex gap-4 items-center border border-white text-white lg:text-xl backdrop-blur-sm hover:backdrop-blur cursor-pointer transition-all duration-200 ease-in-out select-none"
+        class="group py-1 lg:py-2 px-2 lg:px-4 flex gap-4 items-center border border-white text-white text-sm lg:text-base backdrop-blur-sm hover:backdrop-blur cursor-pointer transition-all duration-300 ease-in-out select-none"
         >Projekty
         <i
-          class="pi pi-arrow-right text-sm lg:text-xl text-white transition-transform duration-500 group-hover:translate-x-2 select-none"
+          class="pi pi-arrow-right text-white transition-transform duration-500 group-hover:translate-x-1 select-none"
         ></i>
       </NuxtLink>
     </div>

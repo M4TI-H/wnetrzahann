@@ -5,10 +5,16 @@ import Project from "~/models/Project";
 export default defineEventHandler(async (event) => {
   const supabase = await serverSupabaseClient<Database>(event);
 
+  const name = event.context.params!.category;
+
+  if (!name) {
+    throw createError({ statusCode: 400, statusMessage: "Invalid name" });
+  }
+
   const { data, error } = await supabase
     .from("projects")
     .select("*")
-    .order("creation_date", { ascending: false });
+    .ilike("name", `%${name}%`);
 
   if (error) {
     throw createError({ statusCode: 500, statusMessage: error.message });
@@ -17,7 +23,7 @@ export default defineEventHandler(async (event) => {
   if (!data) {
     throw createError({
       statusCode: 500,
-      statusMessage: "Failed to fetch projects.",
+      statusMessage: `Failed to fetch projects with this criteria.`,
     });
   }
 

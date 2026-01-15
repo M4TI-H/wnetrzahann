@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { useFetchSingle } from "~/composables/projects/useFetchSingle";
 import type Project from "~/models/Project";
 
 const prop = defineProps<{
