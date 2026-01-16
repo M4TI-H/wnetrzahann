@@ -19,7 +19,7 @@ importers:
         version: 2.0.2
       '@vee-validate/zod':
         specifier: ^4.15.1
-        version: 4.15.1(vue@3.5.26)(zod@4.3.5)
+        version: 4.15.1(vue@3.5.26)(zod@3.24.1)
       '@vueuse/core':
         specifier: ^14.1.0
         version: 14.1.0(vue@3.5.26)
@@ -48,8 +48,8 @@ importers:
         specifier: ^4.6.4
         version: 4.6.4(vue@3.5.26)
       zod:
-        specifier: ^4.3.5
-        version: 4.3.5
+        specifier: ^3.24.1
+        version: 3.24.1
     devDependencies:
       '@iconify-json/prime':
         specifier: ^1.2.4
@@ -3981,8 +3981,8 @@ packages:
     resolution: {integrity: sha512-zK7YHHz4ZXpW89AHXUPbQVGKI7uvkd3hzusTdotCg1UxyaVtg0zFJSTfW/Dq5f7OBBVnq6cZIaC8Ti4hb6dtCA==}
     engines: {node: '>= 14'}
 
-  zod@4.3.5:
-    resolution: {integrity: sha512-k7Nwx6vuWx1IJ9Bjuf4Zt1PEllcwe7cls3VNzm4CQ1/hgtFUK2bRNG3rvnpPUhFjmqJKAKtjV576KnUkHocg/g==}
+  zod@3.24.1:
+    resolution: {integrity: sha512-muH7gBL9sI1nciMZV67X5fTKKBLtwpZ5VBp1vsOQzj1MhrBZ4wlVCm3gedKZWLp0Oyel8sIGfeiz54Su+OVT+A==}
 
 snapshots:
 
@@ -5345,11 +5345,11 @@ snapshots:
       unhead: 2.1.1
       vue: 3.5.26
 
-  '@vee-validate/zod@4.15.1(vue@3.5.26)(zod@4.3.5)':
+  '@vee-validate/zod@4.15.1(vue@3.5.26)(zod@3.24.1)':
     dependencies:
       type-fest: 4.41.0
       vee-validate: 4.15.1(vue@3.5.26)
-      zod: 4.3.5
+      zod: 3.24.1
     transitivePeerDependencies:
       - vue
 
@@ -8248,4 +8248,4 @@ snapshots:
       compress-commons: 6.0.2
       readable-stream: 4.7.0
 
-  zod@4.3.5: {}
+  zod@3.24.1: {}

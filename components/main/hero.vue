@@ -19,7 +19,7 @@ const emit = defineEmits<{
       <NuxtLink
         to="/projekty"
         class="group py-1 lg:py-2 px-2 lg:px-4 flex gap-4 items-center border border-white text-white text-sm lg:text-base backdrop-blur-sm hover:backdrop-blur cursor-pointer transition-all duration-300 ease-in-out select-none"
-        >Projekty
+        >{{ $t("hero.button") }}
         <i
           class="pi pi-arrow-right text-white transition-transform duration-500 group-hover:translate-x-1 select-none"
         ></i>

@@ -20,7 +20,7 @@ onBeforeMount(async () => {
       >
         <img
           draggable="false"
-          src="/logo-white.png"
+          src="/logo-half.png"
           class="h-full select-none"
         />
       </NuxtLink>

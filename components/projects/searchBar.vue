@@ -13,7 +13,7 @@ const handleSearch = () => {
       v-model="search"
       @keyup.enter="handleSearch"
       type="text"
-      placeholder="Wyszukaj projekt"
+      :placeholder="$t('projects.search')"
       class="w-full text-sm lg:text-base py-2 lg:py-3 px-3 lg:px-4 border border-black outline-0"
     />
     <button

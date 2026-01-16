@@ -2,6 +2,8 @@
 import { useFetchContact } from "~/composables/contact/useFetchContactData";
 import { useWindowScroll, useWindowSize } from "@vueuse/core";
 
+const { locale, setLocale } = useI18n();
+const localePath = useLocalePath();
 const { y: scrollY } = useWindowScroll();
 const { height: windowHeight } = useWindowSize();
 
@@ -12,6 +14,14 @@ const emit = defineEmits<{
 const props = defineProps<{
   mode: "dynamic" | "base" | "compact";
 }>();
+
+const toggleLocale = () => {
+  if (locale.value === "en") {
+    setLocale("pl");
+  } else {
+    setLocale("en");
+  }
+};
 
 const { contactData } = useFetchContact();
 
@@ -24,42 +34,40 @@ const isCompact = computed(() => {
 <template>
   <div
     :class="[
-      isCompact ? 'bg-gray-300 h-16' : 'bg-black/30 h-24 backdrop-blur-sm',
+      isCompact
+        ? 'bg-gray-300 h-16'
+        : 'bg-black/30 h-16 md:h-24 backdrop-blur-sm',
       'z-30 fixed w-full flex items-center justify-between px-4 lg:px-8 py-2 transition-all duration-500 ease-in-out',
     ]"
   >
     <NuxtLink
-      to="/"
-      class="h-2/3 lg:h-3/4 opacity-100 transition-all duration-500 ease-in-out delay-50 cursor-pointer select-none"
+      :to="localePath('/')"
+      class="h-1/2 lg:h-3/4 opacity-100 transition-all duration-500 ease-in-out delay-50 cursor-pointer select-none"
     >
-      <img
-        draggable="false"
-        :src="isCompact ? '/logo-white.png' : '/logo-white.png'"
-        class="h-full select-none"
-      />
+      <img draggable="false" src="/logo-half.png" class="h-full select-none" />
     </NuxtLink>
 
     <div class="h-full flex items-center gap-2 sm:gap-4 lg:gap-8">
       <NuxtLink
-        to="/projekty"
+        :to="localePath('/projekty')"
         :class="[
           isCompact
             ? 'hover:bg-black/10 active:bg-black/10 text-xs'
-            : 'hover:bg-black/30 active:bg-black/30 text-sm',
+            : 'hover:bg-black/30 active:bg-black/30 text-xs md:text-sm',
           'select-none px-1 sm:px-2 py-1 text-white cursor-pointer outline-0 transition-colors duration-300 ease-in-out',
         ]"
-        >PROJEKTY</NuxtLink
+        >{{ $t("nav.projects") }}</NuxtLink
       >
       <NuxtLink
-        to="/kontakt"
+        :to="localePath('/kontakt')"
         :class="[
           isCompact
             ? 'hover:bg-black/10 active:bg-black/10 text-xs'
-            : 'hover:bg-black/30 active:bg-black/30 text-sm',
+            : 'hover:bg-black/30 active:bg-black/30 text-xs md:text-sm',
           'select-none px-1 sm:px-2 py-1 text-white cursor-pointer outline-0 transition-colors duration-300 ease-in-out',
         ]"
       >
-        KONTAKT
+        {{ $t("nav.contact") }}
       </NuxtLink>
       <div
         v-if="contactData"
@@ -110,6 +118,15 @@ const isCompact = computed(() => {
           ]"
           ><i class="pi pi-youtube sm:text-xl text-white"></i
         ></NuxtLink>
+      </div>
+      <div class="flex items-center gap-1 md:gap-2 h-full">
+        <div class="w-px h-1/2 bg-white mr-3 md:mr-5"></div>
+        <button
+          @click="toggleLocale"
+          class="text-xs md:text-sm select-none px-1 sm:px-2 py-1 text-white cursor-pointer outline-0 hover:bg-black/30 active:bg-black/30 transition-colors duration-300 ease-in-out"
+        >
+          {{ locale === "pl" ? "EN" : "PL" }}
+        </button>
       </div>
     </div>
   </div>

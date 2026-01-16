@@ -19,7 +19,7 @@ const galleryStore = useGalleryStore();
         "
         class="py-2 lg:py-3 flex-1 lg:px-6 xl:px-8 border border-black text-xs sm:text-sm cursor-pointer transition-colors duration-300 ease-in-out"
       >
-        WSZYSTKIE
+        {{ $t("projects.filters.all") }}
       </button>
       <button
         @click="galleryStore.filterProjects('komercyjne')"
@@ -30,7 +30,7 @@ const galleryStore = useGalleryStore();
         "
         class="py-2 lg:py-3 flex-1 lg:px-6 xl:px-8 border border-black text-xs sm:text-sm cursor-pointer transition-colors duration-300 ease-in-out"
       >
-        KOMERCYJNE
+        {{ $t("projects.filters.commercial") }}
       </button>
       <button
         @click="galleryStore.filterProjects('prywatne')"
@@ -41,7 +41,7 @@ const galleryStore = useGalleryStore();
         "
         class="py-2 lg:py-3 flex-1 lg:px-6 xl:px-8 border border-black text-xs sm:text-sm cursor-pointer transition-colors duration-300 ease-in-out"
       >
-        PRYWATNE
+        {{ $t("projects.filters.residential") }}
       </button>
     </div>
 

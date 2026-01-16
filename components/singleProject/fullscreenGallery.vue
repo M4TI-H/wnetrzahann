@@ -50,7 +50,7 @@ const isImageHovered = ref<boolean>(false);
       class="px-4 py-2 text-sm text-gray-100 flex items-center gap-2 bg-black/50 md:bg-black/30 hover:bg-black/50 transition-all duration-300 ease-in-out"
     >
       <i class="pi pi-arrow-down-left-and-arrow-up-right-to-center text-sm"></i>
-      Zamknij
+      {{ $t("projects.closeBtn") }}
     </button>
   </div>
 </template>

@@ -12,6 +12,8 @@ const emit = defineEmits<{
   (e: "showImage", id: number): void;
 }>();
 
+const localePath = useLocalePath();
+
 const vObserve = {
   mounted: (el: HTMLElement) => {
     el.classList.add("opacity-0", "translate-y-24");
@@ -42,26 +44,26 @@ const vObserve = {
     class="relative w-full md:w-2/3 min-h-screen flex flex-col gap-4 pt-20 md:pt-24 pb-4 px-4 mx-auto"
   >
     <NuxtLink
-      to="/projekty"
+      :to="localePath('/projekty')"
       class="group w-min flex md:hidden items-center gap-2 p-2 text-xs md:text-sm bg-gray-100 hover:bg-gray-200 active:bg-gray-200 outline-0 border border-black transition-colors duration-300 ease-in-out"
     >
       <i
         class="pi pi-arrow-left text-sm transition-transform duration-300 group-hover:-translate-x-1"
       ></i>
-      Powrót
+      {{ $t("projects.backBtn") }}
     </NuxtLink>
 
     <div class="relative w-full flex flex-row items-start justify-between">
       <h1 class="md:hidden text-4xl font-semibold">{{ props.data.name }}</h1>
       <div class="hidden md:flex items-center flex-1 gap-4">
         <NuxtLink
-          to="/projekty"
+          :to="localePath('/projekty')"
           class="group flex items-center gap-2 p-2 bg-gray-100 hover:bg-gray-200 border border-black transition-colors duration-300 ease-in-out"
         >
           <i
             class="pi pi-arrow-left text-sm transition-transform duration-300 group-hover:-translate-x-1"
           ></i>
-          Powrót
+          {{ $t("projects.backBtn") }}
         </NuxtLink>
         <h1 class="absolute left-1/2 -translate-x-1/2 text-5xl">
           {{ props.data.name }}

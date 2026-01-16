@@ -35,7 +35,9 @@ useHead({
           class="w-full max-w-lg bg-gray-100 border border-black flex flex-col gap-4 md:gap-8 p-4 md:p-8 my-auto"
         >
           <div class="w-full flex items-center justify-between">
-            <h1 class="text-xl md:text-2xl lg:text-3xl">Napisz wiadomość</h1>
+            <h1 class="text-xl md:text-2xl lg:text-3xl">
+              {{ $t("contact.cta") }}
+            </h1>
             <button
               @click="contactStore.closeContactForm"
               class="hover:bg-black/20 active:bg-black/20 text-sm p-1 flex items-center justify-center transition-colors duration-200 ease-in-out"
@@ -47,31 +49,30 @@ useHead({
           <div class="flex flex-col gap-4">
             <input
               type="text"
-              placeholder="Imię i nazwisko"
+              :placeholder="$t('contact.placeholder.name')"
               class="text-sm md:text-base px-2 py-3 md:py-4 border border-black outline-0"
             />
             <input
               type="text"
-              placeholder="Adres e-mail"
+              :placeholder="$t('contact.placeholder.email')"
               class="text-sm md:text-base px-2 py-3 md:py-4 border border-black outline-0"
             />
             <input
               type="text"
-              placeholder="Numer telefonu (opcjonalnie)"
+              :placeholder="$t('contact.placeholder.phone')"
               class="text-sm md:text-base px-2 py-3 md:py-4 border border-black outline-0"
             />
             <textarea
-              placeholder="Treść zapytania"
+              :placeholder="$t('contact.placeholder.content')"
               class="h-24 md:h-32 text-sm md:text-base p-2 border border-black outline-0 resize-none"
             ></textarea>
             <button
               class="w-full h-12 md:h-16 bg-neutral-800 hover:bg-black md:text-lg text-gray-100 border-2 border-gray-100 hover:border-black ring-2 ring-black font-semibold transition-colors duration-300 ease-in-out"
             >
-              Wyślij
+              {{ $t("contact.send") }}
             </button>
             <p class="text-xs sm:text-sm text-gray-500">
-              Wysyłając wiadomość, wyrażasz zgodę na przetwarzanie danych
-              osobowych w celu udzielenia odpowiedzi na Twoje zapytanie.
+              {{ $t("contact.clause") }}
             </p>
           </div>
         </section>

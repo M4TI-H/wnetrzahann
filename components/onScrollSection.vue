@@ -55,7 +55,7 @@ onUnmounted(() => {
         <span
           class="whitespace-nowrap opacity-0 max-w-0 group-hover:opacity-100 group-hover:max-w-xs transition-all duration-500 ease-in-out font-medium text-sm lg:text-base pr-4"
         >
-          Napisz wiadomość
+          {{ $t("contact.cta") }}
         </span>
       </div>
     </button>

@@ -87,7 +87,8 @@ onMounted(async () => {
     class="flex-1 w-full min-h-screen flex flex-col items-center gap-4 md:gap-8 bg-white pt-24 pb-8"
   >
     <h1 class="text-2xl sm:text-3xl lg:text-4xl">
-      PROJEKTY{{
+      {{ $t("projects.title")
+      }}{{
         galleryStore.searchQuery !== ""
           ? ` - "${galleryStore.searchQuery}"`
           : ""
@@ -96,7 +97,7 @@ onMounted(async () => {
     <ProjectFilter />
 
     <div v-if="!projectsLoading && projectsData.length === 0" class="my-auto">
-      <p class="text-center px-4">Brak projektów spełniających kryteria.</p>
+      <p class="text-center px-4">{{ $t("projects.noMoreProjects") }}</p>
     </div>
 
     <div
@@ -117,7 +118,11 @@ onMounted(async () => {
       @click="displayedItems += 6"
       class="px-6 py-2 bg-neutral-800 hover:bg-black md:text-lg text-gray-100 border-2 border-gray-100 hover:border-black ring-2 ring-black font-semibold transition-colors duration-300 ease-in-out"
     >
-      {{ projectsLoading ? "Wczytywanie" : "Pokaż więcej" }}
+      {{
+        projectsLoading
+          ? $t("projects.loading.true")
+          : $t("projects.loading.false")
+      }}
     </button>
   </section>
 </template>

@@ -1,17 +1,14 @@
 <script setup lang="ts">
-import Hero from "~/components/hero.vue";
+import Hero from "~/components/main/hero.vue";
 import Slider from "~/components/main/slider.vue";
 
 definePageMeta({
   navbar: "dynamic",
 });
 
-const { y: scrollY } = useWindowScroll();
-
 const secondSection = ref<HTMLElement | null>(null);
 
 let snapping = false;
-let lastScrollY = 0;
 
 const scrollDown = () => {
   if (snapping || !secondSection.value) return;
@@ -30,17 +27,21 @@ const scrollDown = () => {
 </script>
 
 <template>
-  <section class="flex-1 flex flex-col items-center gap-8 pb-20">
+  <section class="flex-1 flex flex-col items-center gap-8 md:gap-12 pb-20">
     <Hero @scrollDown="scrollDown" />
     <div
       ref="secondSection"
-      class="w-full min-h-screen flex flex-col items-center gap-4 pt-4 px-4 sm:px-8"
+      class="w-full flex flex-col items-center gap-4 md:gap-8 pt-4 px-4 sm:px-8"
     >
-      <h1 class="text-2xl mx-auto">OSTATNIE PROJEKTY</h1>
+      <h1 class="text-2xl mx-auto">{{ $t("main.section1") }}</h1>
       <div class="w-full flex flex-col items-center justify-between">
         <Slider />
       </div>
     </div>
+    <!-- <div class="w-full flex flex-col items-center gap-4 sm:gap-8">
+      <h1 class="text-2xl mx-auto">PROCES TWORZENIA PROJEKTU</h1>
+      <div class="w-full flex items-center"></div>
+    </div> -->
     <!-- <div class="w-full flex flex-col items-center gap-4 sm:gap-8">
       <h2 class="text-4xl font-semibold text-center">ZAKRES USŁUG</h2>
 

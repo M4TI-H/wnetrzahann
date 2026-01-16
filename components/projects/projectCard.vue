@@ -4,11 +4,13 @@ import type Project from "~/models/Project";
 const prop = defineProps<{
   data: Project;
 }>();
+
+const localePath = useLocalePath();
 </script>
 <template>
   <div class="w-full md:h-[32rem]">
     <NuxtLink
-      :to="`/projekty/${data.id}`"
+      :to="localePath(`/projekty/${data.id}`)"
       class="relative w-full h-full bg-gray-300"
     >
       <img :src="data.cover" class="h-full w-full object-cover" />

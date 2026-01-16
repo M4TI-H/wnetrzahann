@@ -7,11 +7,12 @@ export default defineNuxtConfig({
     "@vueuse/nuxt",
     "@primevue/nuxt-module",
     "@pinia/nuxt",
+    "@nuxtjs/i18n",
   ],
   app: {
     head: {
       title: "Agata Hann | Architektura Wnętrz",
-      link: [{ rel: "icon", type: "image/png", href: "/logo-white.png" }],
+      link: [{ rel: "icon", type: "image/png", href: "/logo-compact.png" }],
     },
   },
   css: ["assets/style.css"],
@@ -22,5 +23,10 @@ export default defineNuxtConfig({
       maxAge: 3600,
       sameSite: "lax",
     },
+  },
+  i18n: {
+    locales: ["pl", "en"],
+    defaultLocale: "pl",
+    vueI18n: "~/i18n.config.ts",
   },
 });

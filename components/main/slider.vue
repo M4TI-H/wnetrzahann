@@ -64,7 +64,7 @@ onMounted(async () => {
       @touchend="handleTouchEnd"
       class="relative max-w-[80rem] h-[32rem] md:h-[42rem] flex flex-col items-center justify-center overflow-hidden"
     >
-      <Transition name="fade">
+      <Transition name="fade" mode="out-in">
         <img
           :src="projectsData[idCounter].cover"
           :style="{

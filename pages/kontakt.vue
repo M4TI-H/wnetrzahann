@@ -8,6 +8,10 @@ definePageMeta({
 
 const contactStore = useContactStore();
 const { contactData, contactRefresh } = useFetchContact();
+
+onMounted(async () => {
+  await contactRefresh();
+});
 </script>
 
 <template>
@@ -20,7 +24,9 @@ const { contactData, contactRefresh } = useFetchContact();
       <div
         class="w-full max-w-lg flex flex-col gap-4 md:gap-8 bg-gray-100 border border-black p-4 md:p-8 md:pb-4"
       >
-        <h1 class="text-2xl md:text-3xl lg:text-4xl">Kontakt</h1>
+        <h1 class="text-2xl md:text-3xl lg:text-4xl">
+          {{ $t("contact.title") }}
+        </h1>
         <div
           v-if="contactData"
           class="w-full flex flex-col sm:flex-row sm:items-center justify-between px-2 gap-4 md:gap-8"
@@ -37,25 +43,32 @@ const { contactData, contactRefresh } = useFetchContact();
         <div class="px-2 flex items-start gap-4">
           <i class="pi pi-clock text-lg pt-1"></i>
 
-          <div class="flex flex-col gap-2">
-            <p>Pon-Pt<span class="ml-8">8.00 - 16.00</span></p>
-            <p>Sob-Nd <span class="ml-6">Nieczynne</span></p>
+          <div class="w-full flex flex-col gap-2">
+            <div class="w-full flex items-center justify-between">
+              <p>{{ $t("contact.monFri") }}</p>
+              <p>{{ $t("contact.monFriHours") }}</p>
+            </div>
+
+            <div class="w-full flex items-center justify-between">
+              <p>{{ $t("contact.satSun") }}</p>
+              <p>{{ $t("contact.satSunHours") }}</p>
+            </div>
           </div>
         </div>
 
-        <p class="mx-auto text-gray-500">lub</p>
+        <p class="mx-auto text-gray-500">{{ $t("contact.or") }}</p>
         <button
           @click="contactStore.openContactForm"
           class="w-full h-12 md:h-16 bg-neutral-800 hover:bg-black md:text-lg text-white border-2 border-white hover:border-black ring-2 ring-black font-semibold transition-colors duration-300 ease-in-out"
         >
-          Napisz wiadomość
+          {{ $t("contact.cta") }}
         </button>
         <div class="flex items-center mx-auto gap-8">
           <NuxtLink
             v-if="contactData?.facebook"
             :to="contactData.facebook"
             target="_blanc"
-            class="text-2xl md:text-3xl text-gray-500 hover:text-gray-600 transition-colors duration-300 ease-in-out"
+            class="text-md md:text-2xl text-gray-500 hover:text-gray-600 transition-colors duration-300 ease-in-out"
           >
             <i class="pi pi-facebook"></i>
           </NuxtLink>
@@ -63,7 +76,7 @@ const { contactData, contactRefresh } = useFetchContact();
             v-if="contactData?.instagram"
             :to="contactData.instagram"
             target="_blanc"
-            class="text-2xl md:text-3xl text-gray-500 hover:text-gray-600 transition-colors duration-300 ease-in-out"
+            class="text-lg md:text-2xl text-gray-500 hover:text-gray-600 transition-colors duration-300 ease-in-out"
           >
             <i class="pi pi-instagram"></i>
           </NuxtLink>
@@ -71,7 +84,7 @@ const { contactData, contactRefresh } = useFetchContact();
             v-if="contactData?.youtube"
             :to="contactData.youtube"
             target="_blanc"
-            class="text-2xl md:text-3xl text-gray-500 hover:text-gray-600 transition-colors duration-300 ease-in-out"
+            class="text-lg md:text-2xl text-gray-500 hover:text-gray-600 transition-colors duration-300 ease-in-out"
           >
             <i class="pi pi-youtube"></i>
           </NuxtLink>
@@ -79,7 +92,7 @@ const { contactData, contactRefresh } = useFetchContact();
             v-if="contactData?.linkedin"
             :to="contactData.linkedin"
             target="_blanc"
-            class="text-2xl md:text-3xl text-gray-500 hover:text-gray-600 transition-colors duration-300 ease-in-out"
+            class="text-lg md:text-2xl text-gray-500 hover:text-gray-600 transition-colors duration-300 ease-in-out"
           >
             <i class="pi pi-linkedin"></i>
           </NuxtLink>
