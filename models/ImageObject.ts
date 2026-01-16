@@ -1,5 +1,6 @@
 export default interface ImageObject {
-  file: File;
+  file?: File;
   previewUrl: string;
   isCover: boolean;
+  storagePath?: string;
 }

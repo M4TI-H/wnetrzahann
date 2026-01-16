@@ -1,5 +1,8 @@
 <script setup lang="ts">
+import { useDeleteImage } from "~/composables/images/useDeleteImage";
+import { useFetchImages } from "~/composables/images/useFetchImages";
 import { useImage } from "~/composables/images/useImage";
+import { useUploadCover } from "~/composables/projects/useUploadCover";
 import type ImageObject from "~/models/ImageObject";
 
 const props = defineProps<{
@@ -10,8 +13,36 @@ const emit = defineEmits<{
   (e: "clearError"): void;
 }>();
 
+const projectStore = useProjectStore();
 const { uploadImage } = useImage();
+
+const projectIdForFetch =
+  projectStore.mode === "edit" ? projectStore.data?.id : null;
+const { imagesList, imagesLoading, imagesRefresh } = useFetchImages(
+  projectIdForFetch!
+);
+const { deleteImage } = useDeleteImage();
+
 const images = ref<ImageObject[]>([]);
+
+watch(
+  imagesList,
+  (newList) => {
+    if (newList && projectStore.mode === "edit") {
+      images.value = newList.map((img) => ({
+        previewUrl: img.url,
+        isCover: img.url === projectStore.data?.cover,
+      }));
+    }
+  },
+  { immediate: true }
+);
+
+onMounted(async () => {
+  if (projectStore.mode === "edit" && projectIdForFetch) {
+    await imagesRefresh();
+  }
+});
 
 const handleFileSelect = (event: Event) => {
   const target = event.target as HTMLInputElement;
@@ -37,15 +68,30 @@ const setAsCover = (index: number) => {
   });
 };
 
-const removeImage = (index: number) => {
-  const removed = images.value[index];
-  if (removed.previewUrl) {
-    URL.revokeObjectURL(removed.previewUrl);
+const removeImage = async (index: number) => {
+  const img = images.value[index];
+
+  if (!img.file && img.previewUrl) {
+    try {
+      const separator = "/public/images/";
+      const pathInStorage = img.previewUrl.split(separator)[1]?.split("?")[0];
+
+      if (pathInStorage) {
+        await deleteImage(pathInStorage);
+      }
+    } catch (e) {
+      console.error("Błąd podczas usuwania pliku z serwera:", e);
+      return;
+    }
+  }
+
+  if (img.previewUrl) {
+    URL.revokeObjectURL(img.previewUrl);
   }
 
   images.value.splice(index, 1);
 
-  if (removed.isCover && images.value.length > 0) {
+  if (img.isCover && images.value.length > 0) {
     images.value[0].isCover = true;
   }
 };
@@ -53,7 +99,7 @@ const removeImage = (index: number) => {
 const uploadCoverImage = async (projectId: number): Promise<string | null> => {
   const cover = images.value.find((img) => img.isCover);
 
-  if (!cover) return null;
+  if (!cover || !cover.file) return null;
 
   const publicUrl = await uploadImage(projectId, cover.file);
 
@@ -61,16 +107,20 @@ const uploadCoverImage = async (projectId: number): Promise<string | null> => {
 };
 
 const uploadGalleryImages = async (projectId: number): Promise<string[]> => {
-  const galleryImages = images.value.filter((img) => !img.isCover);
+  const galleryImages = images.value.filter((img) => !img.isCover && img.file);
 
   if (galleryImages.length === 0) return [];
 
   const uploadPromises = galleryImages.map((img) =>
-    uploadImage(projectId, img.file)
+    uploadImage(projectId, img.file as File)
   );
   const results = await Promise.all(uploadPromises);
 
   return results.filter((url): url is string => url !== null);
+};
+
+const getSelectedCover = () => {
+  return images.value.find((img) => img.isCover) || null;
 };
 
 const reset = () => {
@@ -82,6 +132,7 @@ defineExpose({
   images,
   uploadCoverImage,
   uploadGalleryImages,
+  getSelectedCover,
   reset,
 });
 </script>

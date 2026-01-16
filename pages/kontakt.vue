@@ -18,7 +18,7 @@ const { contactData, contactRefresh } = useFetchContact();
       class="absolute z-20 inset-0 w-full h-full flex flex-col items-center justify-center gap-8 bg-black/30 p-4"
     >
       <div
-        class="w-full max-w-lg flex flex-col gap-4 md:gap-8 bg-gray-100 border border-black p-4 md:p-8"
+        class="w-full max-w-lg flex flex-col gap-4 md:gap-8 bg-gray-100 border border-black p-4 md:p-8 md:pb-4"
       >
         <h1 class="text-2xl md:text-3xl lg:text-4xl">Kontakt</h1>
         <div
@@ -37,8 +37,8 @@ const { contactData, contactRefresh } = useFetchContact();
         <div class="px-2 flex items-start gap-4">
           <i class="pi pi-clock text-lg pt-1"></i>
 
-          <div class="flex flex-col">
-            <p class="">Pon-Pt<span class="ml-8">8.00 - 16.00</span></p>
+          <div class="flex flex-col gap-2">
+            <p>Pon-Pt<span class="ml-8">8.00 - 16.00</span></p>
             <p>Sob-Nd <span class="ml-6">Nieczynne</span></p>
           </div>
         </div>
@@ -50,7 +50,6 @@ const { contactData, contactRefresh } = useFetchContact();
         >
           Napisz wiadomość
         </button>
-        <p class="mx-auto text-gray-500">lub odwiedź mój profil</p>
         <div class="flex items-center mx-auto gap-8">
           <NuxtLink
             v-if="contactData?.facebook"

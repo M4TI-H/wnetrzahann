@@ -12,25 +12,17 @@ export default defineEventHandler(async (event) => {
     });
   }
 
-  const id = Number(event.context.params!.id);
+  const query = getQuery(event);
+  const storagePath = query.path as string;
 
-  if (!id || isNaN(id)) {
-    throw createError({ statusCode: 400, statusMessage: "Invalid id" });
-  }
+  const { error: deleteError } = await supabase.storage
+    .from("images")
+    .remove([storagePath]);
 
-  const body = await readBody<{
-    cover: string;
-  }>(event);
-
-  const { error } = await supabase
-    .from("projects")
-    .update({ cover: body.cover })
-    .eq("id", id);
-
-  if (error) {
+  if (deleteError) {
     throw createError({
       statusCode: 500,
-      statusMessage: error.message,
+      statusMessage: deleteError.message,
     });
   }
 

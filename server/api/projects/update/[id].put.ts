@@ -18,21 +18,39 @@ export default defineEventHandler(async (event) => {
     throw createError({ statusCode: 400, statusMessage: "Invalid id" });
   }
 
+  type ProjectCategory = "Projekt komercyjny" | "Projekt prywatny";
+
   const body = await readBody<{
+    name: string;
+    category: ProjectCategory;
+    area: number;
+    creation_date?: string;
     cover: string;
   }>(event);
 
-  const { error } = await supabase
+  const { data, error } = await supabase
     .from("projects")
-    .update({ cover: body.cover })
-    .eq("id", id);
+    .update({
+      name: body.name,
+      category: body.category,
+      area: body.area,
+      creation_date: body.creation_date,
+      cover: body.cover,
+    })
+    .eq("id", id)
+    .select("id")
+    .single();
 
   if (error) {
+    throw createError({ statusCode: 500, statusMessage: error.message });
+  }
+
+  if (!data) {
     throw createError({
       statusCode: 500,
-      statusMessage: error.message,
+      statusMessage: `Failed to update project ${id}.`,
     });
   }
 
-  return { success: true };
+  return data;
 });

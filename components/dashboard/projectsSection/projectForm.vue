@@ -3,15 +3,16 @@ import ImagesInput from "./imagesInput.vue";
 import { useField, useForm } from "vee-validate";
 import { z } from "zod";
 import { toTypedSchema } from "@vee-validate/zod";
-import { useCreateProject } from "~/composables/projects/useCreateProject";
-import { useUploadCover } from "~/composables/projects/useUploadCover";
 
 const projectStore = useProjectStore();
 
-const { createProject, projectLoading } = useCreateProject();
-const { uploadCover, coverUploadLoading } = useUploadCover();
-
 const imagesInputRef = ref<InstanceType<typeof ImagesInput> | null>(null);
+
+const formatDate = (dateStr?: string) => {
+  if (!dateStr) return "";
+  const [day, month, year] = dateStr.split("/");
+  return `${year}-${month}-${day}`;
+};
 
 const validationSchema = toTypedSchema(
   z.object({
@@ -22,19 +23,13 @@ const validationSchema = toTypedSchema(
   })
 );
 
-const formatDateForInput = (dateStr?: string) => {
-  if (!dateStr) return "";
-  const [day, month, year] = dateStr.split("/");
-  return `${year}-${month}-${day}`;
-};
-
 const { handleSubmit } = useForm({
   validationSchema,
   initialValues: {
     name: projectStore.data?.name || "",
     category: projectStore.data?.category || "",
     area: projectStore.data?.area || 0,
-    creationDate: formatDateForInput(projectStore.data?.creation_date),
+    creationDate: formatDate(projectStore.data?.creation_date),
   },
 });
 
@@ -88,39 +83,15 @@ const onSubmit = handleSubmit(async (values) => {
   }
 
   const payload = {
-    name: values.name,
-    category: values.category,
-    area: values.area,
+    ...values,
+    id: projectStore.data?.id,
     creation_date: finalDate,
-    cover: "",
   };
 
-  try {
-    const newProjectId = await createProject(payload);
-
-    if (!newProjectId) {
-      console.error("Nie udało się pobrać ID nowego projektu");
-      return;
-    }
-
-    if (imagesInputRef.value) {
-      const coverUrl = await imagesInputRef.value.uploadCoverImage(
-        newProjectId
-      );
-
-      if (coverUrl) {
-        await uploadCover(newProjectId, coverUrl);
-      }
-
-      await imagesInputRef.value.uploadGalleryImages(newProjectId);
-
-      imagesInputRef.value.reset();
-    }
-
-    await refreshNuxtData("projects-list");
-    projectStore.closeProjectForm();
-  } catch (e) {
-    console.error("Błąd tworzenia projektu", e);
+  if (projectStore.mode === "new") {
+    projectStore.createProject(payload, imagesInputRef);
+  } else if (projectStore.mode === "edit") {
+    projectStore.updateProject(payload, imagesInputRef);
   }
 });
 
