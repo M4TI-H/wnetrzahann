@@ -48,7 +48,7 @@ onMounted(async () => {
       </button>
     </div>
     <div
-      v-if="filteredProjects"
+      v-if="filteredProjects.length > 0"
       class="w-full h-full flex flex-col gap-4 overflow-y-auto pr-4"
     >
       <div v-for="(project, num) in filteredProjects" :key="project.id">
@@ -63,7 +63,15 @@ onMounted(async () => {
       <i class="pi pi-spinner pi-spin"></i>
     </div>
     <div
-      v-if="projectsData?.length === 0 && !projectsLoading"
+      v-if="!projectsLoading && projectsData?.length === 0"
+      class="w-full flex justify-center py-8 text-gray-500"
+    >
+      Brak projektów.
+    </div>
+    <div
+      v-else-if="
+        !projectsLoading && search !== '' && filteredProjects.length === 0
+      "
       class="w-full flex justify-center py-8 text-gray-500"
     >
       Nie znaleziono projektów o nazwie "{{ search }}"

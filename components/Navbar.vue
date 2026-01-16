@@ -24,7 +24,7 @@ const isCompact = computed(() => {
 <template>
   <div
     :class="[
-      isCompact ? 'bg-gray-300 h-16' : 'bg-black/40 h-24',
+      isCompact ? 'bg-gray-300 h-16' : 'bg-black/30 h-24 backdrop-blur-sm',
       'z-30 fixed w-full flex items-center justify-between px-4 lg:px-8 py-2 transition-all duration-500 ease-in-out',
     ]"
   >
@@ -73,7 +73,7 @@ const isCompact = computed(() => {
             isCompact
               ? 'hover:bg-black/10 active:bg-black/10 hidden sm:flex'
               : 'hover:bg-black/30 active:bg-black/30',
-            'select-none p-1 flex items-center justify-center cursor-pointer transition-colors duration-300 ease-in-out',
+            'select-none px-1 flex items-center justify-center cursor-pointer transition-colors duration-300 ease-in-out',
           ]"
           ><i class="pi pi-facebook sm:text-xl text-white"></i
         ></NuxtLink>
@@ -84,7 +84,7 @@ const isCompact = computed(() => {
             isCompact
               ? 'hover:bg-black/10 active:bg-black/10 hidden sm:flex'
               : 'hover:bg-black/30 active:bg-black/30',
-            'select-none p-1 flex items-center justify-center cursor-pointer transition-colors duration-300 ease-in-out',
+            'select-none px-1 flex items-center justify-center cursor-pointer transition-colors duration-300 ease-in-out',
           ]"
           ><i class="pi pi-instagram sm:text-xl text-white"></i
         ></NuxtLink>
@@ -95,7 +95,7 @@ const isCompact = computed(() => {
             isCompact
               ? 'hover:bg-black/10 active:bg-black/10 hidden sm:flex'
               : 'hover:bg-black/30 active:bg-black/30',
-            'select-none p-1 flex items-center justify-center cursor-pointer transition-colors duration-300 ease-in-out',
+            'select-none px-1 flex items-center justify-center cursor-pointer transition-colors duration-300 ease-in-out',
           ]"
           ><i class="pi pi-linkedin sm:text-xl text-white"></i
         ></NuxtLink>
@@ -106,7 +106,7 @@ const isCompact = computed(() => {
             isCompact
               ? 'hover:bg-black/10 active:bg-black/10 hidden sm:flex'
               : 'hover:bg-black/30 active:bg-black/30',
-            'select-none p-1 flex items-center justify-center cursor-pointer transition-colors duration-300 ease-in-out',
+            'select-none px-1 flex items-center justify-center cursor-pointer transition-colors duration-300 ease-in-out',
           ]"
           ><i class="pi pi-youtube sm:text-xl text-white"></i
         ></NuxtLink>

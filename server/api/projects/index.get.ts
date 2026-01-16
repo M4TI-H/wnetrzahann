@@ -6,7 +6,7 @@ export default defineEventHandler(async (event) => {
   const supabase = await serverSupabaseClient<Database>(event);
   const query = getQuery(event);
 
-  const limit = Number(query.limit) || 2;
+  const limit = Number(query.limit) || 6;
   const category = query.category as string;
   const searchedName = query.search as string;
 

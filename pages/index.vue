@@ -13,40 +13,30 @@ const secondSection = ref<HTMLElement | null>(null);
 let snapping = false;
 let lastScrollY = 0;
 
-watch(
-  () => scrollY.value,
-  async (y) => {
-    if (snapping || !secondSection.value) return;
+const scrollDown = () => {
+  if (snapping || !secondSection.value) return;
 
-    const direction = y < lastScrollY ? "up" : "down";
-    lastScrollY = y;
+  const secondTop = secondSection.value.offsetTop;
 
-    const heroHeight = window.innerHeight;
-    const secondTop = secondSection.value.offsetTop;
+  snapping = true;
 
-    if (y < heroHeight && direction === "down") {
-      snapping = true;
+  window.scrollTo({
+    top: secondTop - 64,
+    behavior: "smooth",
+  });
 
-      window.scrollTo({
-        top: secondTop - 64,
-        behavior: "smooth",
-      });
-
-      setTimeout(() => (snapping = false), 100);
-      return;
-    }
-  }
-);
+  setTimeout(() => (snapping = false), 100);
+};
 </script>
 
 <template>
   <section class="flex-1 flex flex-col items-center gap-8 pb-20">
-    <Hero />
+    <Hero @scrollDown="scrollDown" />
     <div
       ref="secondSection"
-      class="w-full flex flex-col items-center gap-4 py-2 sm:py-4 px-4 sm:px-8"
+      class="w-full min-h-screen flex flex-col items-center gap-4 pt-4 px-4 sm:px-8"
     >
-      <h1 class="text-2xl">PROJEKTY</h1>
+      <h1 class="text-2xl mx-auto">OSTATNIE PROJEKTY</h1>
       <div class="w-full flex flex-col items-center justify-between">
         <Slider />
       </div>

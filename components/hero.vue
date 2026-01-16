@@ -1,3 +1,9 @@
+<script setup lang="ts">
+const emit = defineEmits<{
+  (e: "scrollDown"): void;
+}>();
+</script>
+
 <template>
   <div
     class="relative w-full h-screen flex items-center justify-center bg-gray-200 overflow-hidden transition-all duration-500 ease-in-out"
@@ -18,6 +24,15 @@
           class="pi pi-arrow-right text-white transition-transform duration-500 group-hover:translate-x-1 select-none"
         ></i>
       </NuxtLink>
+
+      <button
+        @click.prevent="emit('scrollDown')"
+        class="group absolute bottom-2 left-1/2 -translate-x-1/2 text-2xl md:text-4xl flex items-center justify-center text-white hover:bg-black/20 p-1 transition-colors duration-300 ease-in-out"
+      >
+        <i
+          class="pi pi-angle-down group-hover:translate-y-1 transition-transform duration-300"
+        ></i>
+      </button>
     </div>
     <img
       src="/concept.jpg"

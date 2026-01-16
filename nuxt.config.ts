@@ -18,5 +18,9 @@ export default defineNuxtConfig({
   supabase: {
     redirect: false,
     types: false,
+    cookieOptions: {
+      maxAge: 3600,
+      sameSite: "lax",
+    },
   },
 });
