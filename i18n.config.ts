@@ -33,6 +33,10 @@ export default defineI18nConfig(() => ({
       },
       projects: {
         title: "Projekty",
+        category: {
+          commercial: "Projekt komercyjny",
+          residential: "Projekt prywatny",
+        },
         filters: {
           commercial: "KOMERCYJNE",
           residential: "PRYWATNE",
@@ -82,6 +86,10 @@ export default defineI18nConfig(() => ({
       },
       projects: {
         title: "Projects",
+        category: {
+          commercial: "Commercial project",
+          residential: "Residential project",
+        },
         filters: {
           commercial: "COMMERCIAL",
           residential: "RESIDENTIAL",

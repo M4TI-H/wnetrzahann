@@ -11,9 +11,9 @@ const galleryStore = useGalleryStore();
       class="w-full sm:w-1/2 min-w-48 flex items-center justify-between sm:justify-start gap-2 md:gap-4"
     >
       <button
-        @click="galleryStore.filterProjects('wszystkie')"
+        @click="galleryStore.filterProjects('all')"
         :class="
-          galleryStore.filter === 'wszystkie'
+          galleryStore.filter === 'all'
             ? 'bg-neutral-800 hover:bg-black text-gray-100'
             : 'bg-gray-100 text-black hover:bg-gray-200'
         "
@@ -22,9 +22,9 @@ const galleryStore = useGalleryStore();
         {{ $t("projects.filters.all") }}
       </button>
       <button
-        @click="galleryStore.filterProjects('komercyjne')"
+        @click="galleryStore.filterProjects('commercial')"
         :class="
-          galleryStore.filter === 'komercyjne'
+          galleryStore.filter === 'commercial'
             ? 'bg-neutral-800 hover:bg-black text-gray-100'
             : 'bg-gray-100 text-black hover:bg-gray-200'
         "
@@ -33,9 +33,9 @@ const galleryStore = useGalleryStore();
         {{ $t("projects.filters.commercial") }}
       </button>
       <button
-        @click="galleryStore.filterProjects('prywatne')"
+        @click="galleryStore.filterProjects('residential')"
         :class="
-          galleryStore.filter === 'prywatne'
+          galleryStore.filter === 'residential'
             ? 'bg-neutral-800 hover:bg-black text-gray-100'
             : 'bg-gray-100 text-black hover:bg-gray-200'
         "

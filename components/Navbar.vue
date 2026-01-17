@@ -125,7 +125,7 @@ const isCompact = computed(() => {
           @click="toggleLocale"
           class="text-xs md:text-sm select-none px-1 sm:px-2 py-1 text-white cursor-pointer outline-0 hover:bg-black/30 active:bg-black/30 transition-colors duration-300 ease-in-out"
         >
-          {{ locale === "pl" ? "EN" : "PL" }}
+          {{ locale === "pl" ? "PL" : "EN" }}
         </button>
       </div>
     </div>

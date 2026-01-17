@@ -20,7 +20,7 @@ const validationSchema = toTypedSchema(
     category: z.string().min(1, { message: "Wybierz kategorię projektu." }),
     area: z.coerce.number().min(0.01, { message: "Podaj powierzchnię." }),
     creationDate: z.string().optional(),
-  })
+  }),
 );
 
 const { handleSubmit } = useForm({
@@ -42,17 +42,17 @@ const fieldOptions = {
 const { value: name, errorMessage: nameError } = useField<string>(
   "name",
   undefined,
-  fieldOptions
+  fieldOptions,
 );
 const { value: category, errorMessage: categoryError } = useField<string>(
   "category",
   undefined,
-  fieldOptions
+  fieldOptions,
 );
 const { value: area, errorMessage: areaError } = useField<number>(
   "area",
   undefined,
-  fieldOptions
+  fieldOptions,
 );
 const { value: creationDate, errorMessage: creationDateError } =
   useField<string>("creationDate", undefined, fieldOptions);
@@ -104,7 +104,7 @@ const blockInvalidChar = (e: KeyboardEvent) => {
 useHead({
   bodyAttrs: {
     class: computed(() =>
-      projectStore.isProjectFormOpen ? "overflow-hidden" : ""
+      projectStore.isProjectFormOpen ? "overflow-hidden" : "",
     ),
   },
 });
@@ -181,8 +181,12 @@ useHead({
               class="w-full py-1 md:py-2 px-2 md:px-4 outline-0 flex items-center justify-between border border-black"
             >
               <option class="text-xs md:text-sm"></option>
-              <option class="text-xs md:text-sm">Projekt komercyjny</option>
-              <option class="text-xs md:text-sm">Projekt prywatny</option>
+              <option value="commercial" class="text-xs md:text-sm">
+                Projekt komercyjny
+              </option>
+              <option value="residential" class="text-xs md:text-sm">
+                Projekt prywatny
+              </option>
             </select>
           </div>
           <div class="flex-1 w-full flex flex-col">

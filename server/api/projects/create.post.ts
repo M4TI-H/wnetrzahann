@@ -12,7 +12,7 @@ export default defineEventHandler(async (event) => {
     });
   }
 
-  type ProjectCategory = "Projekt komercyjny" | "Projekt prywatny";
+  type ProjectCategory = "commercial" | "residential";
 
   const body = await readBody<{
     name: string;

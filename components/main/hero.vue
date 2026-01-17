@@ -2,6 +2,8 @@
 const emit = defineEmits<{
   (e: "scrollDown"): void;
 }>();
+
+const localePath = useLocalePath();
 </script>
 
 <template>
@@ -17,7 +19,7 @@ const emit = defineEmits<{
         draggable="false"
       />
       <NuxtLink
-        to="/projekty"
+        :to="localePath('/projekty')"
         class="group py-1 lg:py-2 px-2 lg:px-4 flex gap-4 items-center border border-white text-white text-sm lg:text-base backdrop-blur-sm hover:backdrop-blur cursor-pointer transition-all duration-300 ease-in-out select-none"
         >{{ $t("hero.button") }}
         <i

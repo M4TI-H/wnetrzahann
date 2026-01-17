@@ -2,7 +2,7 @@ import { defineStore } from "pinia";
 
 export const useGalleryStore = defineStore("gallery", {
   state: () => ({
-    filter: "wszystkie" as string,
+    filter: "all" as string,
     searchQuery: "",
   }),
   actions: {
@@ -12,7 +12,7 @@ export const useGalleryStore = defineStore("gallery", {
     async setSearch(query: string) {
       this.searchQuery = query;
       if (query.trim() !== "") {
-        this.filter = "wszystkie";
+        this.filter = "all";
       }
     },
   },

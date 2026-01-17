@@ -2,8 +2,8 @@
 import { useDeleteImage } from "~/composables/images/useDeleteImage";
 import { useFetchImages } from "~/composables/images/useFetchImages";
 import { useImage } from "~/composables/images/useImage";
-import { useUploadCover } from "~/composables/projects/useUploadCover";
 import type ImageObject from "~/models/ImageObject";
+import imageCompression from "browser-image-compression";
 
 const props = defineProps<{
   imagesError: string | null;
@@ -19,7 +19,7 @@ const { uploadImage } = useImage();
 const projectIdForFetch =
   projectStore.mode === "edit" ? projectStore.data?.id : null;
 const { imagesList, imagesLoading, imagesRefresh } = useFetchImages(
-  projectIdForFetch!
+  projectIdForFetch!,
 );
 const { deleteImage } = useDeleteImage();
 
@@ -35,7 +35,7 @@ watch(
       }));
     }
   },
-  { immediate: true }
+  { immediate: true },
 );
 
 onMounted(async () => {
@@ -44,21 +44,49 @@ onMounted(async () => {
   }
 });
 
-const handleFileSelect = (event: Event) => {
+const handleFileSelect = async (event: Event) => {
   const target = event.target as HTMLInputElement;
   if (!target.files) return;
 
-  const files = Array.from(target.files).map((file) => ({
-    file,
-    previewUrl: URL.createObjectURL(file),
-    isCover: false,
-  }));
+  const options = {
+    maxSizeMB: 0.8,
+    maxWidthOrHeight: 2560,
+    useWebWorker: true,
+    fileType: "image/webp",
+    initialQuality: 0.85,
+  };
 
-  if (images.value.length === 0 && files.length > 0) {
-    files[0].isCover = true;
+  const files = Array.from(target.files);
+
+  const compressedFiles = await Promise.all(
+    files.map(async (originalFile) => {
+      try {
+        const compressedFile = await imageCompression(originalFile, options);
+
+        const fileName = originalFile.name.replace(/\.[^/.]+$/, "") + ".webp";
+        const finalFile = new File([compressedFile], fileName, {
+          type: "image/webp",
+        });
+
+        return {
+          file: finalFile,
+          previewUrl: URL.createObjectURL(finalFile),
+          isCover: false,
+        };
+      } catch (error) {
+        console.error("Błąd przetwarzania zdjęcia:", error);
+        return null;
+      }
+    }),
+  );
+
+  const validFiles = compressedFiles.filter((f) => f !== null);
+
+  if (images.value.length === 0 && validFiles.length > 0) {
+    validFiles[0].isCover = true;
   }
 
-  images.value.push(...files);
+  images.value.push(...validFiles);
   emit("clearError");
 };
 
@@ -112,7 +140,7 @@ const uploadGalleryImages = async (projectId: number): Promise<string[]> => {
   if (galleryImages.length === 0) return [];
 
   const uploadPromises = galleryImages.map((img) =>
-    uploadImage(projectId, img.file as File)
+    uploadImage(projectId, img.file as File),
   );
   const results = await Promise.all(uploadPromises);
 

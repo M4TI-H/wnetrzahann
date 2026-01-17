@@ -20,12 +20,17 @@ const prop = defineProps<{
         <p class="text-3xl">{{ data.name }}</p>
         <p class="text-sm text-gray-500">{{ data.creation_date }}</p>
       </div>
-      <p class="text-sm sm:text-base">{{ data.category }}</p>
+      <p class="text-sm sm:text-base">
+        {{
+          data.category === "commercial"
+            ? $t("projects.category.commercial")
+            : $t("projects.category.residential")
+        }}
+      </p>
       <div class="flex items-center gap-2 text-xs">
         <i class="pi pi-arrow-up-right-and-arrow-down-left-from-center"></i>
         <p class="text-sm sm:text-base">{{ data.area }} m&sup2;</p>
       </div>
-      <p class="text-sm sm:text-base">Liczba zdjęć: 8</p>
       <div
         class="w-full md:w-min mt-auto ml-auto flex flex-col md:flex-row items-center gap-2"
       >

@@ -22,14 +22,14 @@ const { projectsData, projectsLoading, projectsRefresh } =
 
 const vObserve = {
   mounted: (el: HTMLElement) => {
-    el.classList.add("opacity-0", "translate-y-24");
-    el.classList.add("transition-all", "duration-500", "ease-out");
+    el.classList.add("opacity-0", "translate-y-36");
+    el.classList.add("transition-all", "duration-700", "ease-out");
 
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            el.classList.remove("opacity-0", "translate-y-24");
+            el.classList.remove("opacity-0", "translate-y-36");
             el.classList.add("opacity-100", "translate-y-0");
             observer.unobserve(el);
           }
@@ -38,7 +38,7 @@ const vObserve = {
       {
         rootMargin: "0px 0px -1% 0px",
         threshold: 0.05,
-      }
+      },
     );
 
     observer.observe(el);
@@ -55,25 +55,25 @@ watch(
     router.push({
       query: {
         ...route.query,
-        category: categoryValue === "wszystkie" ? undefined : categoryValue,
+        category: categoryValue === "all" ? undefined : categoryValue,
       },
       replace: true,
     });
-  }
+  },
 );
 
 watch(
   () => galleryStore.searchQuery,
   () => {
     displayedItems.value = 6;
-  }
+  },
 );
 
 onMounted(async () => {
   const queryCategory = route.query.category as string;
   if (
     queryCategory &&
-    ["prywatne", "komercyjne", "wszystkie"].includes(queryCategory)
+    ["private", "commercial", "all"].includes(queryCategory)
   ) {
     galleryStore.filter = queryCategory as string;
   }

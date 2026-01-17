@@ -12,10 +12,10 @@ export default defineEventHandler(async (event) => {
 
   let dbQuery = supabase.from("projects").select("*");
 
-  if (category && category !== "wszystkie") {
+  if (category && category !== "all") {
     const categoryMap: Record<string, string> = {
-      komercyjne: "Projekt komercyjny",
-      prywatne: "Projekt prywatny",
+      komercyjne: "commercial",
+      prywatne: "private",
     };
     dbQuery = dbQuery.eq("category", categoryMap[category] || category);
   }

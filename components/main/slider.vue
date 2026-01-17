@@ -3,7 +3,7 @@ import { useFetchGalleryProjects } from "~/composables/gallery/useFetchGalleryPr
 
 const { projectsData, projectsLoading, projectsRefresh } =
   useFetchGalleryProjects({
-    getCategory: () => "wszystkie",
+    getCategory: () => "all",
     getSearch: () => "",
     getLimit: () => projectsDisplayed,
   });
@@ -100,7 +100,13 @@ onMounted(async () => {
         v-if="projectsData"
         class="opacity-100 hover:opacity-0 absolute z-10 bottom-0 w-full h-full flex flex-col justify-end p-4 bg-gradient-to-b from-transparent to-black/50 transition-opacity duration-300 ease-in-out"
       >
-        <p class="text-sm text-white">{{ projectsData[idCounter].category }}</p>
+        <p class="text-sm text-white">
+          {{
+            projectsData[idCounter].category === "commercial"
+              ? $t("projects.category.commercial")
+              : $t("projects.category.residential")
+          }}
+        </p>
         <p class="text-xl text-white font-semibold">
           {{ projectsData[idCounter].name.toUpperCase() }}
         </p>

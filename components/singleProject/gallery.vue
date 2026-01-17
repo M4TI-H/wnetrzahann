@@ -32,7 +32,7 @@ const vObserve = {
       {
         rootMargin: "0px 0px -1% 0px",
         threshold: 0.05,
-      }
+      },
     );
 
     observer.observe(el);
@@ -73,7 +73,9 @@ const vObserve = {
       <div class="flex flex-col items-end">
         <p class="text-gray-500 text-xs md:text-sm">
           {{
-            props.data.category[0].toUpperCase() + props.data.category.slice(1)
+            props.data.category === "commercial"
+              ? $t("projects.category.commercial")
+              : $t("projects.category.residential")
           }}
         </p>
 

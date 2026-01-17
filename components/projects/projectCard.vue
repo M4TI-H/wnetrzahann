@@ -20,7 +20,11 @@ const localePath = useLocalePath();
         <p
           class="absolute top-2 md:relative text-sm lg:text-base text-white font-thin"
         >
-          {{ data.category[0].toUpperCase() + data.category.slice(1) }}
+          {{
+            data.category === "commercial"
+              ? $t("projects.category.commercial")
+              : $t("projects.category.residential")
+          }}
         </p>
         <div class="w-full flex items-end justify-between">
           <p class="text-xl md:text-2xl lg:text-3xl text-white">
