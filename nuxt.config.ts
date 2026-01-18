@@ -8,12 +8,14 @@ export default defineNuxtConfig({
     "@primevue/nuxt-module",
     "@pinia/nuxt",
     "@nuxtjs/i18n",
+    "@nuxt/image",
   ],
   app: {
     head: {
       title: "Agata Hann | Architektura Wnętrz",
       link: [{ rel: "icon", type: "image/png", href: "/logo-compact.png" }],
     },
+    pageTransition: { name: "page", mode: "out-in" },
   },
   css: ["assets/style.css"],
   supabase: {

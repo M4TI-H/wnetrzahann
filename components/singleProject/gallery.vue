@@ -108,9 +108,10 @@ const vObserve = {
             : 'col-span-1 h-32 md:h-80',
         ]"
       >
-        <img
+        <NuxtImg
           :src="image.url"
           draggable="false"
+          loading="lazy"
           class="w-full h-full object-cover"
         />
       </div>

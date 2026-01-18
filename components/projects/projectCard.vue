@@ -13,7 +13,11 @@ const localePath = useLocalePath();
       :to="localePath(`/projekty/${data.id}`)"
       class="relative w-full h-full bg-gray-300"
     >
-      <img :src="data.cover" class="h-full w-full object-cover" />
+      <NuxtImg
+        :src="data.cover"
+        loading="lazy"
+        class="h-full w-full object-cover"
+      />
       <div
         class="opacity-100 md:opacity-0 hover:opacity-100 absolute z-10 bottom-0 w-full h-full flex flex-col gap-2 justify-end py-1 px-2 md:p-4 bg-gradient-to-b from-transparent to-black/50 transition-opacity duration-300 ease-in-out"
       >

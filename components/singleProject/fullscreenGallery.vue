@@ -23,8 +23,10 @@ const isImageHovered = ref<boolean>(false);
       @mouseleave="isImageHovered = false"
       class="relative flex flex-col items-center h-auto overflow-hidden"
     >
-      <img
+      <NuxtImg
         :src="image"
+        loading="lazy"
+        draggable="false"
         class="w-auto h-auto max-h-[90vh] max-w-[90vw] object-contain shadow-2xl"
       />
 

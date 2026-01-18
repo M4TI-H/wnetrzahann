@@ -51,6 +51,10 @@ export default defineI18nConfig(() => ({
         backBtn: "Powrót",
         closeBtn: "Zamknij",
       },
+      cookies: {
+        text: "Ta strona używa plików cookies w celach technicznych.",
+        button: "Rozumiem",
+      },
       footer: {
         clause: "Wszystkie prawa zastrzeżone",
       },
@@ -103,6 +107,10 @@ export default defineI18nConfig(() => ({
         search: "Search for a project",
         backBtn: "Back",
         closeBtn: "Close",
+      },
+      cookies: {
+        text: "This website uses cookies files for technical reasons.",
+        button: "Accept",
       },
       footer: {
         clause: "All rights reserved",

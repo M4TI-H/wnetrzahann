@@ -99,7 +99,7 @@ onMounted(async () => {
         </div>
       </div>
     </div>
-    <img
+    <NuxtImg
       src="/concept2.jpg"
       draggable="false"
       class="w-full h-full object-cover select-none"

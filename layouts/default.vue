@@ -1,10 +1,15 @@
 <script setup lang="ts">
 const route = useRoute();
-
 const contactStore = useContactStore();
+const cookiesStore = useCookiesModalStore();
+
+const cookie = useCookieConsent();
+if (!cookie.value) {
+  cookiesStore.openModal();
+}
 
 const navbarMode = computed<"dynamic" | "base" | "compact">(
-  () => (route.meta.navbar as "dynamic" | "base" | "compact") ?? "base"
+  () => (route.meta.navbar as "dynamic" | "base" | "compact") ?? "base",
 );
 </script>
 
@@ -13,7 +18,7 @@ const navbarMode = computed<"dynamic" | "base" | "compact">(
     <Navbar :mode="navbarMode" />
 
     <OnScrollSection />
-
+    <CookiesModal v-if="cookiesStore.isModalOpened" />
     <ContactForm v-if="contactStore.isContactFormOpen" />
     <main class="flex-1 overflow-y-auto">
       <slot />

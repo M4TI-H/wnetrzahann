@@ -65,13 +65,14 @@ onMounted(async () => {
       class="relative max-w-[80rem] h-[32rem] md:h-[42rem] flex flex-col items-center justify-center overflow-hidden"
     >
       <Transition name="fade" mode="out-in">
-        <img
+        <NuxtImg
           :src="projectsData[idCounter].cover"
           :style="{
             animationDuration: `${sliderDuration}ms`,
           }"
           class="w-full h-full object-cover"
           :class="idCounter % 2 === 0 ? 'slider-zoom-in' : 'slider-zoom-out'"
+          loading="lazy"
         />
       </Transition>
 

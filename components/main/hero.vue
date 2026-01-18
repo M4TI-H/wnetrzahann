@@ -13,10 +13,11 @@ const localePath = useLocalePath();
     <div
       class="absolute z-20 inset-0 w-full h-full flex flex-col items-center justify-center gap-8 bg-black/30"
     >
-      <img
+      <NuxtImg
         src="/logo-white.png"
         class="h-32 lg:h-64 select-none"
         draggable="false"
+        format="webp"
       />
       <NuxtLink
         :to="localePath('/projekty')"
