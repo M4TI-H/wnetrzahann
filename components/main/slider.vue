@@ -83,7 +83,7 @@ onMounted(async () => {
           <i
             :class="[
               isPaused ? 'pi-play' : 'pi-pause',
-              'pi text-white translate-y-0.5 outline-0',
+              'pi text-white translate-y-0.5 focus:outline-none focus-visible:outline focus-visible:outline-1 focus-visible:outline-white',
             ]"
           ></i>
         </button>
@@ -93,7 +93,7 @@ onMounted(async () => {
           :key="idx"
           :class="[
             idx === idCounter ? 'bg-white' : 'bg-none hover:bg-gray-300',
-            'size-4 md:size-2 border border-white cursor-hover transition-colors duration-150 ease-in-out outline-0',
+            'size-4 md:size-2 border border-white cursor-hover transition-colors duration-150 ease-in-out focus:outline-none focus-visible:outline focus-visible:outline-1 focus-visible:outline-white',
           ]"
         ></button>
       </div>

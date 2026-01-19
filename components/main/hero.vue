@@ -21,7 +21,7 @@ const localePath = useLocalePath();
       />
       <NuxtLink
         :to="localePath('/projekty')"
-        class="group py-1 lg:py-2 px-2 lg:px-4 flex gap-4 items-center border border-white text-white text-sm lg:text-base backdrop-blur-sm hover:backdrop-blur cursor-pointer transition-all duration-300 ease-in-out select-none"
+        class="group py-1 lg:py-2 px-2 lg:px-4 flex gap-4 items-center border border-white text-white text-sm lg:text-base backdrop-blur-sm hover:backdrop-blur cursor-pointer transition-all duration-300 ease-in-out select-none outline-none focus:backdrop-blur focus-visible:ring-white focus-visible:ring-1"
         >{{ $t("hero.button") }}
         <i
           class="pi pi-arrow-right text-white transition-transform duration-500 group-hover:translate-x-1 select-none"
@@ -30,14 +30,14 @@ const localePath = useLocalePath();
 
       <button
         @click.prevent="emit('scrollDown')"
-        class="group absolute bottom-2 left-1/2 -translate-x-1/2 text-2xl md:text-4xl flex items-center justify-center text-white hover:bg-black/20 p-1 transition-colors duration-300 ease-in-out"
+        class="group absolute bottom-2 left-1/2 -translate-x-1/2 text-2xl md:text-4xl flex items-center justify-center text-white hover:bg-black/20 p-1 transition-colors duration-300 ease-in-out outline-none focus:backdrop-blur focus-visible:ring-white focus-visible:ring-1"
       >
         <i
-          class="pi pi-angle-down group-hover:translate-y-1 transition-transform duration-300"
+          class="pi pi-angle-down group-hover:translate-y-1 group-focus:translate-y-1 transition-transform duration-300"
         ></i>
       </button>
     </div>
-    <img
+    <NuxtImg
       src="/concept.jpg"
       draggable="false"
       class="w-full h-full object-cover select-none"

@@ -59,7 +59,7 @@ onMounted(async () => {
         <p class="mx-auto text-gray-500">{{ $t("contact.or") }}</p>
         <button
           @click="contactStore.openContactForm"
-          class="w-full h-12 md:h-16 bg-neutral-800 hover:bg-black md:text-lg text-white border-2 border-white hover:border-black ring-2 ring-black font-semibold transition-colors duration-300 ease-in-out"
+          class="w-full h-12 md:h-16 bg-neutral-800 hover:bg-black md:text-lg text-white border-2 border-white hover:border-black ring-2 ring-black outline-0 focus:border-black focus:bg-black font-semibold transition-colors duration-300 ease-in-out"
         >
           {{ $t("contact.cta") }}
         </button>
@@ -68,7 +68,7 @@ onMounted(async () => {
             v-if="contactData?.facebook"
             :to="contactData.facebook"
             target="_blanc"
-            class="text-md md:text-2xl text-gray-500 hover:text-gray-600 transition-colors duration-300 ease-in-out"
+            class="text-md md:text-2xl text-gray-500 hover:text-gray-600 focus:text-gray-600 outline-0 transition-colors duration-300 ease-in-out"
           >
             <i class="pi pi-facebook"></i>
           </NuxtLink>
@@ -76,7 +76,7 @@ onMounted(async () => {
             v-if="contactData?.instagram"
             :to="contactData.instagram"
             target="_blanc"
-            class="text-lg md:text-2xl text-gray-500 hover:text-gray-600 transition-colors duration-300 ease-in-out"
+            class="text-lg md:text-2xl text-gray-500 hover:text-gray-600 focus:text-gray-600 outline-0 transition-colors duration-300 ease-in-out"
           >
             <i class="pi pi-instagram"></i>
           </NuxtLink>
@@ -84,7 +84,7 @@ onMounted(async () => {
             v-if="contactData?.youtube"
             :to="contactData.youtube"
             target="_blanc"
-            class="text-lg md:text-2xl text-gray-500 hover:text-gray-600 transition-colors duration-300 ease-in-out"
+            class="text-lg md:text-2xl text-gray-500 hover:text-gray-600 focus:text-gray-600 outline-0 transition-colors duration-300 ease-in-out"
           >
             <i class="pi pi-youtube"></i>
           </NuxtLink>
@@ -92,7 +92,7 @@ onMounted(async () => {
             v-if="contactData?.linkedin"
             :to="contactData.linkedin"
             target="_blanc"
-            class="text-lg md:text-2xl text-gray-500 hover:text-gray-600 transition-colors duration-300 ease-in-out"
+            class="text-lg md:text-2xl text-gray-500 hover:text-gray-600 focus:text-gray-600 outline-0 transition-colors duration-300 ease-in-out"
           >
             <i class="pi pi-linkedin"></i>
           </NuxtLink>

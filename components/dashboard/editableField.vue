@@ -96,7 +96,7 @@ const handleChange = async () => {
       </p>
       <button
         @click="toggleEdit"
-        class="text-xs text-gray-500 p-2 md:p-3 h-full bg-neutral-800 hover:bg-black transition-colors duration-300 ease-in-out"
+        class="text-xs text-gray-500 p-2 md:p-3 h-full bg-neutral-800 hover:bg-black focus:bg-black transition-colors duration-300 ease-in-out"
       >
         <i class="pi pi-pen-to-square text-gray-100"></i>
       </button>
@@ -114,13 +114,13 @@ const handleChange = async () => {
       <div>
         <button
           type="submit"
-          class="text-xs 0 p-2 md:p-3 bg-neutral-800 hover:bg-black transition-colors duration-300 ease-in-out"
+          class="text-xs 0 p-2 md:p-3 bg-neutral-800 hover:bg-black focus:bg-black transition-colors duration-300 ease-in-out"
         >
           <i class="pi pi-check text-gray-100"></i>
         </button>
         <button
           @click="toggleEdit()"
-          class="text-xs p-2 md:p-3 bg-gray-100 hover:bg-gray-300 transition-colors duration-300 ease-in-out"
+          class="text-xs p-2 md:p-3 bg-gray-100 hover:bg-gray-300 focus:bg-gray-300 transition-colors duration-300 ease-in-out"
         >
           <i class="pi pi-times text-neutral-800"></i>
         </button>

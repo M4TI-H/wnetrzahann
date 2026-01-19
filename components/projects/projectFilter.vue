@@ -17,7 +17,7 @@ const galleryStore = useGalleryStore();
             ? 'bg-neutral-800 hover:bg-black text-gray-100'
             : 'bg-gray-100 text-black hover:bg-gray-200'
         "
-        class="py-2 lg:py-3 flex-1 lg:px-6 xl:px-8 border border-black text-xs sm:text-sm cursor-pointer transition-colors duration-300 ease-in-out"
+        class="py-2 lg:py-3 flex-1 lg:px-6 xl:px-8 border border-black text-xs sm:text-sm cursor-pointer transition-colors duration-300 ease-in-out focus:outline-none focus-visible:outline-1 focus-visible:outline-black"
       >
         {{ $t("projects.filters.all") }}
       </button>
@@ -28,7 +28,7 @@ const galleryStore = useGalleryStore();
             ? 'bg-neutral-800 hover:bg-black text-gray-100'
             : 'bg-gray-100 text-black hover:bg-gray-200'
         "
-        class="py-2 lg:py-3 flex-1 lg:px-6 xl:px-8 border border-black text-xs sm:text-sm cursor-pointer transition-colors duration-300 ease-in-out"
+        class="py-2 lg:py-3 flex-1 lg:px-6 xl:px-8 border border-black text-xs sm:text-sm cursor-pointer transition-colors duration-300 ease-in-out focus:outline-none focus-visible:outline-1 focus-visible:outline-black"
       >
         {{ $t("projects.filters.commercial") }}
       </button>
@@ -39,7 +39,7 @@ const galleryStore = useGalleryStore();
             ? 'bg-neutral-800 hover:bg-black text-gray-100'
             : 'bg-gray-100 text-black hover:bg-gray-200'
         "
-        class="py-2 lg:py-3 flex-1 lg:px-6 xl:px-8 border border-black text-xs sm:text-sm cursor-pointer transition-colors duration-300 ease-in-out"
+        class="py-2 lg:py-3 flex-1 lg:px-6 xl:px-8 border border-black text-xs sm:text-sm cursor-pointer transition-colors duration-300 ease-in-out focus:outline-none focus-visible:outline-1 focus-visible:outline-black"
       >
         {{ $t("projects.filters.residential") }}
       </button>

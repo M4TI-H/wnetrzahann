@@ -6,7 +6,7 @@ const contactStore = useContactStore();
 useHead({
   bodyAttrs: {
     class: computed(() =>
-      contactStore.isContactFormOpen ? "overflow-hidden" : ""
+      contactStore.isContactFormOpen ? "overflow-hidden" : "",
     ),
   },
 });
@@ -40,7 +40,7 @@ useHead({
             </h1>
             <button
               @click="contactStore.closeContactForm"
-              class="hover:bg-black/20 active:bg-black/20 text-sm p-1 flex items-center justify-center transition-colors duration-200 ease-in-out"
+              class="hover:bg-black/20 active:bg-black/20 focus:bg-black/20 outline-0 text-sm p-1 flex items-center justify-center transition-colors duration-200 ease-in-out"
             >
               <i class="pi pi-times text-gray-500"></i>
             </button>
@@ -50,24 +50,24 @@ useHead({
             <input
               type="text"
               :placeholder="$t('contact.placeholder.name')"
-              class="text-sm md:text-base px-2 py-3 md:py-4 border border-black outline-0"
+              class="text-sm md:text-base px-2 py-3 md:py-4 border border-black focus:outline-none focus-visible:outline-1 focus-visible:outline-black"
             />
             <input
               type="text"
               :placeholder="$t('contact.placeholder.email')"
-              class="text-sm md:text-base px-2 py-3 md:py-4 border border-black outline-0"
+              class="text-sm md:text-base px-2 py-3 md:py-4 border border-black focus:outline-none focus-visible:outline-1 focus-visible:outline-black"
             />
             <input
               type="text"
               :placeholder="$t('contact.placeholder.phone')"
-              class="text-sm md:text-base px-2 py-3 md:py-4 border border-black outline-0"
+              class="text-sm md:text-base px-2 py-3 md:py-4 border border-black focus:outline-none focus-visible:outline-1 focus-visible:outline-black"
             />
             <textarea
               :placeholder="$t('contact.placeholder.content')"
-              class="h-24 md:h-32 text-sm md:text-base p-2 border border-black outline-0 resize-none"
+              class="h-24 md:h-32 text-sm md:text-base p-2 border border-black focus:outline-none focus-visible:outline-1 focus-visible:outline-black resize-none"
             ></textarea>
             <button
-              class="w-full h-12 md:h-16 bg-neutral-800 hover:bg-black md:text-lg text-gray-100 border-2 border-gray-100 hover:border-black ring-2 ring-black font-semibold transition-colors duration-300 ease-in-out"
+              class="w-full h-12 md:h-16 bg-neutral-800 hover:bg-black md:text-lg text-gray-100 border-2 border-gray-100 hover:border-black ring-2 ring-black font-semibold outline-0 focus:border-black focus:bg-black transition-colors duration-300 ease-in-out"
             >
               {{ $t("contact.send") }}
             </button>

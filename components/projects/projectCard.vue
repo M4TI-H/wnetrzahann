@@ -8,10 +8,10 @@ const prop = defineProps<{
 const localePath = useLocalePath();
 </script>
 <template>
-  <div class="w-full md:h-[32rem]">
+  <div class="w-full md:h-[32rem] my-1">
     <NuxtLink
       :to="localePath(`/projekty/${data.id}`)"
-      class="relative w-full h-full bg-gray-300"
+      class="relative block w-full h-full bg-gray-300 focus:outline-none focus-visible:outline focus-visible:outline-2 focus-visible:outline-black"
     >
       <NuxtImg
         :src="data.cover"
