@@ -37,6 +37,7 @@ onUnmounted(() => {
   <div class="z-50 fixed bottom-4 right-4 flex flex-col items-end gap-4">
     <button
       @click="contactStore.openContactForm"
+      :aria-label="$t('scrollSection.openContact')"
       class="group h-10 lg:h-14 flex items-center bg-gray-100 active:bg-gray-200 hover:bg-gray-200 border border-black cursor-pointer transition-all duration-500 ease-in-out overflow-hidden outline-none focus-visible:ring-1 focus-visible:ring-black"
       :class="[
         displayBtn
@@ -62,6 +63,7 @@ onUnmounted(() => {
 
     <button
       @click="handleScroll"
+      :aria-label="$t('scrollSection.scrollToTop')"
       class="group size-10 lg:size-14 flex items-center justify-center bg-gray-100 active:bg-gray-200 hover:bg-gray-200 border border-black cursor-pointer transition-all duration-300 ease-in-out outline-none focus-visible:ring-1 focus-visible:ring-black"
       :class="[
         displayBtn

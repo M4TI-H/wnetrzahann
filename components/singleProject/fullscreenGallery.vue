@@ -25,6 +25,7 @@ const isImageHovered = ref<boolean>(false);
     >
       <NuxtImg
         :src="image"
+        alt="Fullscreen image"
         loading="lazy"
         draggable="false"
         class="w-auto h-auto max-h-[90vh] max-w-[90vw] object-contain shadow-2xl"
@@ -32,6 +33,7 @@ const isImageHovered = ref<boolean>(false);
 
       <button
         v-if="hasPrevious"
+        :aria-label="$t('projects.previous')"
         @click="emit('previous')"
         :class="[isImageHovered ? 'opacity-100' : 'opacity-100 md:opacity-0']"
         class="absolute z-20 left-0 top-0 h-full bg-black/50 md:bg-black/30 hover:bg-black/50 w-8 md:w-12 transition-all duration-300 ease-in-out"
@@ -40,6 +42,7 @@ const isImageHovered = ref<boolean>(false);
       </button>
       <button
         v-if="hasNext"
+        :aria-label="$t('projects.next')"
         @click="emit('next')"
         :class="[isImageHovered ? 'opacity-100' : 'opacity-100 md:opacity-0']"
         class="absolute z-20 right-0 top-0 h-full bg-black/50 md:bg-black/30 hover:bg-black/50 w-8 md:w-12 transition-all duration-300 ease-in-out"

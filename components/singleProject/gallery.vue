@@ -110,6 +110,7 @@ const vObserve = {
       >
         <NuxtImg
           :src="image.url"
+          :alt="`${idx} image`"
           draggable="false"
           loading="lazy"
           class="w-full h-full object-cover"

@@ -6,12 +6,18 @@ export default defineI18nConfig(() => ({
       nav: {
         projects: "PROJEKTY",
         contact: "KONTAKT",
+        changeLang: "Zmień język na angielski",
       },
       hero: {
         button: "Projekty",
+        scrollDown: "Przewiń w dół",
       },
       main: {
         section1: "OSTATNIE PROJEKTY",
+      },
+      scrollSection: {
+        scrollToTop: "Powrót na szczyt strony",
+        openContact: "Otwórz formularz kontaktowy",
       },
       contact: {
         title: "Kontakt",
@@ -30,6 +36,7 @@ export default defineI18nConfig(() => ({
           phone: "Numer telefonu (opcjonalnie)",
           content: "Treść zapytania",
         },
+        close: "Zamknij formularz",
       },
       projects: {
         title: "Projekty",
@@ -41,6 +48,7 @@ export default defineI18nConfig(() => ({
           commercial: "KOMERCYJNE",
           residential: "PRYWATNE",
           all: "WSZYSTKIE",
+          search: "Wyszukaj projekt",
         },
         loading: {
           true: "Wczytywanie",
@@ -50,6 +58,9 @@ export default defineI18nConfig(() => ({
         search: "Wyszukaj projekt",
         backBtn: "Powrót",
         closeBtn: "Zamknij",
+        gallery: "Galeria zdjęć",
+        next: "Następne zdjęcie",
+        previous: "Poprzednie zdjęcie",
       },
       cookies: {
         text: "Ta strona używa plików cookies w celach technicznych.",
@@ -63,12 +74,18 @@ export default defineI18nConfig(() => ({
       nav: {
         projects: "PROJECTS",
         contact: "CONTACT",
+        changeLang: "Change language to Polish",
       },
       hero: {
         button: "Projects",
+        scrollDown: "Scroll down",
       },
       main: {
         section1: "RECENT PROJECTS",
+      },
+      scrollSection: {
+        scrollToTop: "Scroll to top of the website",
+        openContact: "Open contact form",
       },
       contact: {
         title: "Contact",
@@ -87,6 +104,7 @@ export default defineI18nConfig(() => ({
           phone: "Phone number (optional)",
           content: "Inquiry content",
         },
+        close: "Close form",
       },
       projects: {
         title: "Projects",
@@ -98,6 +116,7 @@ export default defineI18nConfig(() => ({
           commercial: "COMMERCIAL",
           residential: "RESIDENTIAL",
           all: "ALL",
+          search: "Search project",
         },
         loading: {
           true: "LOADING",
@@ -107,6 +126,9 @@ export default defineI18nConfig(() => ({
         search: "Search for a project",
         backBtn: "Back",
         closeBtn: "Close",
+        gallery: "Image gallery",
+        next: "Next image",
+        previous: "Previous image",
       },
       cookies: {
         text: "This website uses cookies files for technical reasons.",

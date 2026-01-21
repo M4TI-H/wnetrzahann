@@ -44,7 +44,12 @@ const isCompact = computed(() => {
       :to="localePath('/')"
       class="h-1/2 lg:h-3/4 opacity-100 transition-all duration-500 ease-in-out delay-50 cursor-pointer select-none outline-0"
     >
-      <img draggable="false" src="/logo-half.png" class="h-full select-none" />
+      <img
+        draggable="false"
+        src="/logo-half.png"
+        class="h-full select-none"
+        alt="Agata Hann Logo"
+      />
     </NuxtLink>
 
     <div class="h-full flex items-center gap-2 sm:gap-4 lg:gap-8">
@@ -76,6 +81,7 @@ const isCompact = computed(() => {
         <div class="w-px h-1/2 bg-white mr-3 md:mr-5"></div>
         <NuxtLink
           target="_blanc"
+          aria-label="facebook"
           :to="contactData.facebook"
           :class="[
             isCompact
@@ -87,6 +93,7 @@ const isCompact = computed(() => {
         ></NuxtLink>
         <NuxtLink
           target="_blanc"
+          aria-label="instagram"
           :to="contactData.instagram"
           :class="[
             isCompact
@@ -98,6 +105,7 @@ const isCompact = computed(() => {
         ></NuxtLink>
         <NuxtLink
           target="_blanc"
+          aria-label="linkedin"
           :to="contactData.linkedin"
           :class="[
             isCompact
@@ -109,6 +117,7 @@ const isCompact = computed(() => {
         ></NuxtLink>
         <NuxtLink
           target="_blanc"
+          aria-label="youtube"
           :to="contactData.youtube"
           :class="[
             isCompact
@@ -124,6 +133,7 @@ const isCompact = computed(() => {
         <button
           @click="toggleLocale"
           draggable="false"
+          :aria-label="$t('nav.changeLang')"
           class="text-xs md:text-sm select-none px-1 sm:px-2 py-1 text-white focus:outline-none focus-visible:outline focus-visible:outline-1 focus-visible:outline-white cursor-pointer hover:bg-black/30 active:bg-black/30 transition-colors duration-300 ease-in-out"
         >
           {{ locale === "pl" ? "PL" : "EN" }}

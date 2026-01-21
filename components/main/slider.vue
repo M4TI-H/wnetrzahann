@@ -66,6 +66,7 @@ onMounted(async () => {
     >
       <Transition name="fade" mode="out-in">
         <NuxtImg
+          :alt="`${projectsData[idCounter].name} image`"
           :src="projectsData[idCounter].cover"
           :style="{
             animationDuration: `${sliderDuration}ms`,
@@ -79,7 +80,11 @@ onMounted(async () => {
       <div
         class="absolute z-20 top-2 right-2 flex items-center gap-2 p-1 pr-2 bg-black/50"
       >
-        <button @click="isPaused = !isPaused" class="px-1">
+        <button
+          @click="isPaused = !isPaused"
+          :aria-label="isPaused ? 'Start' : 'Stop'"
+          class="px-1"
+        >
           <i
             :class="[
               isPaused ? 'pi-play' : 'pi-pause',
@@ -90,6 +95,7 @@ onMounted(async () => {
         <button
           @click="idCounter = idx"
           v-for="(item, idx) in projectsData"
+          :aria-label="`${idx} - ${item.name}`"
           :key="idx"
           :class="[
             idx === idCounter ? 'bg-white' : 'bg-none hover:bg-gray-300',

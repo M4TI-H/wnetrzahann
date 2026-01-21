@@ -40,6 +40,7 @@ useHead({
             </h1>
             <button
               @click="contactStore.closeContactForm"
+              :aria-label="$t('contact.close')"
               class="hover:bg-black/20 active:bg-black/20 focus:bg-black/20 outline-0 text-sm p-1 flex items-center justify-center transition-colors duration-200 ease-in-out"
             >
               <i class="pi pi-times text-gray-500"></i>
