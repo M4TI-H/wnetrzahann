@@ -2,6 +2,17 @@
 import Hero from "~/components/main/hero.vue";
 import Slider from "~/components/main/slider.vue";
 
+useSeoMeta({
+  title: () => $t("seo.home.title"),
+  description: () => $t("seo.home.description"),
+  keywords: () => $t("seo.home.keywords"),
+  ogTitle: () => $t("seo.home.title"),
+  ogDescription: () => $t("seo.home.description"),
+  ogImage: "https://hannwnetrza.pl/logo_white.png",
+  ogUrl: "https://hannwnetrza.pl",
+  ogType: "website",
+});
+
 definePageMeta({
   navbar: "dynamic",
 });
@@ -38,43 +49,5 @@ const scrollDown = () => {
         <Slider />
       </div>
     </div>
-    <!-- <div class="w-full flex flex-col items-center gap-4 sm:gap-8">
-      <h1 class="text-2xl mx-auto">PROCES TWORZENIA PROJEKTU</h1>
-      <div class="w-full flex items-center"></div>
-    </div> -->
-    <!-- <div class="w-full flex flex-col items-center gap-4 sm:gap-8">
-      <h2 class="text-4xl font-semibold text-center">ZAKRES USŁUG</h2>
-
-      <div
-        class="grid grid-cols-1 sm:grid-cols-2 sm:gap-x-24 md:gap-x-48 gap-y-6 sm:gap-y-8"
-      >
-        <div class="flex items-center gap-4">
-          <div class="size-6 border border-black bg-gray-100"></div>
-          <p class="sm:text-lg font-semibold">Projekty wnętrz prywatnych</p>
-        </div>
-
-        <div class="flex items-center gap-4">
-          <div class="size-6 border border-black bg-gray-100"></div>
-          <p class="sm:text-lg font-semibold">Projekty komercyjne</p>
-        </div>
-
-        <div class="flex items-center gap-4">
-          <div class="size-6 border border-black bg-gray-100"></div>
-          <p class="sm:text-lg font-semibold">Konsultacje projektowe</p>
-        </div>
-
-        <div class="flex items-center gap-4">
-          <div class="size-6 border border-black bg-gray-100"></div>
-          <p class="sm:text-lg font-semibold">Nadzór autorski</p>
-        </div>
-      </div>
-      <button
-        @click="openContactForm"
-        class="mt-8 px-4 sm:px-6 py-3 sm:py-4 flex items-center gap-2 bg-gray-100 hover:bg-gray-200 border border-black transition-colors duration-300 ease-in-out"
-      >
-        <i class="pi pi-envelope text-sm"></i>
-        Porozmawiajmy o twoim wnętrzu
-      </button>
-    </div> -->
   </section>
 </template>

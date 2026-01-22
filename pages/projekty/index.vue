@@ -3,6 +3,17 @@ import ProjectCard from "~/components/projects/projectCard.vue";
 import ProjectFilter from "~/components/projects/projectFilter.vue";
 import { useFetchGalleryProjects } from "~/composables/gallery/useFetchGalleryProjects";
 
+useSeoMeta({
+  title: () => $t("seo.projects.title"),
+  description: () => $t("seo.projects.description"),
+  keywords: () => $t("seo.projects.keywords"),
+  ogTitle: () => $t("seo.projects.title"),
+  ogDescription: () => $t("seo.projects.description"),
+  ogImage: "https://hannwnetrza.pl/logo_white.png",
+  ogUrl: "https://hannwnetrza.pl",
+  ogType: "website",
+});
+
 definePageMeta({
   navbar: "compact",
 });

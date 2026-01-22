@@ -2,6 +2,17 @@
 import { useFetchContact } from "~/composables/contact/useFetchContactData";
 import { useContactStore } from "~/stores/contact";
 
+useSeoMeta({
+  title: () => $t("seo.contact.title"),
+  description: () => $t("seo.contact.description"),
+  keywords: () => $t("seo.contact.keywords"),
+  ogTitle: () => $t("seo.contact.title"),
+  ogDescription: () => $t("seo.contact.description"),
+  ogImage: "https://hannwnetrza.pl/logo_white.png",
+  ogUrl: "https://hannwnetrza.pl",
+  ogType: "website",
+});
+
 definePageMeta({
   navbar: "base",
 });
@@ -56,7 +67,9 @@ onMounted(async () => {
           </div>
         </div>
 
-        <p class="mx-auto text-gray-500">{{ $t("contact.or") }}</p>
+        <p class="mx-auto text-gray-500">
+          {{ $t("scrollSection.openContact") }}
+        </p>
         <button
           @click="contactStore.openContactForm"
           class="w-full h-12 md:h-16 bg-neutral-800 hover:bg-black md:text-lg text-white border-2 border-white hover:border-black ring-2 ring-black outline-0 focus:border-black focus:bg-black font-semibold transition-colors duration-300 ease-in-out"
@@ -67,6 +80,7 @@ onMounted(async () => {
           <NuxtLink
             v-if="contactData?.facebook"
             :to="contactData.facebook"
+            aria-label="facebook"
             target="_blanc"
             class="text-md md:text-2xl text-gray-500 hover:text-gray-600 focus:text-gray-600 outline-0 transition-colors duration-300 ease-in-out"
           >
@@ -75,6 +89,7 @@ onMounted(async () => {
           <NuxtLink
             v-if="contactData?.instagram"
             :to="contactData.instagram"
+            aria-label="instagram"
             target="_blanc"
             class="text-lg md:text-2xl text-gray-500 hover:text-gray-600 focus:text-gray-600 outline-0 transition-colors duration-300 ease-in-out"
           >
@@ -83,6 +98,7 @@ onMounted(async () => {
           <NuxtLink
             v-if="contactData?.youtube"
             :to="contactData.youtube"
+            aria-label="youtube"
             target="_blanc"
             class="text-lg md:text-2xl text-gray-500 hover:text-gray-600 focus:text-gray-600 outline-0 transition-colors duration-300 ease-in-out"
           >
@@ -91,6 +107,7 @@ onMounted(async () => {
           <NuxtLink
             v-if="contactData?.linkedin"
             :to="contactData.linkedin"
+            aria-label="linkedin"
             target="_blanc"
             class="text-lg md:text-2xl text-gray-500 hover:text-gray-600 focus:text-gray-600 outline-0 transition-colors duration-300 ease-in-out"
           >

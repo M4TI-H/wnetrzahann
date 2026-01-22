@@ -7,16 +7,25 @@ import { useFetchImages } from "~/composables/images/useFetchImages";
 const route = useRoute();
 const projectID = computed(() => Number(route.params.id) ?? 0);
 
+useSeoMeta({
+  title: () => `Agata Hann | ${projectData.value?.name}`,
+  description: () => $t("seo.projects.description"),
+  keywords: () => $t("seo.projects.keywords"),
+  ogTitle: () => `Agata Hann | ${projectData.value?.name}`,
+  ogDescription: () => $t("seo.projects.description"),
+  ogImage: "https://hannwnetrza.pl/logo_white.png",
+  ogUrl: "https://hannwnetrza.pl",
+  ogType: "website",
+});
+
 definePageMeta({
   navbar: "compact",
 });
 
-const { projectData, projectLoading, projectRefresh } = useFetchSingle(
-  projectID.value
-);
+const { projectData, projectRefresh } = useFetchSingle(projectID.value);
 
 const { imagesList, imagesLoading, imagesRefresh } = useFetchImages(
-  projectID.value
+  projectID.value,
 );
 
 onMounted(async () => {
