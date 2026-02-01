@@ -36,7 +36,7 @@ const isImageHovered = ref<boolean>(false);
         :aria-label="$t('projects.previous')"
         @click="emit('previous')"
         :class="[isImageHovered ? 'opacity-100' : 'opacity-100 md:opacity-0']"
-        class="absolute z-20 left-0 top-0 h-full bg-black/50 md:bg-black/30 hover:bg-black/50 w-8 md:w-12 transition-all duration-300 ease-in-out"
+        class="absolute z-20 left-0 top-0 h-full bg-black/50 md:bg-black/30 hover:bg-black/50 w-8 md:w-12 transition-all duration-300 ease-in-out cursor-pointer"
       >
         <i class="pi pi-chevron-left text-2xl text-gray-100"></i>
       </button>
@@ -45,14 +45,14 @@ const isImageHovered = ref<boolean>(false);
         :aria-label="$t('projects.next')"
         @click="emit('next')"
         :class="[isImageHovered ? 'opacity-100' : 'opacity-100 md:opacity-0']"
-        class="absolute z-20 right-0 top-0 h-full bg-black/50 md:bg-black/30 hover:bg-black/50 w-8 md:w-12 transition-all duration-300 ease-in-out"
+        class="absolute z-20 right-0 top-0 h-full bg-black/50 md:bg-black/30 hover:bg-black/50 w-8 md:w-12 transition-all duration-300 ease-in-out cursor-pointer"
       >
         <i class="pi pi-chevron-right text-2xl text-gray-100"></i>
       </button>
     </div>
     <button
       @click="emit('close')"
-      class="px-4 py-2 text-sm text-gray-100 flex items-center gap-2 bg-black/50 md:bg-black/30 hover:bg-black/50 transition-all duration-300 ease-in-out"
+      class="px-4 py-2 text-sm text-gray-100 flex items-center gap-2 bg-black/50 md:bg-black/30 hover:bg-black/50 transition-all duration-300 ease-in-out cursor-pointer"
     >
       <i class="pi pi-arrow-down-left-and-arrow-up-right-to-center text-sm"></i>
       {{ $t("projects.closeBtn") }}

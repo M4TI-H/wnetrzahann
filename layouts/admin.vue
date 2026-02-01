@@ -28,7 +28,7 @@ onBeforeMount(async () => {
       <button
         v-if="userStore.user"
         @click="userStore.signOut"
-        class="text-red-700 hover:text-red-800 transition-colors duration-300 ease-in-out flex items-center gap-2"
+        class="text-red-600 hover:text-red-800 transition-colors duration-300 ease-in-out flex items-center gap-2 cursor-pointer"
       >
         <i class="pi pi-sign-out"></i>
         Wyloguj
@@ -37,6 +37,7 @@ onBeforeMount(async () => {
     <main class="flex-1 flex flex-col overflow-hidden">
       <slot />
     </main>
+    <ErrorMessage />
     <DeleteModal v-if="deleteModalStore.isModalOpened" />
     <ProjectForm v-if="projectStore.isProjectFormOpen" />
   </section>

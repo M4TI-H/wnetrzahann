@@ -2,6 +2,8 @@
 const route = useRoute();
 const contactStore = useContactStore();
 const cookiesStore = useCookiesModalStore();
+const scrollStore = useScrollStore();
+const errorStore = useErrorStore();
 
 const cookie = useCookieConsent();
 if (!cookie.value) {
@@ -16,8 +18,8 @@ const navbarMode = computed<"dynamic" | "base" | "compact">(
 <template>
   <section class="w-full min-h-screen flex flex-col text-neutral-800">
     <Navbar :mode="navbarMode" />
-
-    <OnScrollSection />
+    <ErrorMessage v-if="errorStore.displayMessage" />
+    <OnScrollSection v-if="!scrollStore.hideScroll" />
     <CookiesModal v-if="cookiesStore.isModalOpened" />
     <ContactForm v-if="contactStore.isContactFormOpen" />
     <main class="flex-1 overflow-y-auto">

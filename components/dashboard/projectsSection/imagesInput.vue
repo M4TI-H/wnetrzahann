@@ -185,13 +185,7 @@ defineExpose({
         Wybrane zdjęcia: {{ images.length }}
       </p>
     </div>
-    <div
-      v-if="imagesError"
-      class="w-fit flex items-center gap-2 px-2 py-1 text-sm border border-red-800 bg-red-200"
-    >
-      <i class="pi pi-exclamation-triangle text-red-800"></i>
-      <p class="text-xs md:text-sm text-red-800">Błąd: {{ imagesError }}</p>
-    </div>
+
     <div
       class="w-full whitespace-nowrap flex gap-2 md:hidden h-32 overflow-x-auto"
     >
@@ -211,14 +205,14 @@ defineExpose({
         <button
           type="button"
           @click="removeImage(index)"
-          class="absolute top-1 right-1 flex items-center justify-center bg-black/60 text-gray-100 p-1 opacity-0 group-hover:opacity-100 transition-opacity"
+          class="absolute top-1 right-1 flex items-center justify-center bg-black/60 text-gray-100 p-1 opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer"
         >
           <i class="pi pi-trash"></i>
         </button>
         <button
           type="button"
           @click="setAsCover(index)"
-          class="absolute top-1 left-1 bg-black/60 text-gray-100 text-xs p-1 opacity-0 group-hover:opacity-100 transition-opacity"
+          class="absolute top-1 left-1 bg-black/60 text-gray-100 text-xs p-1 opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer"
         >
           {{ image.isCover ? "Okładka" : "Ustaw jako okładkę" }}
         </button>
@@ -243,14 +237,14 @@ defineExpose({
         <button
           type="button"
           @click="removeImage(index)"
-          class="absolute top-1 right-1 flex items-center justify-center bg-black/60 text-gray-100 p-1 opacity-0 group-hover:opacity-100 transition-opacity"
+          class="absolute top-1 right-1 flex items-center justify-center bg-black/60 text-gray-100 p-1 opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer"
         >
           <i class="pi pi-trash"></i>
         </button>
         <button
           type="button"
           @click="setAsCover(index)"
-          class="absolute top-1 left-1 bg-black/60 text-gray-100 text-xs p-1 opacity-0 group-hover:opacity-100 transition-opacity"
+          class="absolute top-1 left-1 bg-black/60 text-gray-100 text-xs p-1 opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer"
         >
           {{ image.isCover ? "Okładka" : "Ustaw jako okładkę" }}
         </button>

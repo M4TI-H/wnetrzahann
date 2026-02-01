@@ -5,6 +5,7 @@ import { z } from "zod";
 import { toTypedSchema } from "@vee-validate/zod";
 
 const projectStore = useProjectStore();
+const errorStore = useErrorStore();
 
 const imagesInputRef = ref<InstanceType<typeof ImagesInput> | null>(null);
 
@@ -58,42 +59,77 @@ const { value: creationDate, errorMessage: creationDateError } =
   useField<string>("creationDate", undefined, fieldOptions);
 const imagesError = ref<string | null>(null);
 
-const onSubmit = handleSubmit(async (values) => {
-  const hasImages =
-    imagesInputRef.value?.images && imagesInputRef.value.images.length > 0;
+const onSubmit = handleSubmit(
+  async (values) => {
+    const hasImages =
+      imagesInputRef.value?.images && imagesInputRef.value.images.length > 0;
 
-  if (!hasImages) {
-    imagesError.value = "Dodaj zdjęcia.";
-    return;
-  }
+    if (!hasImages) {
+      imagesError.value = "Dodaj zdjęcia.";
+      errorStore.addMessage({
+        type: "failure",
+        message: "Projekt musi zawierać zdjęcia.",
+      });
+      return;
+    }
 
-  let finalDate = "";
-  if (!values.creationDate) {
-    const today = new Date();
-    finalDate = today
-      .toLocaleDateString("pl-PL", {
-        day: "2-digit",
-        month: "2-digit",
-        year: "numeric",
-      })
-      .replace(/\./g, "/");
-  } else {
-    const [y, m, d] = values.creationDate.split("-");
-    finalDate = `${d}/${m}/${y}`;
-  }
+    let finalDate = "";
+    if (!values.creationDate) {
+      const today = new Date();
+      finalDate = today
+        .toLocaleDateString("pl-PL", {
+          day: "2-digit",
+          month: "2-digit",
+          year: "numeric",
+        })
+        .replace(/\./g, "/");
+    } else {
+      const [y, m, d] = values.creationDate.split("-");
+      finalDate = `${d}/${m}/${y}`;
+    }
 
-  const payload = {
-    ...values,
-    id: projectStore.data?.id,
-    creation_date: finalDate,
-  };
+    const payload = {
+      ...values,
+      id: projectStore.data?.id,
+      creation_date: finalDate,
+    };
 
-  if (projectStore.mode === "new") {
-    projectStore.createProject(payload, imagesInputRef);
-  } else if (projectStore.mode === "edit") {
-    projectStore.updateProject(payload, imagesInputRef);
-  }
-});
+    if (projectStore.mode === "new") {
+      projectStore.createProject(payload, imagesInputRef);
+
+      errorStore.addMessage({
+        type: "success",
+        message: "Projekt został utworzony.",
+      });
+    } else if (projectStore.mode === "edit") {
+      projectStore.updateProject(payload, imagesInputRef);
+
+      errorStore.addMessage({
+        type: "success",
+        message: "Projekt został zaktualizowany.",
+      });
+    }
+  },
+  ({ errors }) => {
+    const hasImages =
+      imagesInputRef.value?.images && imagesInputRef.value.images.length > 0;
+
+    if (!hasImages) {
+      imagesError.value = "Dodaj zdjęcia.";
+      errorStore.addMessage({
+        type: "failure",
+        message: "Projekt musi zawierać zdjęcia.",
+      });
+    }
+
+    Object.values(errors).forEach((msg) => {
+      errorStore.addMessage({
+        type: "failure",
+        message: msg,
+      });
+    });
+  },
+);
 
 const blockInvalidChar = (e: KeyboardEvent) => {
   if (["-", "+", "e", "E"].includes(e.key)) {
@@ -125,7 +161,7 @@ useHead({
         </h1>
         <button
           @click="projectStore.closeProjectForm"
-          class="hover:bg-black/20 active:bg-black/20 p-1 flex items-center justify-center transition-colors duration-200 ease-in-out"
+          class="hover:bg-black/20 active:bg-black/20 p-1 flex items-center justify-center transition-colors duration-200 ease-in-out cursor-pointer"
         >
           <i class="pi pi-times text-gray-500"></i>
         </button>
@@ -133,51 +169,31 @@ useHead({
       <div class="w-full flex flex-col md:flex-row gap-8">
         <div class="w-full md:w-1/2 flex flex-col gap-4 md:gap-8">
           <div class="flex flex-col">
-            <div class="w-full flex flex-col md:flex-row md:items-center">
-              <div
-                class="w-fit flex items-center gap-2 px-2 py-1 text-sm border-x border-t border-black"
-              >
-                <i class="pi pi-tag"></i>
-                <p class="text-xs md:text-sm">Nazwa</p>
-              </div>
-              <div
-                v-if="nameError"
-                class="w-fit flex items-center gap-2 px-1 md:px-2 py-1 text-sm border-x md:border-l-0 border-t border-red-800 bg-red-200"
-              >
-                <i class="pi pi-exclamation-triangle text-red-800"></i>
-                <p class="text-xs md:text-sm text-red-800">
-                  Błąd: {{ nameError }}
-                </p>
-              </div>
+            <div
+              class="w-fit flex items-center gap-2 px-2 py-1 text-sm border-x border-t border-black"
+            >
+              <i class="pi pi-tag"></i>
+              <p class="text-xs md:text-sm">Nazwa</p>
             </div>
 
             <input
               v-model="name"
               type="text"
+              :class="{ 'bg-red-100': nameError }"
               class="flex-1 py-1 md:py-2 px-2 md:px-4 outline-0 border border-black"
             />
           </div>
           <div class="flex flex-col">
-            <div class="w-full flex flex-col md:flex-row md:items-center">
-              <div
-                class="w-fit flex items-center gap-2 px-2 py-1 text-sm border-x border-t border-black"
-              >
-                <i class="pi pi-home"></i>
-                <p class="text-xs md:text-sm">Kategoria</p>
-              </div>
-              <div
-                v-if="categoryError"
-                class="w-fit flex items-center gap-2 px-1 md:px-2 py-1 text-sm border-x md:border-l-0 border-t border-red-800 bg-red-200"
-              >
-                <i class="pi pi-exclamation-triangle text-red-800"></i>
-                <p class="text-xs md:text-sm text-red-800">
-                  Błąd: {{ categoryError }}
-                </p>
-              </div>
+            <div
+              class="w-fit flex items-center gap-2 px-2 py-1 text-sm border-x border-t border-black"
+            >
+              <i class="pi pi-home"></i>
+              <p class="text-xs md:text-sm">Kategoria</p>
             </div>
 
             <select
               v-model="category"
+              :class="{ 'bg-red-100': categoryError }"
               class="w-full py-1 md:py-2 px-2 md:px-4 outline-0 flex items-center justify-between border border-black"
             >
               <option class="text-xs md:text-sm"></option>
@@ -190,22 +206,11 @@ useHead({
             </select>
           </div>
           <div class="flex-1 w-full flex flex-col">
-            <div class="w-full flex flex-col md:flex-row md:items-center">
-              <div
-                class="w-fit flex items-center gap-2 px-2 py-1 text-sm border-x border-t border-black"
-              >
-                <i class="pi pi-tag"></i>
-                <p class="text-xs md:text-sm">Powierzchnia</p>
-              </div>
-              <div
-                v-if="areaError"
-                class="w-fit flex items-center gap-2 px-1 md:px-2 py-1 text-sm border-x md:border-l-0 border-t border-red-800 bg-red-200"
-              >
-                <i class="pi pi-exclamation-triangle text-red-800"></i>
-                <p class="text-xs md:text-sm text-red-800">
-                  Błąd: {{ areaError }}
-                </p>
-              </div>
+            <div
+              class="w-fit flex items-center gap-2 px-2 py-1 text-sm border-x border-t border-black"
+            >
+              <i class="pi pi-tag"></i>
+              <p class="text-xs md:text-sm">Powierzchnia</p>
             </div>
 
             <div
@@ -216,6 +221,7 @@ useHead({
                 type="number"
                 min="0"
                 @keydown="blockInvalidChar"
+                :class="{ 'bg-red-100': areaError }"
                 class="flex-1 py-1 md:py-2 px-2 md:px-4 outline-0 [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
               />
               <p class="px-2 text-sm md:text-base shrink-0">m&sup2;</p>
@@ -223,22 +229,11 @@ useHead({
           </div>
 
           <div class="flex-1 w-full flex flex-col">
-            <div class="w-full flex flex-col md:flex-row md:items-center">
-              <div
-                class="w-fit flex items-center gap-2 px-2 py-1 text-sm border-x border-t border-black"
-              >
-                <i class="pi pi-calendar"></i>
-                <p class="text-xs md:text-sm">Data utworzenia*</p>
-              </div>
-              <div
-                v-if="creationDateError"
-                class="w-fit flex items-center gap-2 px-2 py-1 text-sm border-r border-t border-red-800 bg-red-200"
-              >
-                <i class="pi pi-exclamation-triangle text-red-800"></i>
-                <p class="text-xs md:text-sm text-red-800">
-                  Błąd: {{ creationDateError }}
-                </p>
-              </div>
+            <div
+              class="w-fit flex items-center gap-2 px-2 py-1 text-sm border-x border-t border-black"
+            >
+              <i class="pi pi-calendar"></i>
+              <p class="text-xs md:text-sm">Data utworzenia*</p>
             </div>
 
             <div
@@ -247,6 +242,7 @@ useHead({
               <input
                 v-model="creationDate"
                 type="date"
+                :class="{ 'bg-red-100': creationDateError }"
                 class="flex-1 py-1 md:py-2 px-2 md:px-4 outline-0 w-0"
               />
             </div>
@@ -266,7 +262,7 @@ useHead({
 
       <button
         type="submit"
-        class="mt-auto ml-auto w-full sm:max-w-56 py-2 px-4 bg-neutral-800 hover:bg-black text-sm lg:text-base text-gray-100 border border-black transition-colors duration-300 ease-in-out"
+        class="mt-auto ml-auto w-full sm:max-w-56 py-2 px-4 bg-neutral-800 hover:bg-black text-sm lg:text-base text-gray-100 border border-black transition-colors duration-300 ease-in-out cursor-pointer"
       >
         {{ projectStore.mode === "edit" ? "Zatwierdź zmiany" : "Potwierdź" }}
       </button>

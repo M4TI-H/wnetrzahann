@@ -83,12 +83,12 @@ onMounted(async () => {
         <button
           @click="isPaused = !isPaused"
           :aria-label="isPaused ? 'Start' : 'Stop'"
-          class="px-1"
+          class="px-1 cursor-pointer"
         >
           <i
             :class="[
               isPaused ? 'pi-play' : 'pi-pause',
-              'pi text-white translate-y-0.5 focus:outline-none focus-visible:outline focus-visible:outline-1 focus-visible:outline-white',
+              'pi text-white translate-y-0.5 focus:outline-none focus-visible:outline  focus-visible:outline-white',
             ]"
           ></i>
         </button>
@@ -99,7 +99,7 @@ onMounted(async () => {
           :key="idx"
           :class="[
             idx === idCounter ? 'bg-white' : 'bg-none hover:bg-gray-300',
-            'size-4 md:size-2 border border-white cursor-hover transition-colors duration-150 ease-in-out focus:outline-none focus-visible:outline focus-visible:outline-1 focus-visible:outline-white',
+            'size-4 md:size-2 border border-white cursor-hover transition-colors duration-150 ease-in-out focus:outline-none focus-visible:outline cursor-pointer focus-visible:outline-white',
           ]"
         ></button>
       </div>

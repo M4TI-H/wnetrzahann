@@ -1,13 +1,23 @@
 <script setup lang="ts">
 const deleteModalStore = useDeleteModalStore();
+const errorStore = useErrorStore();
 
 useHead({
   bodyAttrs: {
     class: computed(() =>
-      deleteModalStore.isModalOpened ? "overflow-hidden" : ""
+      deleteModalStore.isModalOpened ? "overflow-hidden" : "",
     ),
   },
 });
+
+const submitDelete = () => {
+  deleteModalStore.deleteProject();
+
+  errorStore.addMessage({
+    type: "success",
+    message: "Pomyślnie usunięto projekt.",
+  });
+};
 </script>
 
 <template>
@@ -26,13 +36,13 @@ useHead({
       >
         <button
           @click="deleteModalStore.closeModal"
-          class="text-sm text-gray-500 hover:underline"
+          class="text-sm text-gray-500 hover:underline cursor-pointer"
         >
           Anuluj
         </button>
         <button
-          @click="deleteModalStore.deleteProject"
-          class="ml-auto w-full lg:w-min py-2 px-4 bg-neutral-800 hover:bg-black text-sm lg:text-base text-gray-100 border border-black transition-colors duration-300 ease-in-out"
+          @click="submitDelete"
+          class="ml-auto w-full lg:w-min py-2 px-4 bg-neutral-800 hover:bg-black text-sm lg:text-base text-gray-100 border border-black transition-colors duration-300 ease-in-out cursor-pointer"
         >
           Potwierdź
         </button>

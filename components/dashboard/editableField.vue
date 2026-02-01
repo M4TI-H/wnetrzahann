@@ -15,6 +15,8 @@ const emit = defineEmits<{
   (e: "update"): void;
 }>();
 
+const errorStore = useErrorStore();
+
 const editValue = ref<boolean>(false);
 
 const { contactLoading, updateContactData } = useEditContact();
@@ -60,11 +62,30 @@ const toggleEdit = () => {
 const handleChange = async () => {
   const { valid } = await validate();
 
-  if (!valid) return;
+  if (!valid) {
+    errorStore.addMessage({
+      type: "failure",
+      message: errorMessage.value || "Pole zawiera błędy.",
+    });
+    return;
+  }
 
-  await updateContactData(props.type, fieldValue.value);
-  editValue.value = false;
-  emit("update");
+  try {
+    await updateContactData(props.type, fieldValue.value);
+
+    errorStore.addMessage({
+      type: "success",
+      message: `Pomyślnie zaktualizowano pole: ${props.label}`,
+    });
+
+    editValue.value = false;
+    emit("update");
+  } catch (error: any) {
+    errorStore.addMessage({
+      type: "failure",
+      message: "Wystąpił błąd podczas aktualizacji danych.",
+    });
+  }
 };
 </script>
 <template>
@@ -75,13 +96,6 @@ const handleChange = async () => {
       >
         <i :class="props.icon"></i>
         <p class="text-xs md:text-sm">{{ props.label }}</p>
-      </div>
-      <div
-        v-if="errorMessage"
-        class="w-fit flex items-center gap-2 px-1 md:px-2 py-1 text-sm border-x md:border-l-0 border-t border-red-800 bg-red-200"
-      >
-        <i class="pi pi-exclamation-triangle text-red-800"></i>
-        <p class="text-xs md:text-sm text-red-800">Błąd: {{ errorMessage }}</p>
       </div>
     </div>
 
@@ -96,7 +110,7 @@ const handleChange = async () => {
       </p>
       <button
         @click="toggleEdit"
-        class="text-xs text-gray-500 p-2 md:p-3 h-full bg-neutral-800 hover:bg-black focus:bg-black transition-colors duration-300 ease-in-out"
+        class="text-xs text-gray-500 p-2 md:p-3 h-full bg-neutral-800 hover:bg-black focus:bg-black transition-colors duration-300 ease-in-out cursor-pointer"
       >
         <i class="pi pi-pen-to-square text-gray-100"></i>
       </button>
@@ -114,13 +128,13 @@ const handleChange = async () => {
       <div>
         <button
           type="submit"
-          class="text-xs 0 p-2 md:p-3 bg-neutral-800 hover:bg-black focus:bg-black transition-colors duration-300 ease-in-out"
+          class="text-xs 0 p-2 md:p-3 bg-neutral-800 hover:bg-black focus:bg-black transition-colors duration-300 ease-in-out cursor-pointer"
         >
           <i class="pi pi-check text-gray-100"></i>
         </button>
         <button
           @click="toggleEdit()"
-          class="text-xs p-2 md:p-3 bg-gray-100 hover:bg-gray-300 focus:bg-gray-300 transition-colors duration-300 ease-in-out"
+          class="text-xs p-2 md:p-3 bg-gray-100 hover:bg-gray-300 focus:bg-gray-300 transition-colors duration-300 ease-in-out cursor-pointer"
         >
           <i class="pi pi-times text-neutral-800"></i>
         </button>

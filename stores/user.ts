@@ -20,19 +20,21 @@ export const useUserStore = defineStore("user", {
       const supabase = useSupabaseClient();
       this.loading = true;
 
-      const { data, error } = await supabase.auth.signInWithPassword({
-        email: login.trim(),
-        password,
-      });
+      try {
+        const { error } = await supabase.auth.signInWithPassword({
+          email: login.trim(),
+          password,
+        });
 
-      this.loading = false;
+        if (error) throw error;
 
-      if (error) {
+        const {
+          data: { user },
+        } = await supabase.auth.getUser();
+        this.user = user;
+      } finally {
         this.loading = false;
-        return;
       }
-
-      this.user = data.user;
     },
     async signOut() {
       const supabase = useSupabaseClient();
@@ -45,33 +47,31 @@ export const useUserStore = defineStore("user", {
     async changePassword(
       login: string,
       oldPassword: string,
-      newPassword: string
+      newPassword: string,
     ) {
       const supabase = useSupabaseClient();
       this.loading = true;
+      try {
+        const { error: authError } = await supabase.auth.signInWithPassword({
+          email: login.trim(),
+          password: oldPassword,
+        });
 
-      const { error: authDataError } = await supabase.auth.signInWithPassword({
-        email: login.trim(),
-        password: oldPassword,
-      });
+        if (authError) throw authError;
 
-      if (authDataError) {
+        const { error: updateError } = await supabase.auth.updateUser({
+          password: newPassword,
+        });
+
+        if (updateError) throw updateError;
+
+        await supabase.auth.signOut();
+        this.user = null;
+      } catch (error) {
+        throw error;
+      } finally {
         this.loading = false;
-        return;
       }
-
-      const { error: updateError } = await supabase.auth.updateUser({
-        password: newPassword,
-      });
-
-      this.loading = false;
-
-      if (updateError) {
-        this.loading = false;
-        return;
-      }
-
-      await supabase.auth.signOut();
     },
   },
 });

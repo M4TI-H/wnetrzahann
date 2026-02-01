@@ -68,7 +68,7 @@ onMounted(async () => {
         </div>
 
         <p class="mx-auto text-gray-500">
-          {{ $t("scrollSection.openContact") }}
+          {{ $t("contact.or") }}
         </p>
         <button
           @click="contactStore.openContactForm"

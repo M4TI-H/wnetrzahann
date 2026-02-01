@@ -36,13 +36,13 @@ const prop = defineProps<{
       >
         <button
           @click="projectStore.openProjectForm('edit', data)"
-          class="w-full md:w-min py-2 md:py-1 px-4 bg-gray-100 hover:bg-gray-200 text-sm md:text-base text-neutral-800 border border-black transition-colors duration-300 ease-in-out"
+          class="w-full md:w-min py-2 md:py-1 px-4 bg-gray-100 hover:bg-gray-200 text-sm md:text-base text-neutral-800 border border-black transition-colors duration-300 ease-in-out cursor-pointer"
         >
           Edytuj
         </button>
         <button
           @click="deleteModalStore.openModal(data)"
-          class="w-full md:w-min py-2 md:py-1 px-4 bg-neutral-800 hover:bg-black text-sm md:text-base text-gray-100 border border-black transition-colors duration-300 ease-in-out"
+          class="w-full md:w-min py-2 md:py-1 px-4 bg-neutral-800 hover:bg-black text-sm md:text-base text-gray-100 border border-black transition-colors duration-300 ease-in-out cursor-pointer"
         >
           Usuń
         </button>

@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import Hero from "~/components/main/hero.vue";
 import Slider from "~/components/main/slider.vue";
-
 useSeoMeta({
   title: () => $t("seo.home.title"),
   description: () => $t("seo.home.description"),

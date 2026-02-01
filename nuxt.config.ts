@@ -1,15 +1,19 @@
+import tailwindcss from "@tailwindcss/vite";
+
 export default defineNuxtConfig({
   compatibilityDate: "2025-07-15",
   devtools: { enabled: false },
   modules: [
     "@nuxtjs/supabase",
-    "@nuxtjs/tailwindcss",
     "@vueuse/nuxt",
     "@primevue/nuxt-module",
     "@pinia/nuxt",
     "@nuxtjs/i18n",
     "@nuxt/image",
   ],
+  vite: {
+    plugins: [tailwindcss()],
+  },
   app: {
     head: {
       htmlAttrs: {

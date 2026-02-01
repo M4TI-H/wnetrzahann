@@ -18,7 +18,7 @@ const acceptCookies = () => {
     </p>
     <button
       @click="acceptCookies"
-      class="ml-auto w-full lg:w-min py-1 px-2 bg-neutral-800 hover:bg-black text-xs md:text-sm text-gray-100 border border-black transition-colors duration-300 ease-in-out outline-none focus:border-2 focus:bg-black"
+      class="ml-auto w-full lg:w-min py-1 px-2 bg-neutral-800 hover:bg-black text-xs md:text-sm text-gray-100 border border-black transition-colors duration-300 ease-in-out outline-none focus:border-2 focus:bg-black cursor-pointer"
     >
       {{ $t("cookies.button") }}
     </button>

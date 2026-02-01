@@ -19,7 +19,7 @@ const handleSearch = () => {
     <button
       :aria-label="$t('projects.filters.search')"
       @click="handleSearch"
-      class="absolute z-20 px-3 lg:px-4 h-full text-xs md:text-sm bg-neutral-800 hover:bg-black right-0 top-0 outline-none focus-visible:bg-black transition-colors duration-300 ease-in-out"
+      class="absolute z-20 px-3 lg:px-4 h-full text-xs md:text-sm bg-neutral-800 hover:bg-black right-0 top-0 outline-none focus-visible:bg-black transition-colors duration-300 ease-in-out cursor-pointer"
     >
       <i class="pi pi-search text-white"></i>
     </button>

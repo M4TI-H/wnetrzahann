@@ -2,6 +2,14 @@
 import ContactData from "~/components/dashboard/contactData.vue";
 import ProjectsList from "~/components/dashboard/projectsSection/projectsList.vue";
 
+useSeoMeta({
+  title: () => $t("seo.home.title"),
+  ogTitle: () => $t("seo.home.title"),
+  ogImage: "https://hannwnetrza.pl/logo_white.png",
+  ogUrl: "https://hannwnetrza.pl",
+  ogType: "website",
+});
+
 definePageMeta({
   layout: "admin",
   middleware: "auth",

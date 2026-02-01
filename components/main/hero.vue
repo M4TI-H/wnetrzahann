@@ -32,7 +32,7 @@ const localePath = useLocalePath();
 
       <button
         @click.prevent="emit('scrollDown')"
-        class="group absolute bottom-2 left-1/2 -translate-x-1/2 text-2xl md:text-4xl flex items-center justify-center text-white hover:bg-black/20 p-1 transition-colors duration-300 ease-in-out outline-none focus:backdrop-blur focus-visible:ring-white focus-visible:ring-1"
+        class="group absolute bottom-2 left-1/2 -translate-x-1/2 text-2xl md:text-4xl flex items-center justify-center text-white hover:bg-black/20 p-1 cursor-pointer transition-colors duration-300 ease-in-out outline-none focus:backdrop-blur focus-visible:ring-white focus-visible:ring-1"
       >
         <i
           class="pi pi-angle-down group-hover:translate-y-1 group-focus:translate-y-1 transition-transform duration-300"

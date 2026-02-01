@@ -4,14 +4,23 @@ import Gallery from "~/components/singleProject/gallery.vue";
 import { useFetchSingle } from "~/composables/projects/useFetchSingle";
 import { useFetchImages } from "~/composables/images/useFetchImages";
 
+const scrollStore = useScrollStore();
+
 const route = useRoute();
 const projectID = computed(() => Number(route.params.id) ?? 0);
 
+const { projectData, projectRefresh } = useFetchSingle(projectID.value);
+const { imagesList, imagesLoading, imagesRefresh } = useFetchImages(
+  projectID.value,
+);
+
 useSeoMeta({
-  title: () => `Agata Hann | ${projectData.value?.name}`,
+  title: () =>
+    projectData.value ? `Agata Hann • ${projectData.value.name}` : "Agata Hann",
   description: () => $t("seo.projects.description"),
   keywords: () => $t("seo.projects.keywords"),
-  ogTitle: () => `Agata Hann | ${projectData.value?.name}`,
+  ogTitle: () =>
+    projectData.value ? `Agata Hann • ${projectData.value.name}` : "Agata Hann",
   ogDescription: () => $t("seo.projects.description"),
   ogImage: "https://hannwnetrza.pl/logo_white.png",
   ogUrl: "https://hannwnetrza.pl",
@@ -22,14 +31,8 @@ definePageMeta({
   navbar: "compact",
 });
 
-const { projectData, projectRefresh } = useFetchSingle(projectID.value);
-
-const { imagesList, imagesLoading, imagesRefresh } = useFetchImages(
-  projectID.value,
-);
-
 onMounted(async () => {
-  await projectRefresh;
+  await projectRefresh();
   await imagesRefresh();
 });
 
@@ -39,6 +42,14 @@ const displayImage = (id: number) => {
   fullscreenImage.value = id;
   activeIndex.value = id;
 };
+
+const isLocked = useScrollLock(
+  typeof document !== "undefined" ? document.body : null,
+);
+watch(fullscreenImage, (val) => {
+  isLocked.value = val !== null;
+  scrollStore.hideScroll = val !== null;
+});
 
 const activeIndex = ref<number>(0);
 
@@ -55,6 +66,12 @@ const previousImage = () => {
   activeIndex.value--;
   fullscreenImage.value = activeIndex.value;
 };
+
+onKeyStroke("ArrowRight", () => nextImage());
+onKeyStroke("ArrowLeft", () => previousImage());
+onKeyStroke("Escape", () => {
+  fullscreenImage.value = null;
+});
 </script>
 
 <template>

@@ -3,7 +3,16 @@ import { useField, useForm } from "vee-validate";
 import { z } from "zod";
 import { toTypedSchema } from "@vee-validate/zod";
 
+useSeoMeta({
+  title: () => $t("seo.home.title"),
+  ogTitle: () => $t("seo.home.title"),
+  ogImage: "https://hannwnetrza.pl/logo_white.png",
+  ogUrl: "https://hannwnetrza.pl",
+  ogType: "website",
+});
+
 const userStore = useUserStore();
+const errorStore = useErrorStore();
 
 definePageMeta({
   layout: "admin",
@@ -14,7 +23,7 @@ const validationSchema = toTypedSchema(
   z.object({
     login: z.string().min(1, "Login jest wymagany!"),
     password: z.string().min(1, "Hasło jest wymagane!"),
-  })
+  }),
 );
 
 const { handleSubmit } = useForm({
@@ -25,22 +34,46 @@ const { handleSubmit } = useForm({
   },
 });
 
-const { value: login, errorMessage: loginError } = useField<string>("login");
-const { value: password, errorMessage: passwordError } =
-  useField<string>("password");
+const { value: login } = useField<string>("login");
+const { value: password } = useField<string>("password");
 const invalidCredentials = ref<string | null>();
 
 const handleLogin = async () => {
+  invalidCredentials.value = null;
   try {
     await userStore.signIn(login.value, password.value);
-    navigateTo("/admin/dashboard");
+    const user = useSupabaseUser();
+    if (user.value) {
+      return await navigateTo("/admin/dashboard", { replace: true });
+    }
   } catch (error: any) {
     console.error(error);
-    invalidCredentials.value = "Błędne dane logowania. Spróbuj ponownie.";
+
+    let errorMsg = "Wystąpił nieoczekiwany błąd.";
+
+    if (error.message === "Invalid login credentials") {
+      errorMsg = "Błędne dane logowania. Spróbuj ponownie.";
+    } else if (error.status === 400) {
+      errorMsg = "Nieprawidłowe zapytanie do serwera.";
+    } else {
+      errorMsg = error.message;
+    }
+
+    errorStore.addMessage({
+      type: "failure",
+      message: errorMsg,
+    });
   }
 };
 
 const onSubmit = handleSubmit(handleLogin);
+
+const passwordVisibility = ref<string>("password");
+const togglePassword = () => {
+  if (passwordVisibility.value == "password") passwordVisibility.value = "text";
+  else if (passwordVisibility.value == "text")
+    passwordVisibility.value = "password";
+};
 </script>
 
 <template>
@@ -74,10 +107,24 @@ const onSubmit = handleSubmit(handleLogin);
           </div>
           <input
             v-model="password"
-            type="password"
+            :type="passwordVisibility"
             placeholder="Hasło"
             class="w-full text-sm md:text-base border border-neutral-800 outline-0 py-2 md:py-3 pl-12 md:pl-16 pr-2 md:pr-3"
           />
+          <button
+            @click="togglePassword"
+            type="button"
+            class="absolute right-3 md:right-4 top-1/2 -translate-y-1/2 h-full flex items-center justify-center cursor-pointer"
+          >
+            <i
+              v-if="passwordVisibility === 'password'"
+              class="pi pi-eye text-xl text-neutral-800"
+            ></i>
+            <i
+              v-if="passwordVisibility === 'text'"
+              class="pi pi-eye-slash text-xl text-neutral-800"
+            ></i>
+          </button>
         </div>
         <NuxtLink
           to="/admin/change-password"
@@ -89,7 +136,7 @@ const onSubmit = handleSubmit(handleLogin);
       <button
         type="submit"
         :disabled="userStore.loading"
-        class="relative w-full py-2 md:py-3 bg-neutral-800 hover:bg-black text-sm md:text-base text-gray-100 border-2 border-gray-100 hover:border-black ring-2 ring-black transition-colors duration-300 ease-in-out disabled:opacity-70"
+        class="relative w-full py-2 md:py-3 bg-neutral-800 hover:bg-black cursor-pointer text-sm md:text-base text-gray-100 border-2 border-gray-100 hover:border-black ring-2 ring-black transition-colors duration-300 ease-in-out disabled:opacity-70"
       >
         <div
           v-if="userStore.loading"

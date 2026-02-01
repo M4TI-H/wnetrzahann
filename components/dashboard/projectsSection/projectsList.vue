@@ -14,7 +14,7 @@ const filteredProjects = computed(() => {
   const term = search.value.toLowerCase().trim();
 
   return projectsData.value.filter((project) =>
-    project.name.toLowerCase().includes(term)
+    project.name.toLowerCase().includes(term),
   );
 });
 
@@ -25,7 +25,7 @@ onMounted(async () => {
 
 <template>
   <section
-    class="flex-1 w-full lg:max-w-2/3 flex flex-col gap-4 bg-white p-4 border border-black h-[700px] min-h-0"
+    class="flex-1 w-full lg:max-w-2/3 flex flex-col gap-4 bg-white p-4 border border-black h-175 min-h-0"
   >
     <div
       class="w-full flex flex-wrap sm:flex-nowrap items-center justify-between gap-4"
@@ -41,7 +41,7 @@ onMounted(async () => {
 
       <button
         @click="projectStore.openProjectForm('new')"
-        class="order-2 sm:order-3 p-2 lg:px-8 bg-gray-100 hover:bg-gray-200 text-xs md:text-base text-neutral-800 border border-black flex items-center justify-center gap-2 lg:gap-4 transition-colors duration-300 ease-in-out"
+        class="order-2 sm:order-3 p-2 lg:px-8 bg-gray-100 hover:bg-gray-200 text-xs md:text-base text-neutral-800 border border-black flex items-center justify-center gap-2 lg:gap-4 transition-colors duration-300 ease-in-out cursor-pointer"
       >
         <span class="text-sm md:text-base">Dodaj</span>
         <i class="pi pi-plus"></i>

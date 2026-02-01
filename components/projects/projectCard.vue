@@ -12,7 +12,7 @@ const localePath = useLocalePath();
     <NuxtLink
       :aria-label="`${data.name} ${$t('projects.gallery')}`"
       :to="localePath(`/projekty/${data.id}`)"
-      class="relative block w-full h-full bg-gray-300 focus:outline-none focus-visible:outline focus-visible:outline-2 focus-visible:outline-black"
+      class="relative block w-full h-full bg-gray-300 focus:outline-none focus-visible:outline-2 focus-visible:outline-black"
     >
       <NuxtImg
         :alt="`${data.name} cover image`"

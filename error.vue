@@ -18,9 +18,7 @@ const errorDetails = computed(() => {
   <section
     class="w-full min-h-screen flex flex-col items-center justify-center bg-gray-100 p-4 md:p-8 gap-4 md:gap-8 overflow-hidden"
   >
-    <h1
-      class="text-[80px] md:text-[100px] leading-[3rem] md:leading-[4rem] text-neutral-500"
-    >
+    <h1 class="text-[80px] md:text-[100px] text-neutral-500">
       {{ error?.statusCode }}
     </h1>
     <p class="text-neutral-500 text-lg md:text-xl">
