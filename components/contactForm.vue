@@ -2,6 +2,8 @@
 import { useContactStore } from "~/stores/contact";
 
 const contactStore = useContactStore();
+const errorStore = useErrorStore();
+const token = ref<string>("");
 
 useHead({
   bodyAttrs: {
@@ -10,6 +12,19 @@ useHead({
     ),
   },
 });
+
+const handleSend = async () => {
+  if (!token.value) {
+    errorStore.addMessage({
+      type: "failure",
+      message: "Proszę potwierdzić, że nie jesteś robotem.",
+    });
+    return;
+  }
+
+  // Tutaj wyślij formularz do swojego API wraz z tokenem
+  // console.log("Wysyłam token do weryfikacji:", token.value);
+};
 </script>
 
 <template>
@@ -67,6 +82,7 @@ useHead({
               :placeholder="$t('contact.placeholder.content')"
               class="h-24 md:h-32 text-sm md:text-base p-2 border border-black focus:outline-none focus-visible:outline-1 focus-visible:outline-black resize-none"
             ></textarea>
+            <NuxtTurnstile v-model="token" />
             <button
               class="w-full h-12 md:h-16 bg-neutral-800 hover:bg-black cursor-pointer md:text-lg text-gray-100 border-2 border-gray-100 hover:border-black ring-2 ring-black font-semibold outline-0 focus:border-black focus:bg-black transition-colors duration-300 ease-in-out"
             >

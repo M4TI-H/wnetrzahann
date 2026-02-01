@@ -10,6 +10,7 @@ export default defineNuxtConfig({
     "@pinia/nuxt",
     "@nuxtjs/i18n",
     "@nuxt/image",
+    "nuxt-turnstile",
   ],
   vite: {
     plugins: [tailwindcss()],
@@ -44,5 +45,13 @@ export default defineNuxtConfig({
     defaultLocale: "pl",
     strategy: "prefix_except_default",
     vueI18n: "~/i18n.config.ts",
+  },
+  turnstile: {
+    siteKey: process.env.NUXT_PUBLIC_TURNSTILE_SITE_KEY,
+  },
+  runtimeConfig: {
+    turnstile: {
+      secretKey: process.env.NUXT_TURNSTILE_SECRET_KEY,
+    },
   },
 });
