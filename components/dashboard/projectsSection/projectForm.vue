@@ -59,8 +59,67 @@ const { value: creationDate, errorMessage: creationDateError } =
   useField<string>("creationDate", undefined, fieldOptions);
 const imagesError = ref<string | null>(null);
 
+const handleSubmitForm = async (values: any) => {
+  const hasImages =
+    imagesInputRef.value?.images && imagesInputRef.value.images.length > 0;
+
+  if (!hasImages) {
+    imagesError.value = "Dodaj zdjęcia.";
+    errorStore.addMessage({
+      type: "failure",
+      message: "Projekt musi zawierać zdjęcia.",
+    });
+    return;
+  }
+
+  let finalDate = "";
+  if (!values.creationDate) {
+    const today = new Date();
+    finalDate = today
+      .toLocaleDateString("pl-PL", {
+        day: "2-digit",
+        month: "2-digit",
+        year: "numeric",
+      })
+      .replace(/\./g, "/");
+  } else {
+    const [y, m, d] = values.creationDate.split("-");
+    finalDate = `${d}/${m}/${y}`;
+  }
+
+  const payload = {
+    ...values,
+    id: projectStore.data?.id,
+    creation_date: finalDate,
+  };
+
+  try {
+    if (projectStore.mode === "new") {
+      await projectStore.createProject(payload, imagesInputRef);
+      errorStore.addMessage({
+        type: "success",
+        message: "Projekt został utworzony.",
+      });
+    } else {
+      await projectStore.updateProject(payload, imagesInputRef);
+      errorStore.addMessage({
+        type: "success",
+        message: "Projekt został zaktualizowany.",
+      });
+    }
+  } catch (e) {
+    errorStore.addMessage({
+      type: "failure",
+      message: "Wystąpił błąd podczas zapisu.",
+    });
+  }
+};
+
 const onSubmit = handleSubmit(
   async (values) => {
+    await handleSubmitForm(values);
+  },
+  ({ errors }) => {
     const hasImages =
       imagesInputRef.value?.images && imagesInputRef.value.images.length > 0;
 
@@ -73,61 +132,13 @@ const onSubmit = handleSubmit(
       return;
     }
 
-    let finalDate = "";
-    if (!values.creationDate) {
-      const today = new Date();
-      finalDate = today
-        .toLocaleDateString("pl-PL", {
-          day: "2-digit",
-          month: "2-digit",
-          year: "numeric",
-        })
-        .replace(/\./g, "/");
-    } else {
-      const [y, m, d] = values.creationDate.split("-");
-      finalDate = `${d}/${m}/${y}`;
-    }
-
-    const payload = {
-      ...values,
-      id: projectStore.data?.id,
-      creation_date: finalDate,
-    };
-
-    if (projectStore.mode === "new") {
-      projectStore.createProject(payload, imagesInputRef);
-
-      errorStore.addMessage({
-        type: "success",
-        message: "Projekt został utworzony.",
-      });
-    } else if (projectStore.mode === "edit") {
-      projectStore.updateProject(payload, imagesInputRef);
-
-      errorStore.addMessage({
-        type: "success",
-        message: "Projekt został zaktualizowany.",
-      });
-    }
-  },
-  ({ errors }) => {
-    const hasImages =
-      imagesInputRef.value?.images && imagesInputRef.value.images.length > 0;
-
-    if (!hasImages) {
-      imagesError.value = "Dodaj zdjęcia.";
+    const firstError = Object.values(errors)[0];
+    if (firstError) {
       errorStore.addMessage({
         type: "failure",
-        message: "Projekt musi zawierać zdjęcia.",
+        message: firstError,
       });
     }
-
-    Object.values(errors).forEach((msg) => {
-      errorStore.addMessage({
-        type: "failure",
-        message: msg,
-      });
-    });
   },
 );
 

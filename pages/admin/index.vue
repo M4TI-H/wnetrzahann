@@ -2,6 +2,7 @@
 import { useField, useForm } from "vee-validate";
 import { z } from "zod";
 import { toTypedSchema } from "@vee-validate/zod";
+import { useErrorStore } from "~/stores/message";
 
 useSeoMeta({
   title: () => $t("seo.home.title"),

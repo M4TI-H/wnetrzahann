@@ -4,7 +4,7 @@ const errorStore = useErrorStore();
 
 <template>
   <div
-    class="fixed z-[100] top-4 right-4 flex flex-col gap-3 w-full max-w-sm pointer-events-none"
+    class="fixed z-100 top-4 right-4 flex flex-col gap-3 w-full max-w-sm pointer-events-none"
   >
     <TransitionGroup name="notification">
       <section

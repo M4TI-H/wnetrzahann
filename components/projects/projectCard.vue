@@ -8,7 +8,7 @@ const prop = defineProps<{
 const localePath = useLocalePath();
 </script>
 <template>
-  <div class="w-full md:h-[32rem] my-1">
+  <div class="w-full md:h-128 my-1">
     <NuxtLink
       :aria-label="`${data.name} ${$t('projects.gallery')}`"
       :to="localePath(`/projekty/${data.id}`)"
@@ -21,7 +21,7 @@ const localePath = useLocalePath();
         class="h-full w-full object-cover"
       />
       <div
-        class="opacity-100 md:opacity-0 hover:opacity-100 absolute z-10 bottom-0 w-full h-full flex flex-col gap-2 justify-end py-1 px-2 md:p-4 bg-gradient-to-b from-transparent to-black/50 transition-opacity duration-300 ease-in-out"
+        class="opacity-100 md:opacity-0 hover:opacity-100 absolute z-10 bottom-0 w-full h-full flex flex-col gap-2 justify-end py-1 px-2 md:p-4 bg-linear-to-b from-transparent to-black/50 transition-opacity duration-300 ease-in-out"
       >
         <p
           class="absolute top-2 md:relative text-sm lg:text-base text-white font-thin"

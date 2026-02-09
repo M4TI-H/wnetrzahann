@@ -192,7 +192,7 @@ defineExpose({
       <div
         v-for="(image, index) in images"
         :key="index"
-        class="relative flex-shrink-0 h-32 group"
+        class="relative shrink-0 h-32 group"
         :class="
           image.isCover ? 'border-4 border-amber-500' : 'border border-black'
         "
@@ -218,9 +218,7 @@ defineExpose({
         </button>
       </div>
     </div>
-    <div
-      class="mt-1 hidden md:grid grid-cols-2 gap-2 overflow-y-auto max-h-[20rem]"
-    >
+    <div class="mt-1 hidden md:grid grid-cols-2 gap-2 overflow-y-auto max-h-80">
       <div
         v-for="(image, index) in images"
         :key="index"

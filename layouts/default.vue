@@ -18,7 +18,7 @@ const navbarMode = computed<"dynamic" | "base" | "compact">(
 <template>
   <section class="w-full min-h-screen flex flex-col text-neutral-800">
     <Navbar :mode="navbarMode" />
-    <ErrorMessage v-if="errorStore.displayMessage" />
+    <ErrorMessage />
     <OnScrollSection v-if="!scrollStore.hideScroll" />
     <CookiesModal v-if="cookiesStore.isModalOpened" />
     <ContactForm v-if="contactStore.isContactFormOpen" />

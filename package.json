@@ -10,6 +10,7 @@
     "postinstall": "nuxt prepare"
   },
   "dependencies": {
+    "@emailjs/browser": "^4.4.1",
     "@nuxt/image": "^2.0.0",
     "@nuxt/ui": "^4.3.0",
     "@nuxtjs/i18n": "^10.2.1",
@@ -22,7 +23,6 @@
     "@vueuse/nuxt": "^14.1.0",
     "browser-image-compression": "^2.0.2",
     "nuxt": "^3.20.2",
-    "nuxt-turnstile": "^0.1.1",
     "pinia": "^3.0.4",
     "primeicons": "^7.0.0",
     "primevue": "^4.5.4",

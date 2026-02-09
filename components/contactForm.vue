@@ -1,8 +1,13 @@
 <script setup lang="ts">
 import { useContactStore } from "~/stores/contact";
+import { useField, useForm } from "vee-validate";
+import { z } from "zod";
+import { toTypedSchema } from "@vee-validate/zod";
 
+const { sendMessage, messageLoading } = useSendMessage();
 const contactStore = useContactStore();
 const errorStore = useErrorStore();
+const config = useRuntimeConfig();
 const token = ref<string>("");
 
 useHead({
@@ -13,17 +18,140 @@ useHead({
   },
 });
 
-const handleSend = async () => {
+const validationSchema = toTypedSchema(
+  z.object({
+    name: z.string().min(1, { message: "Podaj swoje imię." }),
+    email: z
+      .string()
+      .min(1, { message: "Podaj adres email do kontaktu." })
+      .email("Niepoprawny format adresu email."),
+    phone: z.string().optional().or(z.literal("")),
+    message: z.string().min(1, { message: "Podaj treść zapytania." }),
+  }),
+);
+
+const { handleSubmit, meta } = useForm({
+  validationSchema,
+  initialValues: {
+    name: "Jan Kowalski",
+    email: "jan@kowal.com",
+    phone: "123 456 789",
+    message: "Witam.",
+  },
+});
+
+const fieldOptions = {
+  validateOnValueUpdate: true,
+  validateOnInput: true,
+  validateOnBlur: true,
+};
+
+const { value: name, errorMessage: nameError } = useField<string>(
+  "name",
+  undefined,
+  fieldOptions,
+);
+const { value: email, errorMessage: emailError } = useField<string>(
+  "email",
+  undefined,
+  fieldOptions,
+);
+const { value: phone, errorMessage: phoneError } = useField<string>(
+  "phone",
+  undefined,
+  fieldOptions,
+);
+const { value: message, errorMessage: messageError } = useField<string>(
+  "message",
+  undefined,
+  fieldOptions,
+);
+
+const recaptchaWidgetId = ref<number | null>(null);
+const recaptchaContainer = ref<HTMLElement | null>(null);
+
+const renderRecaptcha = () => {
+  if (
+    process.client &&
+    (window as any).grecaptcha &&
+    recaptchaContainer.value
+  ) {
+    try {
+      recaptchaWidgetId.value = (window as any).grecaptcha.render(
+        recaptchaContainer.value,
+        {
+          sitekey: config.public.recaptchaSiteKey,
+          callback: (res: string) => (token.value = res),
+          "expired-callback": () => (token.value = ""),
+        },
+      );
+    } catch (e) {
+      console.error("Błąd renderowania reCAPTCHA:", e);
+    }
+  }
+};
+
+onMounted(() => {
+  setTimeout(renderRecaptcha, 300);
+});
+
+const handleSendMessage = async () => {
   if (!token.value) {
     errorStore.addMessage({
       type: "failure",
-      message: "Proszę potwierdzić, że nie jesteś robotem.",
+      message: "Proszę potwierdzić, że jesteś człowiekiem.",
     });
     return;
   }
 
-  // Tutaj wyślij formularz do swojego API wraz z tokenem
-  // console.log("Wysyłam token do weryfikacji:", token.value);
+  const response = await sendMessage({
+    name: name.value,
+    phone: phone.value,
+    email: email.value,
+    message: message.value,
+    token: token.value,
+  });
+
+  if (
+    process.client &&
+    (window as any).grecaptcha &&
+    recaptchaWidgetId.value !== null
+  ) {
+    try {
+      (window as any).grecaptcha.reset(recaptchaWidgetId.value);
+      token.value = "";
+    } catch (e) {
+      console.warn("Błąd przy wczytywaniu reCaptcha.");
+    }
+  }
+
+  if (response) {
+    name.value = "";
+    email.value = "";
+    phone.value = "";
+    message.value = "";
+  }
+};
+
+const onSubmit = handleSubmit(
+  async () => {
+    await handleSendMessage();
+  },
+
+  ({ errors }) => {
+    const firstError = Object.values(errors)[0];
+
+    if (firstError) {
+      errorStore.addMessage({
+        type: "failure",
+        message: firstError,
+      });
+    }
+  },
+);
+
+const onSuccess = (response: string) => {
+  token.value = response;
 };
 </script>
 
@@ -46,7 +174,8 @@ const handleSend = async () => {
         enter-from-class="opacity-0 translate-y-20 scale-95"
         enter-to-class="opacity-100 translate-y-0 scale-100"
       >
-        <section
+        <form
+          @submit="onSubmit"
           class="w-full max-w-lg bg-gray-100 border border-black flex flex-col gap-4 md:gap-8 p-4 md:p-8 my-auto"
         >
           <div class="w-full flex items-center justify-between">
@@ -54,7 +183,8 @@ const handleSend = async () => {
               {{ $t("contact.cta") }}
             </h1>
             <button
-              @click="contactStore.closeContactForm"
+              type="button"
+              @click.prevent="contactStore.closeContactForm"
               :aria-label="$t('contact.close')"
               class="hover:bg-black/20 active:bg-black/20 focus:bg-black/20 outline-0 text-sm p-1 flex items-center justify-center transition-colors duration-200 ease-in-out cursor-pointer"
             >
@@ -65,34 +195,45 @@ const handleSend = async () => {
           <div class="flex flex-col gap-4">
             <input
               type="text"
+              v-model="name"
               :placeholder="$t('contact.placeholder.name')"
+              :class="{ 'bg-red-100': nameError }"
               class="text-sm md:text-base px-2 py-3 md:py-4 border border-black focus:outline-none focus-visible:outline-1 focus-visible:outline-black"
             />
             <input
               type="text"
+              v-model="email"
               :placeholder="$t('contact.placeholder.email')"
+              :class="{ 'bg-red-100': emailError }"
               class="text-sm md:text-base px-2 py-3 md:py-4 border border-black focus:outline-none focus-visible:outline-1 focus-visible:outline-black"
             />
             <input
               type="text"
+              v-model="phone"
               :placeholder="$t('contact.placeholder.phone')"
+              :class="{ 'bg-red-100': phoneError }"
               class="text-sm md:text-base px-2 py-3 md:py-4 border border-black focus:outline-none focus-visible:outline-1 focus-visible:outline-black"
             />
             <textarea
+              maxlength="500"
+              v-model="message"
               :placeholder="$t('contact.placeholder.content')"
+              :class="{ 'bg-red-100': messageError }"
               class="h-24 md:h-32 text-sm md:text-base p-2 border border-black focus:outline-none focus-visible:outline-1 focus-visible:outline-black resize-none"
             ></textarea>
-            <NuxtTurnstile v-model="token" />
+            <div ref="recaptchaContainer"></div>
             <button
+              type="submit"
               class="w-full h-12 md:h-16 bg-neutral-800 hover:bg-black cursor-pointer md:text-lg text-gray-100 border-2 border-gray-100 hover:border-black ring-2 ring-black font-semibold outline-0 focus:border-black focus:bg-black transition-colors duration-300 ease-in-out"
             >
-              {{ $t("contact.send") }}
+              <span v-if="!messageLoading">{{ $t("contact.send") }}</span>
+              <i v-else class="pi pi-spinner pi-spin"></i>
             </button>
             <p class="text-xs sm:text-sm text-gray-500">
               {{ $t("contact.clause") }}
             </p>
           </div>
-        </section>
+        </form>
       </Transition>
     </div>
   </Transition>

@@ -62,7 +62,7 @@ onMounted(async () => {
       @mouseleave="isHovered = false"
       @touchstart="handleTouchStart"
       @touchend="handleTouchEnd"
-      class="relative max-w-[80rem] h-[32rem] md:h-[42rem] flex flex-col items-center justify-center overflow-hidden"
+      class="relative max-w-7xl h-128 md:h-168 flex flex-col items-center justify-center overflow-hidden"
     >
       <Transition name="fade" mode="out-in">
         <NuxtImg
@@ -105,7 +105,7 @@ onMounted(async () => {
       </div>
       <div
         v-if="projectsData"
-        class="opacity-100 hover:opacity-0 absolute z-10 bottom-0 w-full h-full flex flex-col justify-end p-4 bg-gradient-to-b from-transparent to-black/50 transition-opacity duration-300 ease-in-out"
+        class="opacity-100 hover:opacity-0 absolute z-10 bottom-0 w-full h-full flex flex-col justify-end p-4 bg-linear-to-b from-transparent to-black/50 transition-opacity duration-300 ease-in-out"
       >
         <p class="text-sm text-white">
           {{

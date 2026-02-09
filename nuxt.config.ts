@@ -10,8 +10,16 @@ export default defineNuxtConfig({
     "@pinia/nuxt",
     "@nuxtjs/i18n",
     "@nuxt/image",
-    "nuxt-turnstile",
   ],
+  runtimeConfig: {
+    emailjsServiceId: process.env.EMAILJS_SERVICE_ID,
+    emailjsTemplateId: process.env.EMAILJS_TEMPLATE_ID,
+    emailjsPublicKey: process.env.EMAILJS_PUBLIC_KEY,
+    emailjsPrivateKey: process.env.EMAILJS_PRIVATE_KEY,
+    public: {
+      recaptchaSiteKey: "6LfJh2UsAAAAAEGaFUIkGrCM1Lw6S2KeWMw4_DCk",
+    },
+  },
   vite: {
     plugins: [tailwindcss()],
   },
@@ -25,6 +33,13 @@ export default defineNuxtConfig({
         { name: "viewport", content: "width=device-width, initial-scale=1" },
         { charset: "utf-8" },
         { name: "theme-color", content: "#D6DEE3" },
+      ],
+      script: [
+        {
+          src: "https://www.google.com/recaptcha/api.js?render=explicit",
+          async: true,
+          defer: true,
+        },
       ],
     },
     pageTransition: { name: "page", mode: "out-in" },
@@ -45,13 +60,5 @@ export default defineNuxtConfig({
     defaultLocale: "pl",
     strategy: "prefix_except_default",
     vueI18n: "~/i18n.config.ts",
-  },
-  turnstile: {
-    siteKey: process.env.NUXT_PUBLIC_TURNSTILE_SITE_KEY,
-  },
-  runtimeConfig: {
-    turnstile: {
-      secretKey: process.env.NUXT_TURNSTILE_SECRET_KEY,
-    },
   },
 });

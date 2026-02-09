@@ -3,6 +3,7 @@ import FullscreenGallery from "~/components/singleProject/fullscreenGallery.vue"
 import Gallery from "~/components/singleProject/gallery.vue";
 import { useFetchSingle } from "~/composables/projects/useFetchSingle";
 import { useFetchImages } from "~/composables/images/useFetchImages";
+import { useScrollStore } from "~/stores/scroll";
 
 const scrollStore = useScrollStore();
 
