@@ -33,10 +33,10 @@ const validationSchema = toTypedSchema(
 const { handleSubmit, meta } = useForm({
   validationSchema,
   initialValues: {
-    name: "Jan Kowalski",
-    email: "jan@kowal.com",
-    phone: "123 456 789",
-    message: "Witam.",
+    name: "",
+    email: "",
+    phone: "",
+    message: "",
   },
 });
 
