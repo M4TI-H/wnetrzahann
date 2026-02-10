@@ -58,6 +58,7 @@ const { value: area, errorMessage: areaError } = useField<number>(
 const { value: creationDate, errorMessage: creationDateError } =
   useField<string>("creationDate", undefined, fieldOptions);
 const imagesError = ref<string | null>(null);
+const isLoading = ref<boolean>(false);
 
 const handleSubmitForm = async (values: any) => {
   const hasImages =
@@ -71,6 +72,8 @@ const handleSubmitForm = async (values: any) => {
     });
     return;
   }
+
+  isLoading.value = true;
 
   let finalDate = "";
   if (!values.creationDate) {
@@ -107,11 +110,14 @@ const handleSubmitForm = async (values: any) => {
         message: "Projekt został zaktualizowany.",
       });
     }
+    projectStore.closeProjectForm();
   } catch (e) {
     errorStore.addMessage({
       type: "failure",
       message: "Wystąpił błąd podczas zapisu.",
     });
+  } finally {
+    isLoading.value = false;
   }
 };
 
@@ -273,9 +279,17 @@ useHead({
 
       <button
         type="submit"
-        class="mt-auto ml-auto w-full sm:max-w-56 py-2 px-4 bg-neutral-800 hover:bg-black text-sm lg:text-base text-gray-100 border border-black transition-colors duration-300 ease-in-out cursor-pointer"
+        :disabled="isLoading"
+        class="mt-auto ml-auto w-full sm:max-w-56 py-2 px-4 bg-neutral-800 hover:bg-black text-sm lg:text-base text-gray-100 border border-black transition-colors duration-300 ease-in-out flex items-center justify-center gap-2"
+        :class="{
+          'opacity-50 cursor-not-allowed': isLoading,
+          'cursor-pointer': !isLoading,
+        }"
       >
-        {{ projectStore.mode === "edit" ? "Zatwierdź zmiany" : "Potwierdź" }}
+        <template v-if="!isLoading">
+          {{ projectStore.mode === "edit" ? "Zatwierdź zmiany" : "Potwierdź" }}
+        </template>
+        <i v-else class="pi pi-spinner pi-spin"></i>
       </button>
     </form>
   </div>

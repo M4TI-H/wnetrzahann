@@ -224,7 +224,12 @@ const onSuccess = (response: string) => {
             <div ref="recaptchaContainer"></div>
             <button
               type="submit"
-              class="w-full h-12 md:h-16 bg-neutral-800 hover:bg-black cursor-pointer md:text-lg text-gray-100 border-2 border-gray-100 hover:border-black ring-2 ring-black font-semibold outline-0 focus:border-black focus:bg-black transition-colors duration-300 ease-in-out"
+              :disabled="messageLoading"
+              class="w-full h-12 md:h-16 bg-neutral-800 hover:bg-black md:text-lg text-gray-100 border-2 border-gray-100 hover:border-black ring-2 ring-black font-semibold outline-0 focus:border-black focus:bg-black transition-colors duration-300 ease-in-out"
+              :class="{
+                'opacity-50 cursor-not-allowed': messageLoading,
+                'cursor-pointer': !messageLoading,
+              }"
             >
               <span v-if="!messageLoading">{{ $t("contact.send") }}</span>
               <i v-else class="pi pi-spinner pi-spin"></i>

@@ -4,14 +4,14 @@ const errorStore = useErrorStore();
 
 <template>
   <div
-    class="fixed z-100 top-4 right-4 flex flex-col gap-3 w-full max-w-sm pointer-events-none"
+    class="fixed z-100 top-2 sm:top-4 left-1/2 -translate-x-1/2 sm:left-auto sm:right-4 sm:translate-x-0 flex flex-col gap-3 w-full max-w-[96vw] sm:max-w-sm pointer-events-none"
   >
     <TransitionGroup name="notification">
       <section
         v-for="msg in errorStore.messages"
         :key="msg.id"
         @click="errorStore.removeMessage(msg.id)"
-        class="pointer-events-auto w-full flex flex-col items-start px-4 pt-2 pb-4 gap-2 border-2 transition-all duration-300"
+        class="pointer-events-auto w-full flex flex-col items-start px-4 pt-2 pb-4 gap-2 border-2 transition-all duration-300 shadow-lg cursor-pointer"
         :class="[
           msg.type === 'success'
             ? 'bg-green-100 border-green-800'
@@ -29,7 +29,7 @@ const errorStore = useErrorStore();
               ]"
             ></i>
             <p
-              class="md:text-lg"
+              class="md:text-lg font-bold"
               :class="[
                 msg.type === 'success' ? 'text-green-600' : 'text-red-600',
               ]"
@@ -38,8 +38,7 @@ const errorStore = useErrorStore();
             </p>
           </div>
         </div>
-
-        <p class="text-sm md:text-base text-neutral-500">
+        <p class="text-sm md:text-base text-neutral-600">
           {{ msg.message }}
         </p>
       </section>
