@@ -13,7 +13,7 @@ export default defineI18nConfig(() => ({
         scrollDown: "Przewiń w dół",
       },
       main: {
-        section1: "OSTATNIE PROJEKTY",
+        section1: "Ostatnie projekty",
       },
       scrollSection: {
         scrollToTop: "Powrót na szczyt strony",
@@ -108,7 +108,7 @@ export default defineI18nConfig(() => ({
         scrollDown: "Scroll down",
       },
       main: {
-        section1: "RECENT PROJECTS",
+        section1: "Recent projects",
       },
       scrollSection: {
         scrollToTop: "Scroll to top of the website",
@@ -169,28 +169,26 @@ export default defineI18nConfig(() => ({
         e500: "Temporary technical error, I'm working on it.",
       },
       seo: {
-        seo: {
-          home: {
-            title: "Agata Hann • Interior Architecture",
-            description:
-              "Interior design services in Slupsk and surrounding areas. Portfolio of residential and commercial projects. Explore modern apartment and office designs.",
-            keywords:
-              "interior architecture, interior design, interior architect, interior arrangement, design studio Slupsk, Slupsk, bathroom design, kitchen design",
-          },
-          projects: {
-            title: "Agata Hann • Portfolio",
-            description:
-              "Explore my latest interior design realizations. From modern apartments to functional office spaces.",
-            keywords:
-              "architect portfolio, interior realizations, residential projects, office designs",
-          },
-          contact: {
-            title: "Agata Hann • Contact",
-            description:
-              "Have questions? Need an interior design quote? Get in touch with me. Design studio based in Slupsk.",
-            keywords:
-              "contact architect, interior design quote, design studio Slupsk",
-          },
+        home: {
+          title: "Agata Hann • Interior Architecture",
+          description:
+            "Interior design services in Slupsk and surrounding areas. Portfolio of residential and commercial projects. Explore modern apartment and office designs.",
+          keywords:
+            "interior architecture, interior design, interior architect, interior arrangement, design studio Slupsk, Slupsk, bathroom design, kitchen design",
+        },
+        projects: {
+          title: "Agata Hann • Portfolio",
+          description:
+            "Explore my latest interior design realizations. From modern apartments to functional office spaces.",
+          keywords:
+            "architect portfolio, interior realizations, residential projects, office designs",
+        },
+        contact: {
+          title: "Agata Hann • Contact",
+          description:
+            "Have questions? Need an interior design quote? Get in touch with me. Design studio based in Slupsk.",
+          keywords:
+            "contact architect, interior design quote, design studio Slupsk",
         },
       },
     },

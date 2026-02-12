@@ -9,18 +9,23 @@ const { projectsData, projectsLoading, projectsRefresh } =
   });
 
 const idCounter = ref<number>(0);
-const isHovered = ref<boolean>(false);
 const isPaused = ref<boolean>(false);
 const sliderDuration = 5000;
 const projectsDisplayed = 5;
+const direction = ref<"next" | "prev">("next");
+
+const sliderRef = ref<HTMLElement | null>(null);
+const isVisible = ref<boolean>(false);
 
 const prevID = () => {
+  direction.value = "prev";
   idCounter.value =
     (idCounter.value - 1 + projectsData.value.length) %
     projectsData.value.length;
 };
 
 const nextID = () => {
+  direction.value = "next";
   idCounter.value = (idCounter.value + 1) % projectsData.value.length;
 };
 
@@ -48,73 +53,73 @@ const handleSwipe = () => {
 onMounted(async () => {
   await projectsRefresh();
   setInterval(() => {
-    if (!isHovered.value && !isPaused.value && projectsData.value.length > 0) {
+    if (!isPaused.value && projectsData.value.length > 0) {
       nextID();
     }
   }, sliderDuration);
 });
+
+onMounted(() => {
+  const observer = new IntersectionObserver(
+    ([entry]) => {
+      isVisible.value = entry.isIntersecting;
+    },
+    { threshold: 0.2, rootMargin: "0px 0px -250px 0px" },
+  );
+
+  if (sliderRef.value) {
+    observer.observe(sliderRef.value);
+  }
+});
 </script>
 <template>
-  <section class="flex flex-col items-center justify-center">
+  <section ref="sliderRef" class="w-full flex flex-col gap-4 overflow-x-hidden">
     <div
       v-if="projectsData && projectsData.length > 0"
-      @mouseenter="isHovered = true"
-      @mouseleave="isHovered = false"
       @touchstart="handleTouchStart"
       @touchend="handleTouchEnd"
-      class="relative max-w-7xl h-128 md:h-168 flex flex-col items-center justify-center overflow-hidden"
+      class="relative w-full h-[92vh] sm:h-screen flex flex-col items-center justify-center overflow-hidden"
     >
-      <Transition name="fade" mode="out-in">
+      <Transition :name="direction === 'next' ? 'slide-next' : 'slide-prev'">
         <NuxtImg
+          :key="idCounter"
           :alt="`${projectsData[idCounter].name} image`"
           :src="projectsData[idCounter].cover"
-          :style="{
-            animationDuration: `${sliderDuration}ms`,
-          }"
-          class="w-full h-full object-cover"
-          :class="idCounter % 2 === 0 ? 'slider-zoom-in' : 'slider-zoom-out'"
-          loading="lazy"
+          class="absolute inset-0 w-full h-full object-cover"
         />
       </Transition>
 
       <div
-        class="absolute z-20 top-2 right-2 flex items-center gap-2 p-1 pr-2 bg-black/50"
+        class="hidden sm:flex absolute z-20 flex-col items-end top-20 right-4 max-w-xs bg-black/20 backdrop-blur-sm py-2 px-4 transition-all duration-1000 ease-out"
+        :class="
+          isVisible
+            ? 'translate-x-0 opacity-100'
+            : 'translate-x-[120%] opacity-0'
+        "
       >
-        <button
-          @click="isPaused = !isPaused"
-          :aria-label="isPaused ? 'Start' : 'Stop'"
-          class="px-1 cursor-pointer"
-        >
-          <i
-            :class="[
-              isPaused ? 'pi-play' : 'pi-pause',
-              'pi text-white translate-y-0.5 focus:outline-none focus-visible:outline  focus-visible:outline-white',
-            ]"
-          ></i>
-        </button>
-        <button
-          @click="idCounter = idx"
-          v-for="(item, idx) in projectsData"
-          :aria-label="`${idx} - ${item.name}`"
-          :key="idx"
-          :class="[
-            idx === idCounter ? 'bg-white' : 'bg-none hover:bg-gray-300',
-            'size-4 md:size-2 border border-white cursor-hover transition-colors duration-150 ease-in-out focus:outline-none focus-visible:outline cursor-pointer focus-visible:outline-white',
-          ]"
-        ></button>
+        <p class="text-white/80">
+          Z pasją projektuję wnętrza, które łączą estetykę z codzienną
+          funkcjonalnością. Z ponad ?-letnim doświadczeniem w sektorze prywatnym
+          i komercyjnym, tworzę przestrzenie skrojone pod indywidualne potrzeby
+          inwestorów.
+          <br />
+          Zachęcam do obejrzenia wybranych projektów i kontaktu.
+        </p>
+        <h1 class="text-xl text-white/80">Agata Hann</h1>
       </div>
+
       <div
         v-if="projectsData"
-        class="opacity-100 hover:opacity-0 absolute z-10 bottom-0 w-full h-full flex flex-col justify-end p-4 bg-linear-to-b from-transparent to-black/50 transition-opacity duration-300 ease-in-out"
+        class="opacity-100 absolute z-10 bottom-0 w-full h-full flex flex-col justify-end p-2 sm:p-4 lg:p-8 bg-linear-to-b from-transparent to-black/50 transition-opacity duration-300 ease-in-out"
       >
-        <p class="text-sm text-white">
+        <p class="text-sm text-white/80 uppercase tracking-widest">
           {{
             projectsData[idCounter].category === "commercial"
               ? $t("projects.category.commercial")
               : $t("projects.category.residential")
           }}
         </p>
-        <p class="text-xl text-white font-semibold">
+        <p class="text-3xl text-white font-bold">
           {{ projectsData[idCounter].name.toUpperCase() }}
         </p>
       </div>
@@ -123,33 +128,28 @@ onMounted(async () => {
 </template>
 
 <style scoped>
-.slider-zoom-in {
-  animation-name: sliderZoomIn;
-  animation-timing-function: linear;
-  animation-fill-mode: forwards;
+.slide-next-enter-active,
+.slide-next-leave-active,
+.slide-prev-enter-active,
+.slide-prev-leave-active {
+  transition: transform 0.8s ease-in-out;
 }
 
-@keyframes sliderZoomIn {
-  from {
-    transform: scale(1);
-  }
-  to {
-    transform: scale(1.1);
-  }
+.slide-next-enter-from {
+  transform: translateX(100%);
+}
+.slide-next-leave-to {
+  transform: translateX(-100%);
 }
 
-.slider-zoom-out {
-  animation-name: sliderZoomOut;
-  animation-timing-function: linear;
-  animation-fill-mode: backwards;
+.slide-prev-enter-from {
+  transform: translateX(-100%);
+}
+.slide-prev-leave-to {
+  transform: translateX(100%);
 }
 
-@keyframes sliderZoomOut {
-  from {
-    transform: scale(1.1);
-  }
-  to {
-    transform: scale(1);
-  }
+.absolute {
+  position: absolute;
 }
 </style>

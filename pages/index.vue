@@ -25,10 +25,13 @@ const scrollDown = () => {
 
   const secondTop = secondSection.value.offsetTop;
 
+  const isMediumScreen = window.innerWidth >= 768;
+
+  const finalScrollPosition = isMediumScreen ? secondTop : secondTop - 60;
   snapping = true;
 
   window.scrollTo({
-    top: secondTop - 64,
+    top: finalScrollPosition,
     behavior: "smooth",
   });
 
@@ -37,16 +40,10 @@ const scrollDown = () => {
 </script>
 
 <template>
-  <section class="flex-1 flex flex-col items-center gap-8 md:gap-12 pb-20">
+  <section class="flex-1 flex flex-col items-center">
     <Hero @scrollDown="scrollDown" />
-    <div
-      ref="secondSection"
-      class="w-full flex flex-col items-center gap-4 md:gap-8 pt-4 px-4 sm:px-8"
-    >
-      <h1 class="text-2xl mx-auto">{{ $t("main.section1") }}</h1>
-      <div class="w-full flex flex-col items-center justify-between">
-        <Slider />
-      </div>
+    <div ref="secondSection" class="w-full flex flex-col items-center">
+      <Slider />
     </div>
   </section>
 </template>
