@@ -1,75 +1,17 @@
-# Nuxt Minimal Starter
+# Agata Hann Wnętrza - Premium Interior Design Portfolio
 
-Look at the [Nuxt documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+A high-end, minimalist portfolio website designed and developed for a professional interior designer. The project focuses on high-quality visual presentation, smooth user experience, and advanced image optimization to showcase architectural realizations.
 
-## Setup
+## Technologies
 
-Make sure to install dependencies:
+* **Frontend:** Nuxt 3 (Vue.js), TypeScript, Tailwind CSS
+* **Backend/Database:** Node.js, Supabase
+* **State Management:** Pinia
+* **Deployment:** Vercel
 
-```bash
-# npm
-npm install
+## Key Features
 
-# pnpm
-pnpm install
-
-# yarn
-yarn install
-
-# bun
-bun install
-```
-
-## Development Server
-
-Start the development server on `http://localhost:3000`:
-
-```bash
-# npm
-npm run dev
-
-# pnpm
-pnpm dev
-
-# yarn
-yarn dev
-
-# bun
-bun run dev
-```
-
-## Production
-
-Build the application for production:
-
-```bash
-# npm
-npm run build
-
-# pnpm
-pnpm build
-
-# yarn
-yarn build
-
-# bun
-bun run build
-```
-
-Locally preview production build:
-
-```bash
-# npm
-npm run preview
-
-# pnpm
-pnpm preview
-
-# yarn
-yarn preview
-
-# bun
-bun run preview
-```
-
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
+* **Advanced Image Optimization:** Implemented automated image processing and lazy loading techniques to ensure lightning-fast performance while maintaining the highest visual quality of high-resolution architectural photos.
+* **Modern UI/UX:** Designed a clean interface with a focus on typography and whitespace, reflecting the aesthetic of the interior design industry.
+* **Responsive & Fluid Design:** Developed a fully responsive layout using a mobile-first approach, ensuring seamless navigation across all devices and screen sizes.
+* **Component-Based Architecture:** Built with highly reusable components and type-safe logic using TypeScript for better maintainability.
