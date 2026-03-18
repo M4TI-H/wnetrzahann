@@ -99,8 +99,8 @@ onMounted(() => {
       >
         <p class="text-white/80">
           Z pasją projektuję wnętrza, które łączą estetykę z codzienną
-          funkcjonalnością. Z ponad ?-letnim doświadczeniem w sektorze prywatnym
-          i komercyjnym, tworzę przestrzenie skrojone pod indywidualne potrzeby
+          funkcjonalnością. Z wieloletnim doświadczeniem w sektorze prywatnym i
+          komercyjnym, tworzę przestrzenie skrojone pod indywidualne potrzeby
           inwestorów.
           <br />
           Zachęcam do obejrzenia wybranych projektów i kontaktu.
