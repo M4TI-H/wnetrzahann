@@ -3,10 +3,13 @@ import { useContactStore } from "~/stores/contact";
 import { useField, useForm } from "vee-validate";
 import { z } from "zod";
 import { toTypedSchema } from "@vee-validate/zod";
+import { useToast } from "primevue/usetoast";
+import { computed, ref, onMounted } from "vue";
+const { t } = useI18n();
 
 const { sendMessage, messageLoading } = useSendMessage();
 const contactStore = useContactStore();
-const errorStore = useErrorStore();
+const toast = useToast();
 const config = useRuntimeConfig();
 const token = ref<string>("");
 
@@ -18,19 +21,21 @@ useHead({
   },
 });
 
-const validationSchema = toTypedSchema(
-  z.object({
-    name: z.string().min(1, { message: "Podaj swoje imię." }),
-    email: z
-      .string()
-      .min(1, { message: "Podaj adres email do kontaktu." })
-      .email("Niepoprawny format adresu email."),
-    phone: z.string().optional().or(z.literal("")),
-    message: z.string().min(1, { message: "Podaj treść zapytania." }),
-  }),
+const validationSchema = computed(() =>
+  toTypedSchema(
+    z.object({
+      name: z.string().min(1, { message: t("contact.validation.name") }),
+      email: z
+        .string()
+        .min(1, { message: t("contact.validation.emailRequired") })
+        .email(t("contact.validation.emailInvalid")),
+      phone: z.string().optional().or(z.literal("")),
+      message: z.string().min(1, { message: t("contact.validation.message") }),
+    }),
+  ),
 );
 
-const { handleSubmit, meta } = useForm({
+const { handleSubmit, resetForm } = useForm({
   validationSchema,
   initialValues: {
     name: "",
@@ -97,9 +102,11 @@ onMounted(() => {
 
 const handleSendMessage = async () => {
   if (!token.value) {
-    errorStore.addMessage({
-      type: "failure",
-      message: "Proszę potwierdzić, że jesteś człowiekiem.",
+    toast.add({
+      severity: "warn",
+      summary: t("contact.toast.recaptchaTitle"),
+      detail: t("contact.toast.recaptchaMsg"),
+      life: 4000,
     });
     return;
   }
@@ -126,10 +133,14 @@ const handleSendMessage = async () => {
   }
 
   if (response) {
-    name.value = "";
-    email.value = "";
-    phone.value = "";
-    message.value = "";
+    toast.add({
+      severity: "success",
+      summary: t("contact.toast.successTitle"),
+      detail: t("contact.toast.successMsg"),
+      life: 5000,
+    });
+    resetForm();
+    contactStore.closeContactForm();
   }
 };
 
@@ -137,24 +148,20 @@ const onSubmit = handleSubmit(
   async () => {
     await handleSendMessage();
   },
-
   ({ errors }) => {
     const firstError = Object.values(errors)[0];
 
     if (firstError) {
-      errorStore.addMessage({
-        type: "failure",
-        message: firstError,
+      toast.add({
+        severity: "error",
+        summary: t("contact.toast.errorTitle"),
+        detail: firstError as string,
+        life: 4000,
       });
     }
   },
 );
-
-const onSuccess = (response: string) => {
-  token.value = response;
-};
 </script>
-
 <template>
   <Transition
     enter-active-class="transition-opacity duration-300 ease-out"

@@ -90,7 +90,7 @@ onMounted(() => {
       </Transition>
 
       <div
-        class="hidden sm:flex absolute z-20 flex-col items-end top-20 right-4 max-w-xs bg-black/20 backdrop-blur-sm py-2 px-4 transition-all duration-1000 ease-out"
+        class="hidden sm:flex absolute z-20 flex-col items-end top-20 right-4 max-w-xs bg-black/40 backdrop-blur-sm py-2 px-4 transition-all duration-1000 ease-out"
         :class="
           isVisible
             ? 'translate-x-0 opacity-100'
@@ -98,14 +98,11 @@ onMounted(() => {
         "
       >
         <p class="text-white/80">
-          Z pasją projektuję wnętrza, które łączą estetykę z codzienną
-          funkcjonalnością. Z wieloletnim doświadczeniem w sektorze prywatnym i
-          komercyjnym, tworzę przestrzenie skrojone pod indywidualne potrzeby
-          inwestorów.
+          {{ $t("slider.descriptionTop") }}
           <br />
-          Zachęcam do obejrzenia wybranych projektów i kontaktu.
+          {{ $t("slider.descriptionBottom") }}
         </p>
-        <h1 class="text-xl text-white/80">Agata Hann</h1>
+        <h1 class="text-xl text-white/80">- Agata Hann</h1>
       </div>
 
       <div

@@ -95,7 +95,7 @@ onMounted(async () => {
 
 <template>
   <section
-    class="flex-1 w-full min-h-screen flex flex-col items-center gap-4 md:gap-8 bg-white pt-24 pb-8"
+    class="flex-1 w-full min-h-screen flex flex-col items-center gap-4 md:gap-8 bg-gray-200 pt-24 pb-8"
   >
     <h1 class="text-2xl sm:text-3xl lg:text-4xl">
       {{ $t("projects.title")

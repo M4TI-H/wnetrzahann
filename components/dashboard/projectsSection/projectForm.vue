@@ -3,9 +3,10 @@ import ImagesInput from "./imagesInput.vue";
 import { useField, useForm } from "vee-validate";
 import { z } from "zod";
 import { toTypedSchema } from "@vee-validate/zod";
+import { useToast } from "primevue/usetoast";
 
 const projectStore = useProjectStore();
-const errorStore = useErrorStore();
+const toast = useToast();
 
 const imagesInputRef = ref<InstanceType<typeof ImagesInput> | null>(null);
 
@@ -66,9 +67,11 @@ const handleSubmitForm = async (values: any) => {
 
   if (!hasImages) {
     imagesError.value = "Dodaj zdjęcia.";
-    errorStore.addMessage({
-      type: "failure",
-      message: "Projekt musi zawierać zdjęcia.",
+    toast.add({
+      severity: "error",
+      summary: "Błąd",
+      detail: "Projekt musi zawierać zdjęcia.",
+      life: 4000,
     });
     return;
   }
@@ -99,22 +102,28 @@ const handleSubmitForm = async (values: any) => {
   try {
     if (projectStore.mode === "new") {
       await projectStore.createProject(payload, imagesInputRef);
-      errorStore.addMessage({
-        type: "success",
-        message: "Projekt został utworzony.",
+      toast.add({
+        severity: "success",
+        summary: "Sukces",
+        detail: "Projekt został utworzony.",
+        life: 5000,
       });
     } else {
       await projectStore.updateProject(payload, imagesInputRef);
-      errorStore.addMessage({
-        type: "success",
-        message: "Projekt został zaktualizowany.",
+      toast.add({
+        severity: "success",
+        summary: "Sukces",
+        detail: "Projekt został zaktualizowany.",
+        life: 5000,
       });
     }
     projectStore.closeProjectForm();
   } catch (e) {
-    errorStore.addMessage({
-      type: "failure",
-      message: "Wystąpił błąd podczas zapisu.",
+    toast.add({
+      severity: "error",
+      summary: "Błąd",
+      detail: "Wystąpił błąd podczas zapisu.",
+      life: 5000,
     });
   } finally {
     isLoading.value = false;
@@ -131,18 +140,22 @@ const onSubmit = handleSubmit(
 
     if (!hasImages) {
       imagesError.value = "Dodaj zdjęcia.";
-      errorStore.addMessage({
-        type: "failure",
-        message: "Projekt musi zawierać zdjęcia.",
+      toast.add({
+        severity: "error",
+        summary: "Błąd",
+        detail: "Projekt musi zawierać zdjęcia.",
+        life: 4000,
       });
       return;
     }
 
     const firstError = Object.values(errors)[0];
     if (firstError) {
-      errorStore.addMessage({
-        type: "failure",
-        message: firstError,
+      toast.add({
+        severity: "error",
+        summary: "Błąd formularza",
+        detail: firstError as string,
+        life: 4000,
       });
     }
   },

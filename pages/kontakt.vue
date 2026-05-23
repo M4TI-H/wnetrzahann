@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { useFetchContact } from "~/composables/contact/useFetchContactData";
 import { useContactStore } from "~/stores/contact";
+import { useToast } from "primevue/usetoast";
 
 useSeoMeta({
   title: () => $t("seo.contact.title"),
@@ -21,14 +22,25 @@ const contactStore = useContactStore();
 const { contactData, contactRefresh } = useFetchContact();
 const isMounted = ref(false);
 
+const toast = useToast();
+
 onMounted(async () => {
-  await contactRefresh();
-  setTimeout(() => {
-    isMounted.value = true;
-  }, 150);
+  try {
+    await contactRefresh();
+  } catch (error) {
+    toast.add({
+      severity: "error",
+      summary: "Błąd połączenia", //$t("error.summary")
+      detail: "Nie udało się załadować danych kontaktowych.", //$t("error.detail"),
+      life: 5000,
+    });
+  } finally {
+    setTimeout(() => {
+      isMounted.value = true;
+    }, 150);
+  }
 });
 </script>
-
 <template>
   <div
     class="relative w-full h-screen flex items-center justify-center bg-gray-200 overflow-hidden"
@@ -92,7 +104,7 @@ onMounted(async () => {
           <p class="mx-auto text-gray-500 italic">{{ $t("contact.or") }}</p>
           <button
             @click="contactStore.openContactForm"
-            class="w-full h-12 md:h-16 bg-neutral-800 hover:bg-black text-white border-2 border-white hover:border-black ring-2 ring-black font-semibold transition-all duration-300"
+            class="w-full h-12 md:h-16 bg-neutral-800 hover:bg-black text-white border-2 border-white hover:border-black ring-2 ring-black font-semibold transition-all duration-300 cursor-pointer"
           >
             {{ $t("contact.cta") }}
           </button>

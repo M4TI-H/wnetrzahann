@@ -37,6 +37,19 @@ export default defineI18nConfig(() => ({
           content: "Treść zapytania",
         },
         close: "Zamknij formularz",
+        validation: {
+          name: "Podaj swoje imię i nazwisko.",
+          emailRequired: "Podaj adres email do kontaktu.",
+          emailInvalid: "Niepoprawny format adresu email.",
+          message: "Podaj treść zapytania.",
+        },
+        toast: {
+          recaptchaTitle: "Weryfikacja",
+          recaptchaMsg: "Proszę potwierdzić, że jesteś człowiekiem.",
+          successTitle: "Sukces",
+          successMsg: "Wiadomość została pomyślnie wysłana.",
+          errorTitle: "Błąd formularza",
+        },
       },
       projects: {
         title: "Projekty",
@@ -61,6 +74,12 @@ export default defineI18nConfig(() => ({
         gallery: "Galeria zdjęć",
         next: "Następne zdjęcie",
         previous: "Poprzednie zdjęcie",
+      },
+      slider: {
+        descriptionTop:
+          "Z pasją projektuję wnętrza, które łączą estetykę z codzienną funkcjonalnością. Z wieloletnim doświadczeniem w sektorze prywatnym i komercyjnym, tworzę przestrzenie skrojone pod indywidualne potrzeby inwestorów.",
+        descriptionBottom:
+          "Zachęcam do obejrzenia wybranych projektów i kontaktu.",
       },
       cookies: {
         text: "Ta strona używa plików cookies w celach technicznych.",
@@ -132,6 +151,19 @@ export default defineI18nConfig(() => ({
           content: "Inquiry content",
         },
         close: "Close form",
+        validation: {
+          name: "Please enter your name and last name.",
+          emailRequired: "Please provide a contact email address.",
+          emailInvalid: "Invalid email format.",
+          message: "Please enter your inquiry content.",
+        },
+        toast: {
+          recaptchaTitle: "Verification",
+          recaptchaMsg: "Please confirm that you are human.",
+          successTitle: "Success",
+          successMsg: "Your message has been successfully sent.",
+          errorTitle: "Form Error",
+        },
       },
       projects: {
         title: "Projects",
@@ -156,6 +188,12 @@ export default defineI18nConfig(() => ({
         gallery: "Image gallery",
         next: "Next image",
         previous: "Previous image",
+      },
+      slider: {
+        descriptionTop:
+          "I passionately design interiors that blend aesthetics with everyday functionality. With years of experience in both private and commercial sectors, I create spaces tailored to the individual needs of investors.",
+        descriptionBottom:
+          "I encourage you to explore my selected projects and get in touch.",
       },
       cookies: {
         text: "This website uses cookies files for technical reasons.",

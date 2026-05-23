@@ -13,7 +13,9 @@ onBeforeMount(async () => {
 
 <template>
   <section class="w-full min-h-screen flex flex-col text-neutral-800">
-    <div class="w-full py-3 flex items-center justify-between px-8 bg-gray-300">
+    <div
+      class="w-full py-3 flex items-center justify-between px-8 bg-neutral-800"
+    >
       <NuxtLink
         to="/"
         class="h-12 opacity-100 transition-all duration-500 ease-in-out delay-50 cursor-pointer select-none"
@@ -28,7 +30,7 @@ onBeforeMount(async () => {
       <button
         v-if="userStore.user"
         @click="userStore.signOut"
-        class="text-red-600 hover:text-red-800 transition-colors duration-300 ease-in-out flex items-center gap-2 cursor-pointer"
+        class="px-6 py-2 border border-black bg-neutral-700 hover:bg-neutral-800/80 text-gray-200 font-semibold transition-colors duration-300 ease-in-out flex items-center gap-2 cursor-pointer"
       >
         <i class="pi pi-sign-out"></i>
         Wyloguj
@@ -37,7 +39,9 @@ onBeforeMount(async () => {
     <main class="flex-1 flex flex-col overflow-hidden">
       <slot />
     </main>
-    <ErrorMessage />
+
+    <Toast position="top-right" />
+
     <DeleteModal v-if="deleteModalStore.isModalOpened" />
     <ProjectForm v-if="projectStore.isProjectFormOpen" />
   </section>

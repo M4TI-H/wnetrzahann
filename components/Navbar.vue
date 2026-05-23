@@ -35,7 +35,7 @@ const isCompact = computed(() => {
   <div
     :class="[
       isCompact
-        ? 'bg-gray-300 h-16'
+        ? 'bg-black/80 h-16'
         : 'bg-black/30 h-16 md:h-24 backdrop-blur-sm',
       'z-30 fixed w-full flex items-center justify-between px-4 lg:px-8 py-2 transition-all duration-500 ease-in-out',
     ]"

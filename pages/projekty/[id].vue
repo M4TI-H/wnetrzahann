@@ -76,7 +76,7 @@ onKeyStroke("Escape", () => {
 </script>
 
 <template>
-  <section class="flex-1 flex flex-col items-center pb-4">
+  <section class="flex-1 flex flex-col items-center pb-4 bg-gray-200">
     <Gallery
       v-if="projectData && imagesList"
       :data="projectData"

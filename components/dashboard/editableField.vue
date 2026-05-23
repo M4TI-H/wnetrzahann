@@ -3,6 +3,7 @@ import { useEditContact } from "~/composables/contact/useUpdateContactData";
 import { useField } from "vee-validate";
 import { z } from "zod";
 import { toTypedSchema } from "@vee-validate/zod";
+import { useToast } from "primevue/usetoast"; // Import Toasta
 
 const props = defineProps<{
   type: string;
@@ -15,7 +16,7 @@ const emit = defineEmits<{
   (e: "update"): void;
 }>();
 
-const errorStore = useErrorStore();
+const toast = useToast(); // Inicjalizacja Toasta
 
 const editValue = ref<boolean>(false);
 
@@ -29,10 +30,7 @@ const fieldSchema = computed(() => {
   } else if (props.type === "phone") {
     return toTypedSchema(schema);
   } else if (
-    props.type === "facebook" ||
-    "instagram" ||
-    "youtube" ||
-    "linkedin"
+    ["facebook", "instagram", "youtube", "linkedin"].includes(props.type) // Poprawiony warunek logiczny
   ) {
     schema = schema.url("Niepoprawny adres url");
   }
@@ -63,9 +61,11 @@ const handleChange = async () => {
   const { valid } = await validate();
 
   if (!valid) {
-    errorStore.addMessage({
-      type: "failure",
-      message: errorMessage.value || "Pole zawiera błędy.",
+    toast.add({
+      severity: "error",
+      summary: "Błąd walidacji",
+      detail: errorMessage.value || "Pole zawiera błędy.",
+      life: 4000,
     });
     return;
   }
@@ -73,17 +73,21 @@ const handleChange = async () => {
   try {
     await updateContactData(props.type, fieldValue.value);
 
-    errorStore.addMessage({
-      type: "success",
-      message: `Pomyślnie zaktualizowano pole: ${props.label}`,
+    toast.add({
+      severity: "success",
+      summary: "Sukces",
+      detail: `Pomyślnie zaktualizowano pole: ${props.label}`,
+      life: 5000,
     });
 
     editValue.value = false;
     emit("update");
   } catch (error: any) {
-    errorStore.addMessage({
-      type: "failure",
-      message: "Wystąpił błąd podczas aktualizacji danych.",
+    toast.add({
+      severity: "error",
+      summary: "Błąd bazy danych",
+      detail: "Wystąpił błąd podczas aktualizacji danych.",
+      life: 5000,
     });
   }
 };
