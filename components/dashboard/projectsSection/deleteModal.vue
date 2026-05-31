@@ -1,6 +1,8 @@
 <script setup lang="ts">
+import { useToast } from "primevue/usetoast";
+
 const deleteModalStore = useDeleteModalStore();
-const errorStore = useErrorStore();
+const toast = useToast();
 
 useHead({
   bodyAttrs: {
@@ -13,9 +15,11 @@ useHead({
 const submitDelete = () => {
   deleteModalStore.deleteProject();
 
-  errorStore.addMessage({
-    type: "success",
-    message: "Pomyślnie usunięto projekt.",
+  toast.add({
+    severity: "success",
+    summary: "Sukces",
+    detail: "Pomyślnie usunięto projekt.",
+    life: 5000,
   });
 };
 </script>
