@@ -5,8 +5,8 @@ import ProjectsList from "~/components/dashboard/projectsSection/projectsList.vu
 useSeoMeta({
   title: () => $t("seo.home.title"),
   ogTitle: () => $t("seo.home.title"),
-  ogImage: "https://hannwnetrza.pl/logo_white.png",
-  ogUrl: "https://hannwnetrza.pl",
+  ogImage: "https://hannwnetrza.com/logo_white.png",
+  ogUrl: "https://hannwnetrza.com",
   ogType: "website",
 });
 

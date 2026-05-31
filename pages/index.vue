@@ -7,41 +7,19 @@ useSeoMeta({
   keywords: () => $t("seo.home.keywords"),
   ogTitle: () => $t("seo.home.title"),
   ogDescription: () => $t("seo.home.description"),
-  ogImage: "https://hannwnetrza.pl/logo_white.png",
-  ogUrl: "https://hannwnetrza.pl",
+  ogImage: "https://hannwnetrza.com/logo_white.png",
+  ogUrl: "https://hannwnetrza.com",
   ogType: "website",
 });
 
 definePageMeta({
   navbar: "dynamic",
 });
-
-const secondSection = ref<HTMLElement | null>(null);
-
-let snapping = false;
-
-const scrollDown = () => {
-  if (snapping || !secondSection.value) return;
-
-  const secondTop = secondSection.value.offsetTop;
-
-  const isMediumScreen = window.innerWidth >= 768;
-
-  const finalScrollPosition = isMediumScreen ? secondTop : secondTop - 60;
-  snapping = true;
-
-  window.scrollTo({
-    top: finalScrollPosition,
-    behavior: "smooth",
-  });
-
-  setTimeout(() => (snapping = false), 100);
-};
 </script>
 
 <template>
   <section class="flex-1 flex flex-col items-center">
-    <Hero @scrollDown="scrollDown" />
+    <Hero />
     <div ref="secondSection" class="w-full flex flex-col items-center">
       <Slider />
     </div>

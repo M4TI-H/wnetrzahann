@@ -2,18 +2,18 @@
 import { useField, useForm } from "vee-validate";
 import { z } from "zod";
 import { toTypedSchema } from "@vee-validate/zod";
-import { useToast } from "primevue/usetoast"; // 1. Import Toasta
+import { useToast } from "primevue/usetoast";
 
 useSeoMeta({
   title: () => $t("seo.home.title"),
   ogTitle: () => $t("seo.home.title"),
-  ogImage: "https://hannwnetrza.pl/logo_white.png",
-  ogUrl: "https://hannwnetrza.pl",
+  ogImage: "https://hannwnetrza.com/logo_white.png",
+  ogUrl: "https://hannwnetrza.com",
   ogType: "website",
 });
 
 const userStore = useUserStore();
-const toast = useToast(); // 2. Inicjalizacja Toasta
+const toast = useToast();
 
 definePageMeta({
   layout: "admin",
@@ -45,7 +45,6 @@ const handleLogin = async () => {
     await userStore.signIn(login.value, password.value);
     const user = useSupabaseUser();
     if (user.value) {
-      // Opcjonalnie: Toast o pomyślnym zalogowaniu (choć przy natychmiastowym przekierowaniu może nie zdążyć się wyświetlić)
       return await navigateTo("/admin/dashboard", { replace: true });
     }
   } catch (error: any) {
@@ -61,7 +60,6 @@ const handleLogin = async () => {
       errorMsg = error.message;
     }
 
-    // 3. Wywołanie Toasta dla błędu logowania (zastępuje errorStore)
     toast.add({
       severity: "error",
       summary: "Błąd logowania",
@@ -71,7 +69,6 @@ const handleLogin = async () => {
   }
 };
 
-// 4. Dodana obsługa błędów walidacji z Zod
 const onSubmit = handleSubmit(
   async () => {
     await handleLogin();

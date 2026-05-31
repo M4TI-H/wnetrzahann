@@ -8,6 +8,7 @@ const filters = [
   { id: "all", label: "projects.filters.all" },
   { id: "commercial", label: "projects.filters.commercial" },
   { id: "residential", label: "projects.filters.residential" },
+  { id: "completed", label: "projects.filters.completed" },
 ];
 
 onMounted(() => {
@@ -22,17 +23,17 @@ onMounted(() => {
     class="w-full flex items-center justify-between flex-col-reverse sm:flex-row gap-4 md:gap-8 px-4 md:px-8 overflow-hidden"
   >
     <div
-      class="w-full sm:w-1/2 min-w-48 flex items-center justify-between sm:justify-start gap-2 md:gap-4"
+      class="w-full sm:w-1/2 min-w-48 grid grid-cols-2 sm:flex sm:items-center sm:justify-start gap-1 sm:gap-2 lg:gap-4 landscape:gap-1 landscape:sm:gap-2"
     >
       <button
         v-for="(filter, index) in filters"
         :key="filter.id"
         @click="galleryStore.filterProjects(filter.id)"
         :style="{
-          '--entry-delay': `${index * 500}ms`,
+          '--entry-delay': `${index * 400}ms`,
           zIndex: 50 - index,
         }"
-        class="filter-btn py-2 lg:py-3 flex-1 lg:px-6 xl:px-8 border border-black text-xs sm:text-sm cursor-pointer focus:outline-none focus-visible:outline-1 focus-visible:outline-black"
+        class="filter-btn py-3 flex-1 lg:px-6 xl:px-8 border border-black text-xs sm:text-sm cursor-pointer focus:outline-none focus-visible:outline-1 focus-visible:outline-black w-full"
         :class="[
           galleryStore.filter === filter.id
             ? 'bg-neutral-800 text-gray-100'
@@ -47,7 +48,6 @@ onMounted(() => {
     <SearchBar />
   </section>
 </template>
-
 <style scoped>
 .filter-btn {
   will-change: transform, opacity;

@@ -56,10 +56,12 @@ export default defineI18nConfig(() => ({
         category: {
           commercial: "Projekt komercyjny",
           residential: "Projekt prywatny",
+          completed: "Realizacja projektu",
         },
         filters: {
           commercial: "KOMERCYJNE",
           residential: "PRYWATNE",
+          completed: "REALIZACJE",
           all: "WSZYSTKIE",
           search: "Wyszukaj projekt",
         },
@@ -91,6 +93,8 @@ export default defineI18nConfig(() => ({
       error: {
         e404: "Strona, której szukasz, nie istnieje.",
         e500: "Chwilowy błąd techniczny, pracuję nad tym.",
+        summary: "Błąd połączenia",
+        detail: "Nie udało się załadować danych kontaktowych.",
       },
       seo: {
         home: {
@@ -170,10 +174,12 @@ export default defineI18nConfig(() => ({
         category: {
           commercial: "Commercial project",
           residential: "Residential project",
+          completed: "Completed project",
         },
         filters: {
           commercial: "COMMERCIAL",
           residential: "RESIDENTIAL",
+          completed: "COMPLETED",
           all: "ALL",
           search: "Search project",
         },
@@ -205,6 +211,8 @@ export default defineI18nConfig(() => ({
       error: {
         e404: "The page you're looking for doesn't exist.",
         e500: "Temporary technical error, I'm working on it.",
+        summary: "Connection error",
+        detail: "Failed to load contact details.",
       },
       seo: {
         home: {

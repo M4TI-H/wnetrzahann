@@ -12,11 +12,31 @@ const emit = defineEmits<{
 }>();
 
 const isImageHovered = ref<boolean>(false);
+
+const isClosedByBackButton = ref<boolean>(false);
+
+const handlePopState = () => {
+  isClosedByBackButton.value = true;
+  emit("close");
+};
+
+onMounted(() => {
+  window.history.pushState({ galleryModal: true }, "");
+  window.addEventListener("popstate", handlePopState);
+});
+
+onUnmounted(() => {
+  window.removeEventListener("popstate", handlePopState);
+
+  if (!isClosedByBackButton.value) {
+    window.history.back();
+  }
+});
 </script>
 <template>
   <div
     @click.self="emit('close')"
-    class="fixed z-40 w-full h-full bg-black/60 backdrop-blur-sm flex flex-col gap-2 items-center justify-center"
+    class="fixed z-40 w-full h-full p-2 bg-black/60 backdrop-blur-sm flex flex-col gap-2 items-center justify-center"
   >
     <div
       @mouseenter="isImageHovered = true"
@@ -52,7 +72,7 @@ const isImageHovered = ref<boolean>(false);
     </div>
     <button
       @click="emit('close')"
-      class="px-4 py-2 text-sm text-gray-100 flex items-center gap-2 bg-black/50 md:bg-black/30 hover:bg-black/50 transition-all duration-300 ease-in-out cursor-pointer"
+      class="hidden md:flex px-4 py-2 text-sm text-gray-100 items-center gap-2 bg-black/50 md:bg-black/30 hover:bg-black/50 transition-all duration-300 ease-in-out cursor-pointer"
     >
       <i class="pi pi-arrow-down-left-and-arrow-up-right-to-center text-sm"></i>
       {{ $t("projects.closeBtn") }}

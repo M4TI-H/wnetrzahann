@@ -64,11 +64,11 @@ onMounted(() => {
     ([entry]) => {
       isVisible.value = entry.isIntersecting;
     },
-    { threshold: 0.2, rootMargin: "0px 0px -250px 0px" },
+    { threshold: 0.2, rootMargin: "0px 0px -200px 0px" },
   );
 
   if (sliderRef.value) {
-    observer.observe(sliderRef.value);
+    observer.observe(sliderRef.value as unknown as Element);
   }
 });
 </script>
@@ -90,35 +90,38 @@ onMounted(() => {
       </Transition>
 
       <div
-        class="hidden sm:flex absolute z-20 flex-col items-end top-20 right-4 max-w-xs bg-black/40 backdrop-blur-sm py-2 px-4 transition-all duration-1000 ease-out"
+        class="hidden sm:flex absolute z-20 flex-col items-end top-8 right-4 max-w-xs bg-black/40 backdrop-blur-sm py-2 px-4 transition-all duration-1000 ease-out"
         :class="
           isVisible
             ? 'translate-x-0 opacity-100'
             : 'translate-x-[120%] opacity-0'
         "
       >
-        <p class="text-white/80">
+        <p class="text-xs md:text-sm text-white/80">
           {{ $t("slider.descriptionTop") }}
           <br />
           {{ $t("slider.descriptionBottom") }}
         </p>
-        <h1 class="text-xl text-white/80">- Agata Hann</h1>
+        <h1 class="text-lg md:text-xl text-white/80">- Agata Hann</h1>
       </div>
 
       <div
         v-if="projectsData"
-        class="opacity-100 absolute z-10 bottom-0 w-full h-full flex flex-col justify-end p-2 sm:p-4 lg:p-8 bg-linear-to-b from-transparent to-black/50 transition-opacity duration-300 ease-in-out"
+        class="opacity-100 absolute z-10 inset-0 w-full h-full flex flex-col justify-end md:justify-start p-4 lg:p-8 lg:pt-18 bg-linear-to-b from-transparent to-black/50 md:from-black/40 md:via-transparent md:to-transparent transition-opacity duration-300 ease-in-out"
       >
-        <p class="text-sm text-white/80 uppercase tracking-widest">
-          {{
-            projectsData[idCounter].category === "commercial"
-              ? $t("projects.category.commercial")
-              : $t("projects.category.residential")
-          }}
-        </p>
-        <p class="text-3xl text-white font-bold">
-          {{ projectsData[idCounter].name.toUpperCase() }}
-        </p>
+        <NuxtLink
+          :to="`/projekty/${projectsData[idCounter].id}`"
+          class="w-fit cursor-pointer hover:opacity-80 transition-opacity duration-300 ease-in-out drop-shadow-lg"
+        >
+          <p
+            class="text-sm xl:text-base text-white/90 uppercase tracking-widest font-medium"
+          >
+            {{ $t(`projects.category.${projectsData[idCounter].category}`) }}
+          </p>
+          <p class="text-xl md:text-3xl xl:text-5xl text-white font-bold">
+            {{ projectsData[idCounter].name.toUpperCase() }}
+          </p>
+        </NuxtLink>
       </div>
     </div>
   </section>

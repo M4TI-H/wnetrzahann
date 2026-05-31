@@ -9,8 +9,8 @@ useSeoMeta({
   keywords: () => $t("seo.contact.keywords"),
   ogTitle: () => $t("seo.contact.title"),
   ogDescription: () => $t("seo.contact.description"),
-  ogImage: "https://hannwnetrza.pl/logo_white.png",
-  ogUrl: "https://hannwnetrza.pl",
+  ogImage: "https://hannwnetrza.com/logo_white.png",
+  ogUrl: "https://hannwnetrza.com",
   ogType: "website",
 });
 
@@ -30,8 +30,8 @@ onMounted(async () => {
   } catch (error) {
     toast.add({
       severity: "error",
-      summary: "Błąd połączenia", //$t("error.summary")
-      detail: "Nie udało się załadować danych kontaktowych.", //$t("error.detail"),
+      summary: $t("error.summary"),
+      detail: $t("error.detail"),
       life: 5000,
     });
   } finally {
@@ -42,11 +42,18 @@ onMounted(async () => {
 });
 </script>
 <template>
-  <div
-    class="relative w-full h-screen flex items-center justify-center bg-gray-200 overflow-hidden"
-  >
+  <div class="relative w-full min-h-screen">
+    <div class="fixed inset-0 w-full h-full -z-10 overflow-hidden bg-gray-200">
+      <NuxtImg
+        src="/concept2.jpg"
+        class="absolute inset-0 w-full h-full object-cover transition-transform duration-3000 ease-out"
+        :class="isMounted ? 'scale-105' : 'scale-100'"
+      />
+      <div class="absolute inset-0 w-full h-full bg-black/30"></div>
+    </div>
+
     <div
-      class="absolute z-20 inset-0 w-full h-full flex flex-col items-center justify-center gap-8 bg-black/30 p-4"
+      class="relative z-10 w-full min-h-screen flex flex-col items-center justify-center px-4 pt-28 pb-4 lg:pt-32"
     >
       <div
         class="w-full max-w-lg flex flex-col gap-4 md:gap-8 bg-gray-100 border border-black p-4 md:p-8 md:pb-4 transition-all duration-1000 ease-out"
@@ -120,7 +127,7 @@ onMounted(async () => {
             :to="contactData.facebook"
             aria-label="facebook"
             target="_blanc"
-            class="text-md md:text-2xl text-gray-500 hover:text-gray-600 focus:text-gray-600 outline-0 transition-colors duration-300 ease-in-out"
+            class="text-lg md:text-2xl text-gray-500 hover:text-gray-600 focus:text-gray-600 outline-0 transition-colors duration-300 ease-in-out"
           >
             <i class="pi pi-facebook"></i>
           </NuxtLink>
@@ -157,12 +164,6 @@ onMounted(async () => {
         </div>
       </div>
     </div>
-
-    <NuxtImg
-      src="/concept2.jpg"
-      class="w-full h-full object-cover transition-transform duration-3000 ease-out"
-      :class="isMounted ? 'scale-105' : 'scale-100'"
-    />
   </div>
 </template>
 

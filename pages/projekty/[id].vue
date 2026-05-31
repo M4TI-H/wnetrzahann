@@ -23,8 +23,8 @@ useSeoMeta({
   ogTitle: () =>
     projectData.value ? `Agata Hann • ${projectData.value.name}` : "Agata Hann",
   ogDescription: () => $t("seo.projects.description"),
-  ogImage: "https://hannwnetrza.pl/logo_white.png",
-  ogUrl: "https://hannwnetrza.pl",
+  ogImage: "https://hannwnetrza.com/logo_white.png",
+  ogUrl: "https://hannwnetrza.com",
   ogType: "website",
 });
 

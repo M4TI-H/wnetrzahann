@@ -233,6 +233,9 @@ useHead({
               <option value="residential" class="text-xs md:text-sm">
                 Projekt prywatny
               </option>
+              <option value="completed" class="text-xs md:text-sm">
+                Realizacja projektu
+              </option>
             </select>
           </div>
           <div class="flex-1 w-full flex flex-col">

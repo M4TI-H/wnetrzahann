@@ -9,8 +9,8 @@ useSeoMeta({
   keywords: () => $t("seo.projects.keywords"),
   ogTitle: () => $t("seo.projects.title"),
   ogDescription: () => $t("seo.projects.description"),
-  ogImage: "https://hannwnetrza.pl/logo_white.png",
-  ogUrl: "https://hannwnetrza.pl",
+  ogImage: "https://hannwnetrza.com/logo_white.png",
+  ogUrl: "https://hannwnetrza.com",
   ogType: "website",
 });
 
@@ -59,8 +59,11 @@ const vObserve = {
 watch(
   () => galleryStore.filter,
   (newFilter) => {
-    const categoryValue = newFilter as unknown as string;
+    if (Array.isArray(projectsData.value)) {
+      projectsData.value = [];
+    }
 
+    const categoryValue = newFilter as unknown as string;
     displayedItems.value = 6;
 
     router.push({
@@ -82,17 +85,19 @@ watch(
 
 onMounted(async () => {
   const queryCategory = route.query.category as string;
+
   if (
     queryCategory &&
-    ["private", "commercial", "all"].includes(queryCategory)
+    ["residential", "commercial", "completed", "all"].includes(queryCategory)
   ) {
-    galleryStore.filter = queryCategory as string;
+    galleryStore.filter = queryCategory;
+  } else {
+    galleryStore.filter = "all";
   }
 
   await projectsRefresh();
 });
 </script>
-
 <template>
   <section
     class="flex-1 w-full min-h-screen flex flex-col items-center gap-4 md:gap-8 bg-gray-200 pt-24 pb-8"
@@ -111,13 +116,13 @@ onMounted(async () => {
       <p class="text-center px-4">{{ $t("projects.noMoreProjects") }}</p>
     </div>
 
+    <div v-if="projectsLoading" class="my-auto">
+      <i class="pi pi-spinner pi-spin"></i>
+    </div>
+
     <div
-      :key="galleryStore.filter"
+      v-if="!projectsLoading || displayedItems > 6"
       class="w-full grid md:grid-cols-2 gap-4 md:gap-8 px-4 md:px-8 transition-opacity duration-300 overflow-hidden"
-      :class="{
-        'opacity-70 pointer-events-none':
-          projectsLoading && projectsData.length > 0,
-      }"
     >
       <div v-for="project in projectsData" :key="project.id" v-observe>
         <ProjectCard :data="project" />

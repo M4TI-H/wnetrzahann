@@ -16,6 +16,7 @@ export default defineEventHandler(async (event) => {
     const categoryMap: Record<string, string> = {
       komercyjne: "commercial",
       prywatne: "private",
+      realizacje: "completed",
     };
     dbQuery = dbQuery.eq("category", categoryMap[category] || category);
   }

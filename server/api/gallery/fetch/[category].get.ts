@@ -15,6 +15,7 @@ export default defineEventHandler(async (event) => {
 
   if (category === "komercyjne") categoryValue = "Projekt komercyjny";
   else if (category === "prywatne") categoryValue = "Projekt prywatny";
+  else if (category === "completed") categoryValue = "Realizacja projektu";
 
   let query = supabase.from("projects").select("*");
 

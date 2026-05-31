@@ -18,7 +18,10 @@ export default defineEventHandler(async (event) => {
     throw createError({ statusCode: 400, statusMessage: "Invalid id" });
   }
 
-  type ProjectCategory = "Projekt komercyjny" | "Projekt prywatny";
+  type ProjectCategory =
+    | "Projekt komercyjny"
+    | "Projekt prywatny"
+    | "Realizacja projektu";
 
   const body = await readBody<{
     name: string;
