@@ -3,7 +3,7 @@ import { useEditContact } from "~/composables/contact/useUpdateContactData";
 import { useField } from "vee-validate";
 import { z } from "zod";
 import { toTypedSchema } from "@vee-validate/zod";
-import { useToast } from "primevue/usetoast"; // Import Toasta
+import { useToast } from "primevue/usetoast";
 
 const props = defineProps<{
   type: string;
@@ -16,7 +16,7 @@ const emit = defineEmits<{
   (e: "update"): void;
 }>();
 
-const toast = useToast(); // Inicjalizacja Toasta
+const toast = useToast();
 
 const editValue = ref<boolean>(false);
 
@@ -30,7 +30,7 @@ const fieldSchema = computed(() => {
   } else if (props.type === "phone") {
     return toTypedSchema(schema);
   } else if (
-    ["facebook", "instagram", "youtube", "linkedin"].includes(props.type) // Poprawiony warunek logiczny
+    ["facebook", "instagram", "youtube", "linkedin"].includes(props.type)
   ) {
     schema = schema.url("Niepoprawny adres url");
   }

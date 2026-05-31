@@ -2,7 +2,7 @@
 import { useField, useForm } from "vee-validate";
 import { z } from "zod";
 import { toTypedSchema } from "@vee-validate/zod";
-import { useErrorStore } from "~/stores/message";
+import { useToast } from "primevue/usetoast"; // 1. Importujemy useToast
 
 useSeoMeta({
   title: () => $t("seo.home.title"),
@@ -17,7 +17,7 @@ definePageMeta({
 });
 
 const userStore = useUserStore();
-const errorStore = useErrorStore();
+const toast = useToast(); // 2. Inicjalizujemy toast zamiast errorStore
 
 const validationSchema = toTypedSchema(
   z
@@ -53,9 +53,12 @@ const handlePasswordChange = async () => {
       newPassword.value,
     );
 
-    errorStore.addMessage({
-      type: "success",
-      message: "Hasło zostało pomyślnie zaktualizowane.",
+    // 3. Wywołanie Toasta dla sukcesu
+    toast.add({
+      severity: "success",
+      summary: "Sukces",
+      detail: "Hasło zostało pomyślnie zaktualizowane.",
+      life: 5000,
     });
 
     navigateTo("/admin");
@@ -72,9 +75,12 @@ const handlePasswordChange = async () => {
       errorMsg = error.message;
     }
 
-    errorStore.addMessage({
-      type: "failure",
-      message: errorMsg,
+    // 4. Wywołanie Toasta dla błędu
+    toast.add({
+      severity: "error",
+      summary: "Błąd",
+      detail: errorMsg,
+      life: 5000,
     });
   }
 };
