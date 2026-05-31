@@ -13,11 +13,14 @@ const isPaused = ref<boolean>(false);
 const sliderDuration = 5000;
 const projectsDisplayed = 5;
 const direction = ref<"next" | "prev">("next");
+let sliderInterval: ReturnType<typeof setInterval> | null = null;
 
 const sliderRef = ref<HTMLElement | null>(null);
 const isVisible = ref<boolean>(false);
 
 const prevID = () => {
+  if (!projectsData.value?.length) return;
+
   direction.value = "prev";
   idCounter.value =
     (idCounter.value - 1 + projectsData.value.length) %
@@ -25,6 +28,8 @@ const prevID = () => {
 };
 
 const nextID = () => {
+  if (!projectsData.value?.length) return;
+
   direction.value = "next";
   idCounter.value = (idCounter.value + 1) % projectsData.value.length;
 };
@@ -51,9 +56,8 @@ const handleSwipe = () => {
 };
 
 onMounted(async () => {
-  await projectsRefresh();
-  setInterval(() => {
-    if (!isPaused.value && projectsData.value.length > 0) {
+  sliderInterval = setInterval(() => {
+    if (!isPaused.value && projectsData.value?.length) {
       nextID();
     }
   }, sliderDuration);
@@ -69,6 +73,13 @@ onMounted(() => {
 
   if (sliderRef.value) {
     observer.observe(sliderRef.value as unknown as Element);
+  }
+});
+
+onUnmounted(() => {
+  if (sliderInterval) {
+    clearInterval(sliderInterval);
+    sliderInterval = null;
   }
 });
 </script>

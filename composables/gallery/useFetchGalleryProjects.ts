@@ -5,25 +5,22 @@ export const useFetchGalleryProjects = (options: {
   getSearch: () => string;
   getLimit: () => number;
 }) => {
+  const category = computed(options.getCategory);
+  const search = computed(options.getSearch);
+  const limit = computed(options.getLimit);
+
   const {
     data: projectsData,
     pending: projectsLoading,
     error: projectsError,
     refresh: projectsRefresh,
-  } = useAsyncData(
-    "projects-list",
-    () =>
-      $fetch<Project[]>("/api/projects", {
-        params: {
-          category: options.getCategory(),
-          search: options.getSearch(),
-          limit: options.getLimit(),
-        },
-      }),
-    {
-      watch: [options.getCategory, options.getSearch, options.getLimit],
-      default: () => [],
-    }
-  );
+  } = useFetch<Project[]>("/api/projects", {
+    query: {
+      category,
+      search,
+      limit,
+    },
+    default: () => [],
+  });
   return { projectsData, projectsLoading, projectsError, projectsRefresh };
 };

@@ -12,8 +12,23 @@ const emit = defineEmits<{
 }>();
 
 const isImageHovered = ref<boolean>(false);
-
 const isClosedByBackButton = ref<boolean>(false);
+
+const imgAspect = ref<number | null>(null);
+
+const onImgLoad = (e: Event) => {
+  const target = e.target as HTMLImageElement;
+  if (target.naturalWidth && target.naturalHeight) {
+    imgAspect.value = target.naturalWidth / target.naturalHeight;
+  }
+};
+
+watch(
+  () => props.image,
+  () => {
+    imgAspect.value = null;
+  },
+);
 
 const handlePopState = () => {
   isClosedByBackButton.value = true;
@@ -33,6 +48,7 @@ onUnmounted(() => {
   }
 });
 </script>
+
 <template>
   <div
     @click.self="emit('close')"
@@ -41,14 +57,23 @@ onUnmounted(() => {
     <div
       @mouseenter="isImageHovered = true"
       @mouseleave="isImageHovered = false"
-      class="relative flex flex-col items-center h-auto overflow-hidden"
+      class="relative inline-flex items-center justify-center transition-all duration-300 ease-out"
+      :style="
+        imgAspect
+          ? {
+              width: `min(90vw, 1920px, calc(min(90vh, 1080px) * ${imgAspect}))`,
+              height: `min(90vh, 1080px, calc(min(90vw, 1920px) / ${imgAspect}))`,
+            }
+          : {}
+      "
     >
       <NuxtImg
         :src="image"
         alt="Fullscreen image"
         loading="lazy"
         draggable="false"
-        class="w-auto h-auto max-h-[90vh] max-w-[90vw] object-contain shadow-2xl"
+        @load="onImgLoad"
+        class="w-full h-full max-w-[90vw] max-h-[90vh] object-contain drop-shadow-2xl transition-opacity duration-300"
       />
 
       <button
@@ -56,20 +81,21 @@ onUnmounted(() => {
         :aria-label="$t('projects.previous')"
         @click="emit('previous')"
         :class="[isImageHovered ? 'opacity-100' : 'opacity-100 md:opacity-0']"
-        class="absolute z-20 left-0 top-0 h-full bg-black/50 md:bg-black/30 hover:bg-black/50 w-8 md:w-12 transition-all duration-300 ease-in-out cursor-pointer"
+        class="absolute z-20 left-0 top-0 h-full w-10 md:top-1/2 md:-translate-y-1/2 md:h-12 md:w-12 flex items-center justify-center bg-black/50 md:bg-black/30 hover:bg-black/50 transition-all duration-300 ease-in-out cursor-pointer"
       >
-        <i class="pi pi-chevron-left text-2xl text-gray-100"></i>
+        <i class="pi pi-chevron-left text-xl md:text-2xl text-gray-100"></i>
       </button>
       <button
         v-if="hasNext"
         :aria-label="$t('projects.next')"
         @click="emit('next')"
         :class="[isImageHovered ? 'opacity-100' : 'opacity-100 md:opacity-0']"
-        class="absolute z-20 right-0 top-0 h-full bg-black/50 md:bg-black/30 hover:bg-black/50 w-8 md:w-12 transition-all duration-300 ease-in-out cursor-pointer"
+        class="absolute z-20 right-0 top-0 h-full w-10 md:top-1/2 md:-translate-y-1/2 md:h-12 md:w-12 flex items-center justify-center bg-black/50 md:bg-black/30 hover:bg-black/50 transition-all duration-300 ease-in-out cursor-pointer"
       >
-        <i class="pi pi-chevron-right text-2xl text-gray-100"></i>
+        <i class="pi pi-chevron-right text-xl md:text-2xl text-gray-100"></i>
       </button>
     </div>
+
     <button
       @click="emit('close')"
       class="hidden md:flex px-4 py-2 text-sm text-gray-100 items-center gap-2 bg-black/50 md:bg-black/30 hover:bg-black/50 transition-all duration-300 ease-in-out cursor-pointer"

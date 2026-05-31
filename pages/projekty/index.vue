@@ -9,8 +9,8 @@ useSeoMeta({
   keywords: () => $t("seo.projects.keywords"),
   ogTitle: () => $t("seo.projects.title"),
   ogDescription: () => $t("seo.projects.description"),
-  ogImage: "https://hannwnetrza.com/logo_white.png",
-  ogUrl: "https://hannwnetrza.com",
+  ogImage: "https://hannwnetrza.pl/logo_white.png",
+  ogUrl: "https://hannwnetrza.pl",
   ogType: "website",
 });
 
@@ -23,6 +23,16 @@ const router = useRouter();
 const galleryStore = useGalleryStore();
 
 const displayedItems = ref<number>(6);
+
+const queryCategory = route.query.category as string;
+if (
+  queryCategory &&
+  ["residential", "commercial", "completed", "all"].includes(queryCategory)
+) {
+  galleryStore.filter = queryCategory;
+} else {
+  galleryStore.filter = "all";
+}
 
 const { projectsData, projectsLoading, projectsRefresh } =
   useFetchGalleryProjects({
@@ -58,7 +68,7 @@ const vObserve = {
 
 watch(
   () => galleryStore.filter,
-  (newFilter) => {
+  async (newFilter) => {
     if (Array.isArray(projectsData.value)) {
       projectsData.value = [];
     }
@@ -78,25 +88,10 @@ watch(
 
 watch(
   () => galleryStore.searchQuery,
-  () => {
+  async () => {
     displayedItems.value = 6;
   },
 );
-
-onMounted(async () => {
-  const queryCategory = route.query.category as string;
-
-  if (
-    queryCategory &&
-    ["residential", "commercial", "completed", "all"].includes(queryCategory)
-  ) {
-    galleryStore.filter = queryCategory;
-  } else {
-    galleryStore.filter = "all";
-  }
-
-  await projectsRefresh();
-});
 </script>
 <template>
   <section

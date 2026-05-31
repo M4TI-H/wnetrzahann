@@ -1,7 +1,9 @@
+import { useToast } from "primevue/usetoast";
+
 export const useSendMessage = () => {
-  const errorStore = useErrorStore();
   const contactStore = useContactStore();
   const messageLoading = ref<boolean>(false);
+  const toast = useToast();
 
   const sendMessage = async (data: {
     name: string;
@@ -25,9 +27,11 @@ export const useSendMessage = () => {
         },
       });
 
-      errorStore.addMessage({
-        type: "success",
-        message: "Wiadomość została wysłana pomyślnie!",
+      toast.add({
+        severity: "success",
+        summary: $t("contact.toast.successTitle"),
+        detail: $t("contact.toast.successMsg"),
+        life: 5000,
       });
 
       contactStore.closeContactForm();
@@ -35,11 +39,13 @@ export const useSendMessage = () => {
     } catch (error: any) {
       console.error(error);
 
-      errorStore.addMessage({
-        type: "failure",
-        message:
-          "Wystąpił błąd podczas wysyłania wiadomości. Spróbuj ponownie później.",
+      toast.add({
+        severity: "error",
+        summary: $t("contact.toast.errorTitle"),
+        detail: $t("contact.toast.errorMsg"),
+        life: 5000,
       });
+
       return false;
     } finally {
       messageLoading.value = false;

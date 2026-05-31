@@ -49,6 +49,8 @@ export default defineI18nConfig(() => ({
           successTitle: "Sukces",
           successMsg: "Wiadomość została pomyślnie wysłana.",
           errorTitle: "Błąd formularza",
+          errorMsg:
+            "Wystąpił błąd podczas wysyłania wiadomości. Spróbuj ponownie później.",
         },
       },
       projects: {
@@ -167,6 +169,8 @@ export default defineI18nConfig(() => ({
           successTitle: "Success",
           successMsg: "Your message has been successfully sent.",
           errorTitle: "Form Error",
+          errorMsg:
+            "An error occurred while sending the message. Please try again later.",
         },
       },
       projects: {
