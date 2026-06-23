@@ -41,56 +41,113 @@ const vObserve = {
 </script>
 <template>
   <div
-    class="relative w-full md:w-2/3 min-h-screen flex flex-col gap-4 pt-20 md:pt-24 pb-4 px-4 mx-auto"
+    class="relative w-full md:w-2/3 min-h-screen flex flex-col gap-6 md:gap-10 pt-20 md:pt-24 pb-4 px-4 mx-auto"
   >
-    <NuxtLink
-      :to="localePath('/projekty')"
-      class="group w-min flex md:hidden items-center gap-2 p-2 text-xs md:text-sm bg-gray-100 hover:bg-gray-200 active:bg-gray-200 outline-0 border border-black transition-colors duration-300 ease-in-out"
-    >
-      <i
-        class="pi pi-arrow-left text-sm transition-transform duration-300 group-hover:-translate-x-1"
-      ></i>
-      {{ $t("projects.backBtn") }}
-    </NuxtLink>
+    <!-- GŁÓWNY HEADER (Zastępuje wszystkie stare divy z absolute) -->
+    <header class="w-full">
+      <!-- WERSJA DESKTOP (od 'md' wzwyż): Grid 3-kolumnowy -->
+      <div class="hidden md:grid grid-cols-3 items-start gap-4">
+        <!-- Lewa kolumna: Przycisk -->
+        <div class="flex justify-start">
+          <NuxtLink
+            :to="localePath('/projekty')"
+            class="group flex items-center gap-2 p-2 bg-gray-100 hover:bg-gray-200 border border-black transition-colors duration-300 ease-in-out w-max"
+          >
+            <i
+              class="pi pi-arrow-left text-sm transition-transform duration-300 group-hover:-translate-x-1"
+            ></i>
+            {{ $t("projects.backBtn") }}
+          </NuxtLink>
+        </div>
 
-    <div class="relative w-full flex flex-row items-start justify-between">
-      <h1 class="md:hidden text-4xl font-semibold">{{ props.data.name }}</h1>
-      <div class="hidden md:flex items-center flex-1 gap-4">
+        <div class="flex justify-center text-center">
+          <h1
+            class="text-3xl lg:text-4xl font-semibold wrap-break-words hyphens-auto"
+          >
+            {{ props.data.name }}
+          </h1>
+        </div>
+
+        <div class="flex flex-col items-end gap-1.5 text-sm text-gray-500">
+          <p class="font-medium text-black uppercase tracking-wider text-xs">
+            {{
+              props.data.category === "commercial"
+                ? $t("projects.category.commercial")
+                : $t("projects.category.residential")
+            }}
+          </p>
+          <div class="flex items-center gap-2">
+            <i class="pi pi-clock"></i>
+            <p>
+              {{
+                new Date(props.data.creation_date).toLocaleDateString("pl-PL", {
+                  day: "2-digit",
+                  month: "2-digit",
+                  year: "numeric",
+                })
+              }}
+            </p>
+          </div>
+          <div class="flex items-center gap-2">
+            <i class="pi pi-arrow-up-right-and-arrow-down-left-from-center"></i>
+            <p>{{ props.data.area }} m&sup2;</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="flex md:hidden flex-col gap-4">
         <NuxtLink
           :to="localePath('/projekty')"
-          class="group flex items-center gap-2 p-2 bg-gray-100 hover:bg-gray-200 border border-black transition-colors duration-300 ease-in-out"
+          class="group w-max flex items-center gap-2 p-2 text-xs bg-gray-100 hover:bg-gray-200 border border-black transition-colors duration-300 ease-in-out"
         >
           <i
             class="pi pi-arrow-left text-sm transition-transform duration-300 group-hover:-translate-x-1"
           ></i>
           {{ $t("projects.backBtn") }}
         </NuxtLink>
-        <h1 class="absolute left-1/2 -translate-x-1/2 text-5xl">
+
+        <h1
+          class="text-3xl font-semibold leading-tight wrap-break-words hyphens-auto"
+        >
           {{ props.data.name }}
         </h1>
-      </div>
 
-      <div class="flex flex-col items-end">
-        <p class="text-gray-500 text-xs md:text-sm">
-          {{
-            props.data.category === "commercial"
-              ? $t("projects.category.commercial")
-              : $t("projects.category.residential")
-          }}
-        </p>
+        <div class="flex flex-wrap items-center gap-3 text-xs text-gray-600">
+          <div
+            class="flex items-center gap-1.5 bg-gray-100 px-2.5 py-1 rounded-sm"
+          >
+            <span class="font-medium uppercase tracking-wider text-[10px]">
+              {{
+                props.data.category === "commercial"
+                  ? $t("projects.category.commercial")
+                  : $t("projects.category.residential")
+              }}
+            </span>
+          </div>
 
-        <div class="flex items-center gap-2 text-xs md:text-sm">
-          <i class="pi pi-clock text-gray-500"></i>
-          <p class="text-gray-500">{{ props.data.creation_date }}</p>
-        </div>
-        <div class="flex items-center gap-2 text-xs md:text-sm">
-          <i
-            class="pi pi-arrow-up-right-and-arrow-down-left-from-center text-gray-500"
-          ></i>
-          <p class="text-gray-500">{{ props.data.area }} m&sup2;</p>
+          <div class="flex items-center gap-1.5">
+            <i class="pi pi-clock text-[10px]"></i>
+            <p>
+              {{
+                new Date(props.data.creation_date).toLocaleDateString("pl-PL", {
+                  day: "2-digit",
+                  month: "2-digit",
+                  year: "numeric",
+                })
+              }}
+            </p>
+          </div>
+
+          <div class="flex items-center gap-1.5">
+            <i
+              class="pi pi-arrow-up-right-and-arrow-down-left-from-center text-[10px]"
+            ></i>
+            <p>{{ props.data.area }} m&sup2;</p>
+          </div>
         </div>
       </div>
-    </div>
+    </header>
+
     <div
       v-if="images"
       class="grid grid-cols-2 gap-2 sm:gap-4 lg:gap-8 w-full mx-auto overflow-hidden"
@@ -117,6 +174,7 @@ const vObserve = {
         />
       </div>
     </div>
-    <i v-if="isLoading" class="pi pi-spinner pi-spin"></i>
+
+    <i v-if="isLoading" class="pi pi-spinner pi-spin self-center mt-4"></i>
   </div>
 </template>

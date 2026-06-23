@@ -6,11 +6,13 @@ const props = defineProps({
 const handleError = () => clearError({ redirect: "/" });
 
 const errorDetails = computed(() => {
-  if (props.error?.statusCode === "404") {
-    return `${$t("error.e404")}`;
-  } else if (props.error?.statusCode === "500") {
-    return `${$t("error.e500")}`;
+  if (props.error?.statusCode == "404") {
+    return $t("error.e404");
+  } else if (props.error?.statusCode == "500") {
+    return $t("error.e500");
   }
+
+  return $t("error.default");
 });
 </script>
 

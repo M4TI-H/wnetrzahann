@@ -90,7 +90,7 @@ const handleSubmitForm = async (values: any) => {
       .replace(/\./g, "/");
   } else {
     const [y, m, d] = values.creationDate.split("-");
-    finalDate = `${d}/${m}/${y}`;
+    finalDate = `${y}-${m}-${d}`;
   }
 
   const payload = {

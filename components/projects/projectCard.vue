@@ -23,17 +23,43 @@ const localePath = useLocalePath();
       <div
         class="opacity-100 md:opacity-0 hover:opacity-100 absolute z-10 bottom-0 w-full h-full flex flex-col gap-2 justify-end py-1 px-2 md:p-4 bg-linear-to-b from-transparent to-black/50 transition-opacity duration-300 ease-in-out"
       >
-        <p
-          class="absolute top-2 md:relative text-sm lg:text-base text-white font-thin"
+        <div
+          class="absolute top-2 left-2 right-2 flex md:hidden items-center justify-between text-sm text-white font-thin"
         >
+          <p>
+            {{ $t(`projects.category.${data.category}`) }}
+          </p>
+          <p>
+            {{
+              new Date(data.creation_date).toLocaleDateString("pl-PL", {
+                day: "2-digit",
+                month: "2-digit",
+                year: "numeric",
+              })
+            }}
+          </p>
+        </div>
+
+        <p class="block md:hidden text-xl text-white">
+          {{ data.name.toUpperCase() }}
+        </p>
+
+        <p class="hidden md:block text-sm lg:text-base text-white font-thin">
           {{ $t(`projects.category.${data.category}`) }}
         </p>
-        <div class="w-full flex items-end justify-between">
-          <p class="text-xl md:text-2xl lg:text-3xl text-white">
+
+        <div class="hidden md:flex w-full items-end justify-between">
+          <p class="text-2xl lg:text-3xl text-white">
             {{ data.name.toUpperCase() }}
           </p>
           <p class="text-sm lg:text-base text-white font-thin">
-            {{ data.creation_date }}
+            {{
+              new Date(data.creation_date).toLocaleDateString("pl-PL", {
+                day: "2-digit",
+                month: "2-digit",
+                year: "numeric",
+              })
+            }}
           </p>
         </div>
       </div>

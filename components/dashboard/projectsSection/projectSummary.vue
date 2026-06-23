@@ -18,7 +18,15 @@ const prop = defineProps<{
     <div class="flex-1 flex flex-col gap-1">
       <div class="w-full flex items-start justify-between">
         <p class="text-3xl">{{ data.name }}</p>
-        <p class="text-sm text-gray-500">{{ data.creation_date }}</p>
+        <p class="text-sm text-gray-500">
+          {{
+            new Date(data.creation_date).toLocaleDateString("pl-PL", {
+              day: "2-digit",
+              month: "2-digit",
+              year: "numeric",
+            })
+          }}
+        </p>
       </div>
 
       <p class="text-sm sm:text-base">

@@ -19,7 +19,7 @@ const handleSearch = () => {
       transitionDelay: isMounted ? '1200ms' : '0ms',
       zIndex: 5,
     }"
-    class="relative w-full sm:w-1/2 min-w-48 transition-all duration-1000 ease-[cubic-bezier(0.25,1,0.5,1)] will-change-[transform,opacity]"
+    class="relative w-full xl:w-1/2 min-w-48 transition-all duration-1000 ease-[cubic-bezier(0.25,1,0.5,1)] will-change-[transform,opacity]"
     :class="[
       isMounted ? 'translate-x-0 opacity-100' : 'translate-x-1/2 opacity-0',
     ]"

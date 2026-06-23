@@ -34,12 +34,11 @@ if (
   galleryStore.filter = "all";
 }
 
-const { projectsData, projectsLoading, projectsRefresh } =
-  useFetchGalleryProjects({
-    getCategory: () => galleryStore.filter,
-    getSearch: () => galleryStore.searchQuery,
-    getLimit: () => displayedItems.value,
-  });
+const { projectsData, projectsLoading } = useFetchGalleryProjects({
+  getCategory: () => galleryStore.filter,
+  getSearch: () => galleryStore.searchQuery,
+  getLimit: () => displayedItems.value,
+});
 
 const vObserve = {
   mounted: (el: HTMLElement) => {
@@ -97,26 +96,36 @@ watch(
   <section
     class="flex-1 w-full min-h-screen flex flex-col items-center gap-4 md:gap-8 bg-gray-200 pt-24 pb-8"
   >
-    <h1 class="text-2xl sm:text-3xl lg:text-4xl">
-      {{ $t("projects.title")
-      }}{{
-        galleryStore.searchQuery !== ""
-          ? ` - "${galleryStore.searchQuery}"`
-          : ""
-      }}
-    </h1>
+    <div class="flex gap-3">
+      <h1 class="text-2xl sm:text-3xl lg:text-4xl flex items-center">
+        {{ $t("projects.title") }}
+        <span v-if="galleryStore.searchQuery !== ''" class="ml-2">
+          - "{{ galleryStore.searchQuery }}"
+        </span>
+      </h1>
+
+      <button
+        v-if="galleryStore.searchQuery !== ''"
+        @click="galleryStore.searchQuery = ''"
+        :aria-label="$t('projects.clearSearch')"
+        class="mt-1 flex items-center justify-center w-6 h-6 hover:bg-neutral-300 text-neutral-500 transition-colors duration-200 cursor-pointer"
+      >
+        <i class="pi pi-times text-xs"></i>
+      </button>
+    </div>
+
     <ProjectFilter />
 
     <div v-if="!projectsLoading && projectsData.length === 0" class="my-auto">
       <p class="text-center px-4">{{ $t("projects.noMoreProjects") }}</p>
     </div>
 
-    <div v-if="projectsLoading" class="my-auto">
+    <div v-if="projectsLoading && projectsData.length === 0" class="my-auto">
       <i class="pi pi-spinner pi-spin"></i>
     </div>
 
     <div
-      v-if="!projectsLoading || displayedItems > 6"
+      v-if="projectsData.length > 0"
       class="w-full grid md:grid-cols-2 gap-4 md:gap-8 px-4 md:px-8 transition-opacity duration-300 overflow-hidden"
     >
       <div v-for="project in projectsData" :key="project.id" v-observe>
@@ -125,9 +134,13 @@ watch(
     </div>
 
     <button
-      v-if="projectsData && projectsData.length === displayedItems"
+      v-if="
+        projectsData.length > 0 &&
+        (projectsData.length >= displayedItems || projectsLoading)
+      "
       @click="displayedItems += 6"
-      class="px-6 py-2 bg-neutral-800 hover:bg-black md:text-lg text-gray-100 border-2 border-gray-100 hover:border-black ring-2 ring-black font-semibold transition-colors duration-300 ease-in-out"
+      :disabled="projectsLoading"
+      class="px-6 py-2 bg-neutral-800 hover:bg-black md:text-lg text-gray-100 border-2 border-gray-100 hover:border-black ring-2 ring-black font-semibold transition-colors duration-300 ease-in-out cursor-pointer disabled:opacity-70 disabled:cursor-wait"
     >
       {{
         projectsLoading

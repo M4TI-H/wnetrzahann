@@ -20,10 +20,10 @@ onMounted(() => {
 
 <template>
   <section
-    class="w-full flex items-center justify-between flex-col-reverse sm:flex-row gap-4 md:gap-8 px-4 md:px-8 overflow-hidden"
+    class="w-full flex items-center justify-between flex-col-reverse xl:flex-row gap-4 md:gap-8 px-4 md:px-8 overflow-hidden"
   >
     <div
-      class="w-full sm:w-1/2 min-w-48 grid grid-cols-2 sm:flex sm:items-center sm:justify-start gap-1 sm:gap-2 lg:gap-4 landscape:gap-1 landscape:sm:gap-2"
+      class="w-full xl:w-1/2 min-w-48 grid grid-cols-2 xl:flex xl:items-center xl:justify-start gap-1 sm:gap-2 xl:gap-4 landscape:gap-1 landscape:sm:gap-2"
     >
       <button
         v-for="(filter, index) in filters"
@@ -31,7 +31,7 @@ onMounted(() => {
         @click="galleryStore.filterProjects(filter.id)"
         :style="{
           '--entry-delay': `${index * 400}ms`,
-          zIndex: 50 - index,
+          zIndex: 20 - index,
         }"
         class="filter-btn py-3 flex-1 lg:px-6 xl:px-8 border border-black text-xs sm:text-sm cursor-pointer focus:outline-none focus-visible:outline-1 focus-visible:outline-black w-full"
         :class="[

@@ -11,7 +11,9 @@ const { sendMessage, messageLoading } = useSendMessage();
 const contactStore = useContactStore();
 const toast = useToast();
 const config = useRuntimeConfig();
+
 const token = ref<string>("");
+const isClosedByBackButton = ref<boolean>(false);
 
 useHead({
   bodyAttrs: {
@@ -96,10 +98,6 @@ const renderRecaptcha = () => {
   }
 };
 
-onMounted(() => {
-  setTimeout(renderRecaptcha, 300);
-});
-
 const handleSendMessage = async () => {
   if (!token.value) {
     toast.add({
@@ -161,6 +159,28 @@ const onSubmit = handleSubmit(
     }
   },
 );
+
+const handlePopState = () => {
+  isClosedByBackButton.value = true;
+  contactStore.closeContactForm();
+};
+
+onMounted(() => {
+  setTimeout(renderRecaptcha, 300);
+});
+
+onMounted(() => {
+  window.history.pushState({ galleryModal: true }, "");
+  window.addEventListener("popstate", handlePopState);
+});
+
+onUnmounted(() => {
+  window.removeEventListener("popstate", handlePopState);
+
+  if (!isClosedByBackButton.value) {
+    window.history.back();
+  }
+});
 </script>
 <template>
   <Transition

@@ -95,6 +95,7 @@ export default defineI18nConfig(() => ({
       error: {
         e404: "Strona, której szukasz, nie istnieje.",
         e500: "Chwilowy błąd techniczny, pracuję nad tym.",
+        default: "Wystąpił nieoczekiwany błąd",
         summary: "Błąd połączenia",
         detail: "Nie udało się załadować danych kontaktowych.",
       },
@@ -215,6 +216,7 @@ export default defineI18nConfig(() => ({
       error: {
         e404: "The page you're looking for doesn't exist.",
         e500: "Temporary technical error, I'm working on it.",
+        default: "Unexpected error has occured.",
         summary: "Connection error",
         detail: "Failed to load contact details.",
       },
